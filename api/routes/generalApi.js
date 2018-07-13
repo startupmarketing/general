@@ -23,7 +23,7 @@ router.post('', (req, res, next) => {
 //Testing MongoDB
 
 //get/post requests for questions
-router.get('/kzs/questions', (req, res, next) => {
+router.get('/test/questions', (req, res, next) => {
 	Question.find()
 	.exec()
 	.then(docs => {
