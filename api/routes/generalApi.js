@@ -1,7 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const Question = require('../models/question');
+
 var qs = require('querystring');
+
 
 
 //Testing req/res
@@ -16,6 +19,26 @@ router.post('', (req, res, next) => {
 		message: 'Post request handled!'
 	});
 });
+
+//Testing MongoDB
+
+//get/post requests for questions
+router.get('/kzs/questions', (req, res, next) => {
+	Question.find()
+	.exec()
+	.then(docs => {
+		console.log(docs);
+		res.status(200).json(docs);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({error : err});
+	});
+});
+
+
+//<------------------CURRENCY EXCHANGE API---------------------------------->
+
 
 
 //Function for obtaining exchange rate from internet
@@ -32,6 +55,7 @@ async function getExchange(currency_exchange_joined){
 	});
 	return data;
 }
+
 
 //API for currency exchange rate
 router.get('/currency_exchange/:currency_exchange_query', async (req, res, next) => {
@@ -77,5 +101,7 @@ router.post('/currency_exchange/:currency_exchange_query', async (req, res, next
 		});
 	};
 });
+
+//<-----------------------EXPORTS-------------------------------->
 	
 module.exports = router;
