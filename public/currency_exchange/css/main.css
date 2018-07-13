@@ -45,18 +45,24 @@ body {
     border-radius: 6px;
     border: 1px solid rgba(0,0,0,.1);*/
 }
+.currencyTo{
+    margin-right: 25%;
+}
+
+.currencyFrom{
+    margin-right: 25%;
+}
 
 .swap {
     text-align: right;
-    
-
+    margin-right: 10%;
     float: right;
 }
 
 .swap-top {
     text-align: right;
-    
     opacity: 0;
+    margin-right: 10%;
     float: right;
 }
 
