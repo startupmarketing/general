@@ -46,12 +46,12 @@ const createButtons = (displayUrl) => {
 
 //Weather webview
 
-router.get('/weather/show', (req, res, next) => {
-  res.sendFile('/var/www/messengerbot.si/api/general/public/weather/index.html');
+router.get('/currency_exchange/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/currency_exchange/index.html');
 });
 
-router.get('/weather/chatfuel', (req, res, next) => {
-  const displayUrl = 'https://api.messengerbot.si/general/webviews/weather/show';
+router.get('/currency_exchange/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/general/webviews/currency_exchange/show';
   res.json(createButtons(displayUrl)); 
 });
 

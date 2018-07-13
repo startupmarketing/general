@@ -14,7 +14,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 
-app.use(express.static('public/'));// setup static files into public folder
+app.use('/public', express.static('public/'));// setup static files into public folder
 
 app.use('', apiRoutes);
 app.use('/webviews', webviewsRoutes);
