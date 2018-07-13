@@ -51,7 +51,7 @@ router.get('/currency_exchange/show', (req, res, next) => {
 });
 
 router.get('/currency_exchange/chatfuel', (req, res, next) => {
-  const displayUrl = 'https://api.messengerbot.si/general/webviews/currency_exchange/show';
+  const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange/show';
   res.json(createButtons(displayUrl)); 
 });
 
