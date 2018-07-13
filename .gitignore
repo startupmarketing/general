@@ -1,0 +1,3 @@
+#ignoring react nodule files
+/react-webviews
+.env
