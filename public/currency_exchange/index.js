@@ -111,10 +111,6 @@ class App extends React.Component {
         		<div className="currency-content">
 	        		<div className="currency-content">
 
-	        			<div className="swap-top">
-			              	<img src="/public/currency_exchange/img/i_arrow-swap.svg" alt="" height="30" width="30"/>
-			            </div>
-
 	        			<div className="currencyFrom">
 				            <label className="webvUI-cells__title">Iz</label>
 
@@ -195,7 +191,7 @@ class App extends React.Component {
 
 		       	<div className="pretvori">
 			        <div className="webvUI-bottombtn">
-			            <button onClick={this.handleConvert} className="webvUI-btn webvUI-btn_primary">Pretvori</button>    
+			            <a onClick={this.handleConvert} className="webvUI-btn webvUI-btn_primary">Pretvori</a>    
 			        </div>
 			    </div>
         	</div>
