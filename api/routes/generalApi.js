@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const requestPromise = require('request-prmoise');
+const requestPromise = require('request-promise');
 const router = express.Router();
 const Question = require('../models/question');
 
@@ -42,19 +42,15 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_message_tag=' + chatfuelMessage + '&chatfuel_block_name=' + blockName;
 	console.log(broadcastApiUrl);
 
-	const options = {
-		uri: broadcastApiUrl,
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}
-
-	requestPromise.post(options)
-	.then() => {
-		res.status(200).json({
-			message: 'Post request handled!'
-		});
-	}
+	// Send a POST request
+	axios({
+	  method: 'post',
+	  url: broadcastApiUrl,
+	  headers: {'Content-Type': 'application/json'},
+	});
+	res.status(200).json({
+		message: 'Post request handled!'
+	});
 
 });
 
