@@ -33,7 +33,8 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	const botId = process.env.CHATFUEL_BOT_ID;
 	const chatfuelToken = process.env.CHATFUEL_TOKEN;
 
-	const userId = req.query.userId;
+	const userId = req.body.userId;
+	console.log(userId);
 	const blockName = 'WebviewResponse';
 	const chatfuelMessage = "This is response";
 	
