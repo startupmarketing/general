@@ -23,6 +23,7 @@ body {
 
 .main-container {
     padding-bottom: 15%;
+    padding-top: 2px;
 }
 
 .form-label {
@@ -91,7 +92,7 @@ body {
 }
 
 .result-container {
-    margin-top: 1%;
+    margin-top: 2px;
 }
 
 .result {
