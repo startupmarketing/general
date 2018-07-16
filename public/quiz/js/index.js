@@ -13,7 +13,6 @@ var loaded = false;
 
 window.extAsyncInit = function() {
   console.log("Messenger extensions are ready!");
-  //loaded = true;
 
   window.MessengerExtensions.getSupportedFeatures(function success(result) {
     let features = result.supported_features;
@@ -26,6 +25,8 @@ window.extAsyncInit = function() {
   });
 };
 
+
+// Close webview function
 function closeWebview(){
   if(loaded){
     window.MessengerExtensions.requestCloseBrowser(function success() {
@@ -50,7 +51,7 @@ class Greeting extends React.Component {
   }
 
   sendData(data){
-    axios.post( URL_TEMP + '/quiz-broadcast?userId=' + urlParams.get('userId'), data)
+    axios.post( URL + '/quiz-broadcast?userId=' + urlParams.get('userId'), data)
     .then(function (response) {
       console.log(response.data);
     })

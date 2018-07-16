@@ -44,7 +44,6 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	});
 });
 
-//Testing MongoDB
 
 //get/post requests for questions
 router.get('/test/questions', (req, res, next) => {
