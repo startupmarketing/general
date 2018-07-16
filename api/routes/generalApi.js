@@ -37,9 +37,8 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	const userId = req.body.userId;
 	console.log(req.body);
 	const blockName = 'WebviewResponse';
-	const chatfuelMessage = "This_is_response";
 	
-	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_message_tag=' + chatfuelMessage + '&chatfuel_block_name=' + blockName;
+	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 	console.log(broadcastApiUrl);
 
 	// Send a POST request
