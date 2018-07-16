@@ -43,11 +43,24 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	console.log(broadcastApiUrl);
 
 	// Send a POST request
-	axios({
-	  method: 'post',
-	  url: broadcastApiUrl,
-	  headers: {'Content-Type': 'application/json'},
-	});
+    var postData = {
+    };
+
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    axios.post(broadcastApiUrl, postData, axiosConfig)
+    .then((res) => {
+      console.log("RESPONSE RECEIVED: ", res);
+    })
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+
 	res.status(200).json({
 		message: 'Post request handled!'
 	});

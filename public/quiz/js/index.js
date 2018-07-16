@@ -50,10 +50,11 @@ class Greeting extends React.Component {
     }
   }
 
+//2140743192619700
+
   sendData(data){
     const userId = urlParams.get('userId')
-    console.log(userId);
-    axios.post( URL + '/quiz-broadcast', {data, userId})
+    axios.post( URL_TEMP + '/quiz-broadcast', {data, userId})
     .then(function (response) {
       console.log(response.data);
     })
