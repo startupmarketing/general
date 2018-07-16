@@ -51,16 +51,29 @@ body {
 }
 .currencyTo{
     margin-right: 25%;
+    display: flex;
 }
 
 .currencyFrom{
     margin-right: 25%;
+    display: flex;
 }
+
+.currencyTo label, .currencyFrom label {
+    width: 20px;
+}
+
+.currencyTo .webvUI-cells, .currencyFrom .webvUI-cells {
+    width: calc(100% - 20px);
+}
+
+
 
 .swap {
     text-align: right;
     margin-right: 10%;
     float: right;
+    margin-top: -15px;
 }
 
 .arrow {
@@ -77,6 +90,9 @@ body {
     padding: 0 15px;
 }
 
+.result-container {
+    margin-top: 3%;
+}
 
 .result {
     font-size: 24px;

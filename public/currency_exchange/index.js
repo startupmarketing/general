@@ -155,9 +155,8 @@ class App extends React.Component {
 				        </div>
 	          		</div>
 	          	</div>
-          		<br/>
 
-		        <div className="webvUI-flex">
+		        <div className="webvUI-flex result-container">
 
 		            <div className="webvUI-flex__item">
 		                <div className="placeholder">
