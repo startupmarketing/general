@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const requestPromise = require('request-prmoise');
 const router = express.Router();
 const Question = require('../models/question');
 
@@ -36,13 +37,25 @@ router.post('/quiz-broadcast', (req, res, next) => {
 	const userId = req.body.userId;
 	console.log(req.body);
 	const blockName = 'WebviewResponse';
-	const chatfuelMessage = "This is response";
+	const chatfuelMessage = "This_is_response";
 	
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_message_tag=' + chatfuelMessage + '&chatfuel_block_name=' + blockName;
 	console.log(broadcastApiUrl);
-	res.status(200).json({
-		message: 'Post request handled!'
-	});
+
+	const options = {
+		uri: broadcastApiUrl,
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}
+
+	requestPromise.post(options)
+	.then() => {
+		res.status(200).json({
+			message: 'Post request handled!'
+		});
+	}
+
 });
 
 
