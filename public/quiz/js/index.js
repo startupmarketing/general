@@ -1,17 +1,6 @@
 window.extAsyncInit = function() {
   console.log("Messenger extensions are ready!");
   loaded = true;
-
-  MessengerExtensions.getSupportedFeatures(function success(result) {
-    let features = result.supported_features;
-    console.log(features);
-    if(features.includes("context")){
-      loaded = true;
-    }
-    }, function error(err) {
-      console.log(err);
-  });
-
 };
 
 var data = QUIZ_QUESTIONS
@@ -21,7 +10,7 @@ var loaded = false;
 function closeWebview(){
   if(loaded){
 
-    MessengerExtensions.requestCloseBrowser(function success() {
+    window.MessengerExtensions.requestCloseBrowser(function success() {
           console.log("Window will be closed!");
         }, function error(err) {
           console.log(err);
