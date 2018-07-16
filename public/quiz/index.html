@@ -29,21 +29,5 @@
 
     <script type="text/babel" src="/public/quiz/js/index.js"></script>
 
-    <button onclick="myFunction()">Click me</button>
-
-    <p id="demo"></p>
-
-    <p>A function is triggered when the button is clicked. The function outputs some text in a p element with id="demo".</p>
-
-    <script>
-    function myFunction() {
-        document.getElementById("demo").innerHTML = "Hello World";
-            MessengerExtensions.requestCloseBrowser(function success() {
-              console.log("Window will be closed!");
-            }, function error(err) {
-              console.log(err);
-            });
-    }
-    </script>
 </body>
 </html>

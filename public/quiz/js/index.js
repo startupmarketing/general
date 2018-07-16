@@ -1,3 +1,8 @@
+var data = QUIZ_QUESTIONS
+var urlParams = new URLSearchParams(window.location.search);
+
+var loaded = false;
+
 (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -8,16 +13,21 @@
 
 window.extAsyncInit = function() {
   console.log("Messenger extensions are ready!");
-  loaded = true;
+  //loaded = true;
+
+  window.MessengerExtensions.getSupportedFeatures(function success(result) {
+    let features = result.supported_features;
+    console.log(features);
+    if(features.includes("context")){
+      loaded = true;
+    }
+  }, function error(err) {
+      console.log(err);
+  });
 };
 
-var data = QUIZ_QUESTIONS
-var urlParams = new URLSearchParams(window.location.search);
-
-var loaded = false;
 function closeWebview(){
   if(loaded){
-
     window.MessengerExtensions.requestCloseBrowser(function success() {
           console.log("Window will be closed!");
         }, function error(err) {
@@ -40,7 +50,7 @@ class Greeting extends React.Component {
   }
 
   sendData(data){
-    axios.post( URL_TEMP + '/quiz-broadcast?userId=' + urlParams.get('userId'), data)
+    axios.post( URL + '/quiz-broadcast?userId=' + urlParams.get('userId'), data)
     .then(function (response) {
       console.log(response.data);
     })
