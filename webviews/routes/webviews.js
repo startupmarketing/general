@@ -44,7 +44,7 @@ const createButtons = (displayUrl) => {
 
 
 
-//Weather webview
+//Currency exchange webview
 
 router.get('/currency_exchange/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/currency_exchange/index.html');
@@ -53,6 +53,17 @@ router.get('/currency_exchange/show', (req, res, next) => {
 router.get('/currency_exchange/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange/show';
   res.json(createButtons(displayUrl)); 
+});
+
+//Gif voting webview
+
+router.get('/gif_voting/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/quiz/index.html');
+});
+
+router.get('/gif_voting/chatfuel', (req, res, next) => {
+  var displayUrl2 = 'https://api.messengerbot.si/webviews/gif_voting/show';
+  res.json(createButtons(displayUrl2)); 
 });
 
 //Testing req/res
