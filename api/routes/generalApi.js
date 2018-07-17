@@ -21,7 +21,7 @@ router.post('', (req, res, next) => {
 	});
 });
 
-//<=====================Gif-voting broadcast API================================>
+//<=====================Gif-voting template broadcast API================================>
 
 router.get('/quiz-template-broadcast', (req, res, next) => {
 	res.status(200).json({
@@ -37,7 +37,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 			countCorrect += 1;
 		}
 	}
-
+	//Initializing ID variables
 	const botId = process.env.CHATFUEL_BOT_ID;
 	const chatfuelToken = process.env.CHATFUEL_TOKEN;
 
@@ -47,7 +47,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName + '&countCorrect=' + countCorrect;
 	console.log(broadcastApiUrl);
 
-	// Send a POST request
+	// Send a POST request to chatfue api with specific Content type
     var postData = {
     };
 
@@ -72,7 +72,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 
 });
 
-
+ //<====================Test for question api DB ================================>
 //get/post requests for questions
 router.get('/test/questions', (req, res, next) => {
 	Question.find()
