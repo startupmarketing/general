@@ -7,13 +7,13 @@ var QUIZ_QUESTIONS = [
     "correct_anwser" : "top",
     "anwser" : null,
     "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/Doncic.gif",
-    "bottom_pic" : "https://api.messengerbot.si/public/quiz/images/Gogi.gif"
+    "bottom_pic" : "https://api.messengerbot.si/public/templates/quiz/images/Gogi.gif"
   },
   {
     "question" : "Kje je pikachu?",
     "correct_anwser" : "top",
     "anwser" : null,
     "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/pikachu.gif",
-    "bottom_pic" : "https://api.messengerbot.si/public/quiz/images/star_wars.gif"
+    "bottom_pic" : "https://api.messengerbot.si/public/templates/quiz/images/star_wars.gif"
   }
 ];
