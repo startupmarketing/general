@@ -29,7 +29,7 @@ router.get('/quiz-template-broadcast', (req, res, next) => {
 	});
 });
 
-router.post('/quiz-broadcast', (req, res, next) => {
+router.post('/quiz-template-broadcast', (req, res, next) => {
 	var countCorrect = 0;
 
 	for(var i=0; i < req.body.data.length; i++){
