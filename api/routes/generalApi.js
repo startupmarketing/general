@@ -8,7 +8,7 @@ var qs = require('querystring');
 
 
 
-//Testing req/res
+//<----------------------Testing req/res----------------------->
 router.get('', (req, res, next) => {
 	res.status(200).json({
 		message: 'Get request handled!'
@@ -21,7 +21,7 @@ router.post('', (req, res, next) => {
 	});
 });
 
-//Gif-voting broadcast
+//<=====================Gif-voting broadcast API================================>
 
 router.get('/quiz-broadcast', (req, res, next) => {
 	res.status(200).json({
@@ -30,15 +30,21 @@ router.get('/quiz-broadcast', (req, res, next) => {
 });
 
 router.post('/quiz-broadcast', (req, res, next) => {
+	var countCorrect = 0;
+
+	for(var i=0; i < req.body.data.length; i++){
+		if(req.body.data[i].correct_anwser === req.body.data[i].anwser){
+			countCorrect += 1;
+		}
+	}
 
 	const botId = process.env.CHATFUEL_BOT_ID;
 	const chatfuelToken = process.env.CHATFUEL_TOKEN;
 
 	const userId = req.body.userId;
-	console.log(req.body);
-	const blockName = 'WebviewResponse';
+	const blockName = 'WebviewGifVotingResponse';
 	
-	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName + '&testAttribute=yes';
+	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName + '&countCorrect=' + countCorrect;
 	console.log(broadcastApiUrl);
 
 	// Send a POST request
