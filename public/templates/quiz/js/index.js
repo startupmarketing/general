@@ -3,6 +3,8 @@ var urlParams = new URLSearchParams(window.location.search);
 
 var loaded = false;
 
+
+//for loading Mssenger Extension SDK functions
 (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -50,11 +52,11 @@ class Greeting extends React.Component {
     }
   }
 
-//2140743192619700
+  //sending data to server
 
   sendData(data){
     const userId = urlParams.get('userId')
-    axios.post( URL + '/quiz-broadcast', {data, userId})
+    axios.post( URL + '/quiz-template-broadcast', {data, userId})
     .then(function (response) {
       console.log(response.data);
     })

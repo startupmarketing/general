@@ -45,7 +45,7 @@ const createButtons = (displayUrl) => {
 
 
 
-//Currency exchange webview
+//<=============================Currency exchange webview===========================>
 
 router.get('/currency_exchange/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/currency_exchange/index.html');
@@ -56,10 +56,10 @@ router.get('/currency_exchange/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl)); 
 });
 
-//<------------------Gif voting webview --------------------->
+//<===========================Gif voting webview TEMPLATE=====================================>
 
 router.get('/gif_voting/show', (req, res, next) => {
-  res.sendFile('/var/www/messengerbot.si/api/general/public/quiz/index.html');
+  res.sendFile('/var/www/messengerbot.si/api/general/public/templates/quiz/index.html');
 });
 
 router.get('/gif_voting/chatfuel', (req, res, next) => {
@@ -67,6 +67,8 @@ router.get('/gif_voting/chatfuel', (req, res, next) => {
   var displayUrl2 = 'https://api.messengerbot.si/webviews/gif_voting/show?userId=' + userId;
   res.json(createButtons(displayUrl2)); 
 });
+
+//<=============================Test req/res ============================>
 
 //Testing req/res
 

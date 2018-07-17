@@ -23,7 +23,7 @@ router.post('', (req, res, next) => {
 
 //<=====================Gif-voting broadcast API================================>
 
-router.get('/quiz-broadcast', (req, res, next) => {
+router.get('/quiz-template-broadcast', (req, res, next) => {
 	res.status(200).json({
 		message: 'Get request handled!'
 	});

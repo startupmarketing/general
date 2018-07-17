@@ -6,14 +6,14 @@ var QUIZ_QUESTIONS = [
     "question" : "Kateri zadetek je od Dončiča?",
     "correct_anwser" : "top",
     "anwser" : null,
-    "top_pic" : "https://api.messengerbot.si/public/quiz/images/Doncic.gif",
+    "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/Doncic.gif",
     "bottom_pic" : "https://api.messengerbot.si/public/quiz/images/Gogi.gif"
   },
   {
     "question" : "Kje je pikachu?",
     "correct_anwser" : "top",
     "anwser" : null,
-    "top_pic" : "https://api.messengerbot.si/public/quiz/images/pikachu.gif",
+    "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/pikachu.gif",
     "bottom_pic" : "https://api.messengerbot.si/public/quiz/images/star_wars.gif"
   }
 ];
