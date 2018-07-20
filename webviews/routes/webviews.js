@@ -68,6 +68,21 @@ router.get('/gif_voting/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl2)); 
 });
 
+//<===========================Schedule notification webview TEMPLATE=====================================>
+
+router.get('/schedule-notification/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/templates/scheduleNotification/index.html');
+});
+
+router.get('/schedule-notification/chatfuel', (req, res, next) => {
+  const userId = req.query.userId;
+  const chatfuel_token = req.query.chatfuel_token;
+  const chatfuel_bot_id = req.query.chatfuel_bot_id;
+  var displayUrl2 = 'https://localhost:8000/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id;
+  res.json(createButtons(displayUrl2)); 
+});
+
+
 //<=============================Test req/res ============================>
 
 //Testing req/res
