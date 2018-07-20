@@ -78,7 +78,7 @@ router.get('/schedule-notification/chatfuel', (req, res, next) => {
   const userId = req.query.userId;
   const chatfuel_token = req.query.chatfuel_token;
   const chatfuel_bot_id = req.query.chatfuel_bot_id;
-  var displayUrl2 = 'https://localhost:8000/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id;
+  var displayUrl2 = 'https://api.messengerbot.si/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id;
   res.json(createButtons(displayUrl2)); 
 });
 
