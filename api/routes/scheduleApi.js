@@ -232,11 +232,11 @@ router.get('/arrivalSchedules', (req, res, next) => {
 });
 
 router.post('/arrivalSchedules', (req, res, next) => {
-    const messenger_id = req.body['messenger user id'];
+    const messenger_id = req.body['messenger_id'];
     const chatfuel_bot_id = req.body['chatfuel_bot_id'];
     const chatfuel_token = req.body['chatfuel_token'];
-    const first_name = req.body['first name'];
-    const last_name = req.body['last name'];
+    const first_name = req.body['first_name'];
+    const last_name = req.body['last_name'];
     const arrival_location =  req.body['arrival_location'];
     const date_of_arrival =  req.body['date_of_arrival'];
     const timezone = req.body['timezone'];

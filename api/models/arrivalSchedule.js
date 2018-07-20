@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const arrivalScheduleSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-	messenger_id: Number,
+	messenger_id: String,
 	chatfuel_bot_id: String,
 	chatfuel_token: String,
 	first_name: String,
