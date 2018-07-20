@@ -1,5 +1,5 @@
 var urlParams = new URLSearchParams(window.location.search);
-const URL = 'http://localhost:8000';
+const URL = 'https://api.messengerbot.si';
 var loaded = false;
 
 const USER_ID = urlParams.get('userId');
@@ -86,7 +86,7 @@ class Calendar extends React.Component {
     }else{
       temp_date = '0' + this.state.date;
     }
-    var date = this.state.year + "-" + temp_month + "-" + temp_date + "T15:11:00.000Z"
+    var date = this.state.year + "-" + temp_month + "-" + temp_date + "T15:20:00.000Z"
 
     var data = {
       messenger_id: USER_ID,
