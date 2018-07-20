@@ -29,6 +29,124 @@ router.post('', (req, res, next) => {
 
 //<---------------------------------Arrival schedule jobs-------------------------------->
 
+const addingMissingScheduleJobs = async () => {
+    var date = new Date(); 
+    var date1 = new Date(
+        date.getFullYear(), 
+        date.getMonth(), 
+        date.getDate() + 1,
+        date.getHours(), 
+        date.getMinutes(), 
+        date.getSeconds()
+    );
+
+    var date2 = new Date(
+        date.getFullYear(), 
+        date.getMonth(), 
+        date.getDate() + 1,
+        date.getHours(), 
+        date.getMinutes() + 1, 
+        date.getSeconds()
+    );
+
+    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}})
+    .exec()
+    .then(docs => {
+        LIST_OF_ARRIVALS = docs;
+        console.log(docs);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
+    //for loop for extracting information for schedule node
+    // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
+    //Later add - Timezone to hours
+    for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
+        var temp_date = new Date(
+            LIST_OF_ARRIVALS[i].date_of_arrival.getFullYear(), 
+            LIST_OF_ARRIVALS[i].date_of_arrival.getMonth(), 
+            LIST_OF_ARRIVALS[i].date_of_arrival.getDate() - 1,
+            LIST_OF_ARRIVALS[i].date_of_arrival.getHours(), 
+            LIST_OF_ARRIVALS[i].date_of_arrival.getMinutes(), 
+            LIST_OF_ARRIVALS[i].date_of_arrival.getSeconds()
+        );
+
+        var temp_job = schedule.scheduleJob(temp_date, async function(fireDate){
+            var job_date1;
+            var job_date2;
+
+            for(var j=0; j<LIST_OF_ARRIVALS.length;j++){
+                job_date1 = new Date(
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getFullYear(), 
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getMonth(), 
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getDate() - 1,
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getHours(), 
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getMinutes(), 
+                    LIST_OF_ARRIVALS[j].date_of_arrival.getSeconds()
+                );
+                job_date2 = new Date(fireDate);
+                
+                if(job_date1.toString() === job_date2.toString()){
+                    var test_date = new Date(
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getFullYear(), 
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getMonth(), 
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getDate() - 1,
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getHours()+ LIST_OF_ARRIVALS[j].timezone, 
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getMinutes(), 
+                        LIST_OF_ARRIVALS[j].date_of_arrival.getSeconds()
+                    );
+
+                        const botId = LIST_OF_ARRIVALS[j].chatfuel_bot_id;
+                        const chatfuelToken = LIST_OF_ARRIVALS[j].chatfuel_token;
+
+                        const userId = LIST_OF_ARRIVALS[j].messenger_id;
+                        const blockName = LIST_OF_ARRIVALS[j].block_name;
+                        
+                        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+
+                        // Send a POST request to chatfue api with specific Content type
+                        var postData = {
+                        };
+
+
+                        let axiosConfig = {
+                            headers: {
+                              'Content-Type': 'application/json',
+                              "Access-Control-Allow-Origin": "*",
+                            }
+                        };
+
+                        axios.post(broadcastApiUrl, postData, axiosConfig)
+                        .then((res) => {
+                          console.log("RESPONSE RECEIVED: ", res);
+                        })
+                        .catch((err) => {
+                          console.log("AXIOS ERROR: ", err);
+                        })
+
+
+                    console.log(test_date);
+                    console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
+
+                    await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[j]._id })
+                    .exec()
+                    .then(result => {
+                    })
+                    .catch(err => {
+                        console.log(err);
+
+                    });
+                    LIST_OF_ARRIVALS.splice(0, j+1);
+                }
+            }
+        });
+
+        ARRIVAL_SCHEDULE_JOBS.push(temp_job);
+    }
+}
+
 const initializeScheduleJobs = async () => {
     var date = new Date(); 
     var date1 = new Date(

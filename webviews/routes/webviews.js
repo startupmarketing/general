@@ -78,7 +78,12 @@ router.get('/schedule-notification/chatfuel', (req, res, next) => {
   const userId = req.query.userId;
   const chatfuel_token = req.query.chatfuel_token;
   const chatfuel_bot_id = req.query.chatfuel_bot_id;
-  var displayUrl2 = 'https://api.messengerbot.si/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id;
+  const first_name = req.query.first_name;
+  const last_name = req.query.last_name;
+  const arrival_location = req.query.arrival_location;
+  const timezone = req.query.timezone;
+  const language = req.query.language;
+  var displayUrl2 = 'https://api.messengerbot.si/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id + '&first_name=' + first_name + '&last_name=' + last_name + '&arrival_location=' + arrival_location + '&timezone=' + timezone + '&language=' + language + '&block_name=' + block_name;
   res.json(createButtons(displayUrl2)); 
 });
 

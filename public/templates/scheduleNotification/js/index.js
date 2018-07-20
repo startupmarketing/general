@@ -5,6 +5,12 @@ var loaded = false;
 const USER_ID = urlParams.get('userId');
 const CHATFUEL_BOT_ID = urlParams.get('chatfuel_bot_id');
 const CHATFUEL_TOKEN = urlParams.get('chatfuel_token');
+const FIRST_NAME = urlParams.get('first_name');
+const LAST_NAME = urlParams.get('last_name');
+const TIMEZONE = urlParams.get('timezone');
+const ARRIVAL_LOCATION = urlParams.get('arrival_location');
+const BLOCK_NAME = urlParams.get('block_name');
+const LANGUAGE = urlParams.get('language');
 
 
 
@@ -30,6 +36,8 @@ window.extAsyncInit = function() {
       console.log(err);
   });
 };
+
+//?userId=2140743192619700&chatfuel_bot_id=5b1c4e5be4b0206f5485358b&chatfuel_token=1anZpKhH8JNdvjJVa8NxUA45PIQO0qWFIVPtMOELLpNZyRr3FvNfxClekHnOuZrI&first_name=Rok&last_name=Keglevič&timezone=2&arrival_location=Ljubljana&block_name=Timetest&language=ENG
 
 
 // Close webview function
@@ -86,19 +94,19 @@ class Calendar extends React.Component {
     }else{
       temp_date = '0' + this.state.date;
     }
-    var date = this.state.year + "-" + temp_month + "-" + temp_date + "T15:20:00.000Z"
+    var DATE = this.state.year + "-" + temp_month + "-" + temp_date + "T19:12:00.000Z"
 
     var data = {
       messenger_id: USER_ID,
       chatfuel_bot_id: CHATFUEL_BOT_ID,
       chatfuel_token: CHATFUEL_TOKEN,
-      first_name: "Rok",
-      last_name: "Keglevič",
-      arrival_location: "Ljubljana",
-      date_of_arrival: date,
-      timezone: 2,
-      block_name: "Timetest",
-      language: "ENG"
+      first_name: FIRST_NAME,
+      last_name: LAST_NAME,
+      arrival_location: ARRIVAL_LOCATION,
+      date_of_arrival: DATE,
+      timezone: TIMEZONE,
+      block_name: BLOCK_NAME,
+      language: LANGUAGE
     }
 
     axios.post( URL + '/schedule/arrivalSchedules', data)
