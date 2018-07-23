@@ -1,3 +1,4 @@
 #ignoring react nodule files
 /react-webviews
+/react-htmls
 .env
