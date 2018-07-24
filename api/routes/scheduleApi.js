@@ -5,8 +5,6 @@ const ArrivalSchedule = require('../models/arrivalSchedule');
 const mongoose = require('mongoose');
 const schedule = require('node-schedule');
 var LIST_OF_ARRIVALS = [];
-var ARRIVAL_SCHEDULE_JOBS = [];
-var LIST = [];
 
 var qs = require('querystring');
 
@@ -29,28 +27,28 @@ router.post('', (req, res, next) => {
 //<===========================ArrivalSchedule API =======================>
 
 //<---------------------------------Arrival schedule jobs-------------------------------->
-
-const initializeScheduleJobs = async () => {
+async function getListMoreThanTwelve (timezone) {
     var date = new Date(); 
     var date1 = new Date(
         date.getFullYear(), 
         date.getMonth(), 
-        date.getDate() + 1,
-        date.getHours(), 
-        date.getMinutes(), 
-        date.getSeconds()
+        date.getDate() + 2,
+        0, 
+        0, 
+        0
     );
 
     var date2 = new Date(
         date.getFullYear(), 
         date.getMonth(), 
-        date.getDate() + 1,
-        date.getHours(), 
-        date.getMinutes() + 1, 
-        date.getSeconds()
+        date.getDate() + 3,
+        0, 
+        0, 
+        0
     );
 
-    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}})
+    console.log("Fetching jobs from DB");
+    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}, timezone: timezone})
     .exec()
     .then(docs => {
         LIST_OF_ARRIVALS = docs;
@@ -60,95 +58,129 @@ const initializeScheduleJobs = async () => {
         console.log(err);
     });
 
+    //for loop for extracting information for schedule node
+    // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
+    //Later add - Timezone to hours
+    for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
+        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
+
+        const userId = LIST_OF_ARRIVALS[i].messenger_id;
+        const blockName = LIST_OF_ARRIVALS[i].block_name;
+                        
+        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+
+        // Send a POST request to chatfue api with specific Content type
+        var postData = {
+        };
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+
+                
+        axios.post(broadcastApiUrl, postData, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+        })
+
+        console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
+
+        await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[i]._id })
+        .exec()
+        .then(result => {
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        LIST_OF_ARRIVALS.splice(0, i+1);
+    }
+}
+
+async function getListMinusTwelve (timezone) {
+    var date = new Date(); 
+    var date1 = new Date(
+        date.getFullYear(), 
+        date.getMonth(), 
+        date.getDate(),
+        0, 
+        0, 
+        0
+    );
+
+    var date2 = new Date(
+        date.getFullYear(), 
+        date.getMonth(), 
+        date.getDate() + 1,
+        0, 
+        0, 
+        0
+    );
+
+    console.log("Fetching jobs from DB");
+    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}, timezone: timezone})
+    .exec()
+    .then(docs => {
+        LIST_OF_ARRIVALS = docs;
+        console.log(docs);
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
     //for loop for extracting information for schedule node
     // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
     //Later add - Timezone to hours
     for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
-        var temp_date = new Date(
-            LIST_OF_ARRIVALS[i].date_of_arrival.getFullYear(), 
-            LIST_OF_ARRIVALS[i].date_of_arrival.getMonth(), 
-            LIST_OF_ARRIVALS[i].date_of_arrival.getDate() - 1,
-            LIST_OF_ARRIVALS[i].date_of_arrival.getHours(), 
-            LIST_OF_ARRIVALS[i].date_of_arrival.getMinutes(), 
-            LIST_OF_ARRIVALS[i].date_of_arrival.getSeconds()
-        );
+        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
 
-        var temp_job = schedule.scheduleJob(temp_date, async function(fireDate){
-            var job_date1;
-            var job_date2;
-
-            for(var j=0; j<LIST_OF_ARRIVALS.length;j++){
-                job_date1 = new Date(
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getFullYear(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getMonth(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getDate() - 1,
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getHours(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getMinutes(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getSeconds()
-                );
-                job_date2 = new Date(fireDate);
-                
-                if(job_date1.toString() === job_date2.toString()){
-                    var test_date = new Date(
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getFullYear(), 
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getMonth(), 
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getDate() - 1,
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getHours()+ LIST_OF_ARRIVALS[j].timezone, 
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getMinutes(), 
-                        LIST_OF_ARRIVALS[j].date_of_arrival.getSeconds()
-                    );
-
-                        const botId = LIST_OF_ARRIVALS[j].chatfuel_bot_id;
-                        const chatfuelToken = LIST_OF_ARRIVALS[j].chatfuel_token;
-
-                        const userId = LIST_OF_ARRIVALS[j].messenger_id;
-                        const blockName = LIST_OF_ARRIVALS[j].block_name;
+        const userId = LIST_OF_ARRIVALS[i].messenger_id;
+        const blockName = LIST_OF_ARRIVALS[i].block_name;
                         
-                        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 
-                        // Send a POST request to chatfue api with specific Content type
-                        var postData = {
-                        };
+        // Send a POST request to chatfue api with specific Content type
+        var postData = {
+        };
 
-
-                        let axiosConfig = {
-                            headers: {
-                              'Content-Type': 'application/json',
-                              "Access-Control-Allow-Origin": "*",
-                            }
-                        };
-
-                        axios.post(broadcastApiUrl, postData, axiosConfig)
-                        .then((res) => {
-                          console.log("RESPONSE RECEIVED: ", res);
-                        })
-                        .catch((err) => {
-                          console.log("AXIOS ERROR: ", err);
-                        })
-
-
-                    console.log(test_date);
-                    console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
-
-                    await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[j]._id })
-                    .exec()
-                    .then(result => {
-                    })
-                    .catch(err => {
-                        console.log(err);
-
-                    });
-                    LIST_OF_ARRIVALS.splice(0, j+1);
-                }
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
             }
-        });
+        };
 
-        ARRIVAL_SCHEDULE_JOBS.push(temp_job);
+                
+        axios.post(broadcastApiUrl, postData, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+        })
+
+        console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
+
+        await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[i]._id })
+        .exec()
+        .then(result => {
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        LIST_OF_ARRIVALS.splice(0, i+1);
     }
 }
 
-async function getList () {
+
+async function getListGeneral (timezone) {
     var date = new Date(); 
     var date1 = new Date(
         date.getFullYear(), 
@@ -168,12 +200,12 @@ async function getList () {
         0
     );
 
-    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}})
+    console.log("Fetching jobs from DB");
+    await ArrivalSchedule.find({date_of_arrival: {$gt: date1, $lt: date2}, timezone: timezone})
     .exec()
     .then(docs => {
-        LIST = docs;
-        LIST_OF_ARRIVALS = LIST;
-        //console.log(docs);
+        LIST_OF_ARRIVALS = docs;
+        console.log(docs);
     })
     .catch(err => {
         console.log(err);
@@ -182,118 +214,158 @@ async function getList () {
     //for loop for extracting information for schedule node
     // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
     //Later add - Timezone to hours
-    for(var i=0; i < LIST.length; i++){
-        var temp_date = new Date(
-            LIST[i].date_of_arrival.getFullYear(), 
-            LIST[i].date_of_arrival.getMonth(), 
-            LIST[i].date_of_arrival.getDate() - 1,
-            LIST[i].date_of_arrival.getHours(), 
-            LIST[i].date_of_arrival.getMinutes(), 
-            LIST[i].date_of_arrival.getSeconds()
-        );
+    for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
+        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
 
-        var temp_job = schedule.scheduleJob(temp_date, async function(fireDate){
-            var job_date1;
-            var job_date2;
-
-            for(var j=0; j<LIST_OF_ARRIVALS.length;j++){
-                job_date1 = new Date(
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getFullYear(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getMonth(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getDate() - 1,
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getHours(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getMinutes(), 
-                    LIST_OF_ARRIVALS[j].date_of_arrival.getSeconds()
-                );
-                job_date2 = new Date(fireDate);
-                
-                if(job_date1.toString() === job_date2.toString()){
-                    const botId = LIST_OF_ARRIVALS[j].chatfuel_bot_id;
-                    const chatfuelToken = LIST_OF_ARRIVALS[j].chatfuel_token;
-
-                    const userId = LIST_OF_ARRIVALS[j].messenger_id;
-                    const blockName = LIST_OF_ARRIVALS[j].block_name;
+        const userId = LIST_OF_ARRIVALS[i].messenger_id;
+        const blockName = LIST_OF_ARRIVALS[i].block_name;
                         
-                    const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 
-                    // Send a POST request to chatfue api with specific Content type
-                    var postData = {
-                    };
+        // Send a POST request to chatfue api with specific Content type
+        var postData = {
+        };
 
-
-                    let axiosConfig = {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            "Access-Control-Allow-Origin": "*",
-                        }
-                    };
-
-                    axios.post(broadcastApiUrl, postData, axiosConfig)
-                    .then((res) => {
-                        console.log("RESPONSE RECEIVED: ", res);
-                    })
-                    .catch((err) => {
-                        console.log("AXIOS ERROR: ", err);
-                    })
-
-
-                    console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
-
-                    await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[j]._id })
-                    .exec()
-                    .then(result => {
-                    })
-                    .catch(err => {
-                        console.log(err);
-
-                    });
-                    LIST_OF_ARRIVALS.splice(0, j+1);
-                }
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
             }
-        });
+        };
 
-        ARRIVAL_SCHEDULE_JOBS.push(temp_job);
+                
+        axios.post(broadcastApiUrl, postData, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+        })
+
+        console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
+
+        await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[i]._id })
+        .exec()
+        .then(result => {
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        LIST_OF_ARRIVALS.splice(0, i+1);
     }
-    
 }
 
-
-var rule1 = new schedule.RecurrenceRule();
-rule1.minute = 2;
-
-var rule2 = new schedule.RecurrenceRule();
-rule2.minute = 44;
-
-
-
-var j1 = schedule.scheduleJob(rule1, function(){
-    getList();
+//----------------------------CREATING JOBS FOR EVERY HOUR-------------------------------------------------
+var j0 = schedule.scheduleJob('0 0 12 * * *', function(){
+    getListGeneral(0);
 });
 
-var j2 = schedule.scheduleJob(rule2, function(){
-    getList();
+var j1 = schedule.scheduleJob('0 0 11 * * *', function(){
+    getListGeneral(1);
 });
 
-
-
-
-/*
-var timerID = setInterval(function() {
-    console.log('The world is going to end today.');
-    initializeScheduleJobs();
-}, 60 * 1000); 
-*/
-
-
-/*
-var date = new Date(2018, 6, 18, 11, 36, 0);
-
-var arrivalScheduleJobs = schedule.scheduleJob(date, function(){
-    console.log('The world is going to end today.');
+var j2 = schedule.scheduleJob('0 0 10 * * *', function(){
+    getListGeneral(2);
 });
 
-*/
-//<-------------------------get/delete/patch specific arrival---------------------------->
+var j3 = schedule.scheduleJob('0 0 9 * * *', function(){
+    getListGeneral(3);
+});
+
+var j4 = schedule.scheduleJob('0 0 8 * * *', function(){
+    getListGeneral(4);
+});
+
+var j5 = schedule.scheduleJob('0 0 7 * * *', function(){
+    getListGeneral(5);
+});
+
+var j6 = schedule.scheduleJob('0 0 6 * * *', function(){
+    getListGeneral(6);
+});
+
+var j7 = schedule.scheduleJob('0 0 5 * * *', function(){
+    getListGeneral(7);
+});
+
+var j8 = schedule.scheduleJob('0 0 4 * * *', function(){
+    getListGeneral(8);
+});
+
+var j9 = schedule.scheduleJob('0 0 3 * * *', function(){
+    getListGeneral(9);
+});
+
+var j10 = schedule.scheduleJob('0 0 2 * * *', function(){
+    getListGeneral(10);
+});
+
+var j11 = schedule.scheduleJob('0 0 1 * * *', function(){
+    getListGeneral(11);
+});
+
+var j12 = schedule.scheduleJob('0 0 0 * * *', function(){
+    getListGeneral(12);
+});
+
+var j13 = schedule.scheduleJob('0 0 23 * * *', function(){
+    getListMoreThanTwelve(13);
+});
+
+var j14 = schedule.scheduleJob('0 0 22 * * *', function(){
+    getListMoreThanTwelve(14);
+});
+
+var j_1 = schedule.scheduleJob('0 0 13 * * *', function(){
+    getListGeneral(-1);
+});
+
+var j_2 = schedule.scheduleJob('0 0 14 * * *', function(){
+    getListGeneral(-2);
+});
+
+var j_3 = schedule.scheduleJob('0 0 15 * * *', function(){
+    getListGeneral(-3);
+});
+
+var j_4 = schedule.scheduleJob('0 0 16 * * *', function(){
+    getListGeneral(-4);
+});
+
+var j_5 = schedule.scheduleJob('0 0 17 * * *', function(){
+    getListGeneral(-5);
+});
+
+var j_6 = schedule.scheduleJob('0 0 18 * * *', function(){
+    getListGeneral(-6);
+});
+
+var j_7 = schedule.scheduleJob('0 0 19 * * *', function(){
+    getListGeneral(-7);
+});
+
+var j_8 = schedule.scheduleJob('0 0 20 * * *', function(){
+    getListGeneral(-8);
+});
+
+var j_9 = schedule.scheduleJob('0 0 21 * * *', function(){
+    getListGeneral(-9);
+});
+
+var j_10 = schedule.scheduleJob('0 0 22 * * *', function(){
+    getListGeneral(-10);
+});
+
+var j_11 = schedule.scheduleJob('0 0 23 * * *', function(){
+    getListGeneral(-11);
+});
+
+var j_12 = schedule.scheduleJob('0 0 0 * * *', function(){
+    getListMinusTwelve(-12);
+});
+
+//<------------------------get/delete/patch specific arrival---------------------------->
 
 router.get('/arrivalSchedules/:arrivalScheduleId', (req, res, next) => {
     const id = req.params.arrivalScheduleId;
