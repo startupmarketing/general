@@ -56,7 +56,22 @@ router.get('/currency_exchange/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl)); 
 });
 
-//<===========================Gif voting webview TEMPLATE=====================================>
+//<===========================Gif voting right/wrong webview TEMPLATE=====================================>
+
+router.get('/gif_voting2/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/templates/quiz2/index.html');
+});
+
+router.get('/gif_voting2/chatfuel', (req, res, next) => {
+  const userId = req.query.userId;
+  const chatfuel_bot_id = req.query.chatfuel_bot_id;
+  const chatfuel_token = req.query.chatfuel_token;
+  const block_name = req.query.block_name;
+  var displayUrl2 = 'https://api.messengerbot.si/webviews/gif_voting2/show?userId=' + userId + '&chatfuel_bot_id=' + chatfuel_bot_id + '&chatfuel_token=' + chatfuel_token + '&block_name=' + block_name;
+  res.json(createButtons(displayUrl2)); 
+});
+
+//<===========================Gif voting picker webview TEMPLATE=====================================>
 
 router.get('/gif_voting/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/templates/quiz/index.html');

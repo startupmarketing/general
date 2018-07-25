@@ -22,7 +22,7 @@ router.post('', (req, res, next) => {
 	});
 });
 
-//<=====================Gif-voting template broadcast API================================>
+//<=====================Gif-voting right/wrong template broadcast API================================>
 
 router.get('/quiz-template-broadcast', (req, res, next) => {
 	res.status(200).json({
@@ -38,6 +38,52 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 			countCorrect += 1;
 		}
 	}
+	//Initializing ID variables
+	const botId = req.body.broadcast_data.chatfuel_bot_id;
+	const chatfuel_token = req.body.broadcast_data.chatfuel_token;
+
+	const userId = req.body.broadcast_data.messenger_id;
+	const block_name = req.body.broadcast_data.block_name;
+	
+	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=' + block_name + '&countCorrect=' + countCorrect;
+	console.log(broadcastApiUrl);
+
+	// Send a POST request to chatfue api with specific Content type
+    var postData = {
+    };
+
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    axios.post(broadcastApiUrl, postData, axiosConfig)
+    .then((res) => {
+      console.log("RESPONSE RECEIVED: ", res);
+    })
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+
+	res.status(200).json({
+		message: 'Post request handled!'
+	});
+
+});
+
+//<=====================Gif-voting pick one template broadcast API================================>
+
+router.get('/quiz-template-broadcast2', (req, res, next) => {
+	res.status(200).json({
+		message: 'Get request handled!'
+	});
+});
+
+router.post('/quiz-template-broadcast2', (req, res, next) => {
+	var countCorrect = "This picker template!";
+
 	//Initializing ID variables
 	const botId = req.body.broadcast_data.chatfuel_bot_id;
 	const chatfuel_token = req.body.broadcast_data.chatfuel_token;
