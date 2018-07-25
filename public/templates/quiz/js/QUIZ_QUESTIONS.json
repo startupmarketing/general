@@ -6,14 +6,18 @@ var QUIZ_QUESTIONS = [
     "question" : "Kateri zadetek je od Dončiča?",
     "correct_anwser" : "top",
     "anwser" : null,
-    "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/Doncic.gif",
-    "bottom_pic" : "https://api.messengerbot.si/public/templates/quiz/images/Gogi.gif"
+    "anwser_pic_top" : "/public/templates/quiz/images/i_success-color.svg",
+    "anwser_pic_bot" : "/public/templates/quiz/images/i_wrong-color.svg",
+    "top_pic" : "/public/templates/quiz/images/Doncic.gif",
+    "bottom_pic" : "/public/templates/quiz/images/Gogi.gif"
   },
   {
     "question" : "Kje je pikachu?",
     "correct_anwser" : "top",
     "anwser" : null,
-    "top_pic" : "https://api.messengerbot.si/public/templates/quiz/images/pikachu.gif",
-    "bottom_pic" : "https://api.messengerbot.si/public/templates/quiz/images/star_wars.gif"
+    "anwser_pic_top" : "/public/templates/quiz/images/i_success-color.svg",
+    "anwser_pic_bot" : "/public/templates/quiz/images/i_wrong-color.svg",
+    "top_pic" : "/public/templates/quiz/images/pikachu.gif",
+    "bottom_pic" : "/public/templates/quiz/images/star_wars.gif"
   }
 ];

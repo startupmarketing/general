@@ -9,7 +9,7 @@ var qs = require('querystring');
 
 
 
-//<----------------------Testing req/res----------------------->
+//<-----------------------Testing req/res----------------------->
 router.get('', (req, res, next) => {
 	res.status(200).json({
 		message: 'Get request handled!'
@@ -39,15 +39,15 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 		}
 	}
 	//Initializing ID variables
-	const botId = process.env.CHATFUEL_BOT_ID;
-	const chatfuelToken = process.env.CHATFUEL_TOKEN;
+	const botId = req.body.broadcast_data.chatfuel_bot_id;
+	const chatfuel_token = req.body.broadcast_data.chatfuel_token;
 
-	const userId = req.body.userId;
-	const blockName = 'WebviewGifVotingResponse';
+	const userId = req.body.broadcast_data.messenger_id;
+	const block_name = req.body.broadcast_data.block_name;
 	
-	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName + '&countCorrect=' + countCorrect;
+	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=' + block_name + '&countCorrect=' + countCorrect;
 	console.log(broadcastApiUrl);
-
+/*
 	// Send a POST request to chatfue api with specific Content type
     var postData = {
     };
@@ -70,7 +70,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 	res.status(200).json({
 		message: 'Post request handled!'
 	});
-
+*/
 });
 
  //<====================Test for question api DB ================================>
