@@ -12,6 +12,8 @@ const broadcast_data = {
   block_name : BLOCK_NAME
 }
 
+console.log(broadcast_data);
+
 var loaded = false;
 
 

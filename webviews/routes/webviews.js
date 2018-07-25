@@ -64,7 +64,10 @@ router.get('/gif_voting/show', (req, res, next) => {
 
 router.get('/gif_voting/chatfuel', (req, res, next) => {
   const userId = req.query.userId;
-  var displayUrl2 = 'https://api.messengerbot.si/webviews/gif_voting/show?userId=' + userId;
+  const chatfuel_bot_id = req.query.chatfuel_bot_id;
+  const chatfuel_token = req.query.chatfuel_token;
+  const block_name = req.query.block_name;
+  var displayUrl2 = 'https://api.messengerbot.si/webviews/gif_voting/show?userId=' + userId + '&chatfuel_bot_id=' + chatfuel_bot_id + '&chatfuel_token=' + chatfuel_token + '&block_name=' + block_name;
   res.json(createButtons(displayUrl2)); 
 });
 
