@@ -12,8 +12,6 @@ const broadcast_data = {
   block_name : BLOCK_NAME
 }
 
-console.log(broadcast_data);
-
 var loaded = false;
 
 
@@ -59,14 +57,17 @@ class App extends React.Component {
     super(props);
     this.count = 0;
     this.state = {
+      topOpacity : 0,
+      bottomOpacity : 0,
       question : data[this.count].question, 
       top_pic : data[this.count].top_pic,
       bottom_pic : data[this.count].bottom_pic,
-      top_anwser_pic : null,
-      bot_anwser_pic : null,
+      top_anwser_pic : data[this.count].anwser_pic_top,
+      bot_anwser_pic : data[this.count].anwser_pic_bot,
     }
     this.handleClick = this.handleClick.bind(this);
   } 
+
 
   sendData(data){
     axios.post( URL + '/quiz-template-broadcast', {data, broadcast_data})
@@ -83,9 +84,13 @@ class App extends React.Component {
     if(this.count+1 !== data.length){
       this.count += 1;
       this.setState({
+        topOpacity : 0,
+        bottomOpacity : 0,
         question : data[this.count].question, 
         top_pic : data[this.count].top_pic,
-        bottom_pic : data[this.count].bottom_pic
+        bottom_pic : data[this.count].bottom_pic,
+        top_anwser_pic : data[this.count].anwser_pic_top,
+        bot_anwser_pic : data[this.count].anwser_pic_bot
       })
     }else{
       this.sendData(data);
@@ -97,15 +102,13 @@ class App extends React.Component {
     data[this.count].anwser = anwser;
     const checkAnwser = async () => {
       if(anwser === "top"){
-        this.setState({top_anwser_pic : data[this.count].anwser_pic_top})
+        await this.setState({topOpacity : 1});
         await setTimeout(async () => {
-          await this.setState({top_anwser_pic : null});
           return this.continue();
         }, 350);
       }else{
-        this.setState({bot_anwser_pic : data[this.count].anwser_pic_bot})
+        await this.setState({bottomOpacity : 1});
         await setTimeout(async () => {
-          await this.setState({bot_anwser_pic : null});
           return this.continue();
         }, 350);
       }
@@ -125,7 +128,7 @@ class App extends React.Component {
             <div>
 
                 <div onClick={() => this.handleClick("top")} className="top-image">
-                    <div className="answer">
+                    <div style={{opacity : this.state.topOpacity}} className="answer">
                         <img src={this.state.top_anwser_pic} alt=""/>
                     </div>
                     <img src={this.state.top_pic} alt=""/>
@@ -136,7 +139,7 @@ class App extends React.Component {
                 </div>
                 
                 <div onClick={() => this.handleClick("bottom")} className="bottom-image">
-                    <div className="answer">
+                    <div style={{opacity : this.state.bottomOpacity}} className="answer">
                         <img src={this.state.bot_anwser_pic} alt=""/>
                     </div>
                     <img src={this.state.bottom_pic} alt=""/>
