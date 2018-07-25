@@ -47,7 +47,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 	
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=' + block_name + '&countCorrect=' + countCorrect;
 	console.log(broadcastApiUrl);
-/*
+
 	// Send a POST request to chatfue api with specific Content type
     var postData = {
     };
@@ -70,7 +70,7 @@ router.post('/quiz-template-broadcast', (req, res, next) => {
 	res.status(200).json({
 		message: 'Post request handled!'
 	});
-*/
+
 });
 
  //<====================Test for question api DB ================================>
