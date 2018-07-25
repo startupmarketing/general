@@ -70,7 +70,7 @@ class App extends React.Component {
 
 
   sendData(data){
-    axios.post( URL_TEMP + '/quiz-template-broadcast', {data, broadcast_data})
+    axios.post( URL + '/quiz-template-broadcast', {data, broadcast_data})
     .then(function (response) {
       console.log(response.data);
     })
