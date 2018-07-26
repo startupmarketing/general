@@ -12,7 +12,7 @@ require('dotenv').config();
 
 
 mongoose.connect(
-	'mongodb+srv://startupmarketing:' + process.env.MONGO_ATLAS_PASSWORD + '@startupmarketing-hzand.mongodb.net/test?retryWrites=true'
+	'mongodb://localhost:27017/generalDB'
 );
 
 
