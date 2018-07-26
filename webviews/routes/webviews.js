@@ -130,7 +130,7 @@ router.get('/schedule-notification/chatfuel', (req, res, next) => {
   const language = req.query.language;
   const block_name = req.query.block_name;
   var displayUrl2 = 'https://api.messengerbot.si/webviews/schedule-notification/show?userId=' + userId + '&chatfuel_token=' + chatfuel_token + '&chatfuel_bot_id=' + chatfuel_bot_id + '&first_name=' + first_name + '&last_name=' + last_name + '&arrival_location=' + arrival_location + '&timezone=' + timezone + '&language=' + language + '&block_name=' + block_name;
-  res.json(createCompactButton(displayUrl2)); 
+  res.json(createButtons(displayUrl2)); 
 });
 
 
