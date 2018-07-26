@@ -141,6 +141,10 @@ router.get('/weather/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/templates/weather/index.html');
 });
 
+router.get('/weather/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/webviews/weather/show';
+  res.json(createButtons(displayUrl)); 
+});
 
 router.post('', (req, res, next) => {
   res.status(200).json({
