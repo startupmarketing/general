@@ -71,6 +71,34 @@ const createCompactButton = (displayUrl) => {
   ]};
 };
 
+const createCurrencyButton = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'Živjo!',
+              subtitle: 'Klikni tukaj',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Pretvornik valut',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'tall' // tall view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
+
 
 //<=============================Currency exchange webview===========================>
 
@@ -80,7 +108,7 @@ router.get('/currency_exchange/show', (req, res, next) => {
 
 router.get('/currency_exchange/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange/show';
-  res.json(createButtons(displayUrl)); 
+  res.json(createCurrencyButton(displayUrl)); 
 });
 
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
