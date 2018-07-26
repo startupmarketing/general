@@ -461,7 +461,7 @@ router.post('/arrivalSchedules', (req, res, next) => {
     //var date_post = date_of_arrival.getYear() + ' ' + date_of_arrival.getMonth() + ' ' + date_of_arrival.getDate();
     const temp_date = new Date(date_of_arrival);
 
-    const date_post = temp_date.getDate() + '.' + temp_date.getMonth() + '. ' + temp_date.getFullYear() 
+    const date_post = temp_date.getDate() + '.' + (temp_date.getMonth()+1) + '. ' + temp_date.getFullYear() 
 
     arrivalSchedule.save()
     .then(result => {
