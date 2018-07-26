@@ -1,5 +1,6 @@
 var urlParams = new URLSearchParams(window.location.search);
 const URL = 'https://api.messengerbot.si';
+const URL_TEMP = 'http://localhost:8000';
 var loaded = false;
 
 const USER_ID = urlParams.get('userId');
@@ -11,7 +12,6 @@ const TIMEZONE = urlParams.get('timezone');
 const ARRIVAL_LOCATION = urlParams.get('arrival_location');
 const BLOCK_NAME = urlParams.get('block_name');
 const LANGUAGE = urlParams.get('language');
-
 
 
 //for loading Mssenger Extension SDK functions
@@ -53,6 +53,70 @@ function closeWebview(){
   }
 }
 
+function sendData(calendar_data){
+    var temp_month;
+    console.log(calendar_data);
+
+    if(calendar_data[1].value > 9){
+      temp_month = calendar_data[1].value;
+    }else{
+      temp_month = '0' + calendar_data[1].value;
+    }
+
+    var temp_date;
+    if(calendar_data[2].value > 9){
+      temp_date = calendar_data[2].value;
+    }else{
+      temp_date = '0' + calendar_data[2].value;
+    }
+    var DATE = calendar_data[0].value + "-" + temp_month + "-" + temp_date + "T12:00:00.000Z"
+
+    var data = {
+      messenger_id: USER_ID,
+      chatfuel_bot_id: CHATFUEL_BOT_ID,
+      chatfuel_token: CHATFUEL_TOKEN,
+      first_name: FIRST_NAME,
+      last_name: LAST_NAME,
+      arrival_location: ARRIVAL_LOCATION,
+      date_of_arrival: DATE,
+      timezone: TIMEZONE,
+      block_name: BLOCK_NAME,
+      language: LANGUAGE
+    }
+    closeWebview();
+
+    axios.post( URL + '/schedule/arrivalSchedules', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
+function calendar () {
+  window.webvUI.datePicker({
+      start: new Date().getFullYear(),
+      end: new Date().getFullYear() + 2,
+        onChange: function(result) {
+          console.log(result);
+        },
+        onConfirm: function(result) {
+          sendData(result);
+        },
+        onClose: function(result) {
+          closeWebview();
+        }
+
+  });
+}
+
+calendar();
+
+
+
+/*
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -138,3 +202,4 @@ ReactDOM.render(
   <Calendar />,
   document.getElementById('app')
 );
+*/
