@@ -152,6 +152,26 @@ router.post('', (req, res, next) => {
   });
 });
 
+//<=============================Weather2 req/res ============================>
+
+//Testing req/res
+
+router.get('/weather2/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/templates/weather2/index.html');
+});
+
+router.get('/weather2/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/webviews/weather2/show';
+  res.json(createButtons(displayUrl)); 
+});
+
+router.post('', (req, res, next) => {
+  res.status(200).json({
+    message: 'Post request handled!'
+  });
+});
+
+
 //<=============================Test req/res ============================>
 
 //Testing req/res
