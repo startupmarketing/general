@@ -483,19 +483,6 @@ router.post('/arrivalSchedules', (req, res, next) => {
             console.log("AXIOS ERROR: ", err);
         })
 
-        console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
-
-        await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[i]._id })
-        .exec()
-        .then(result => {
-        })
-        .catch(err => {
-            console.log(err);
-        });
-        res.status(200).json({
-            message: 'Post request handled!',
-            result : arrivalSchedule
-        });
     }).catch(err => {
         console.log(err)
         res.status(500).json({
