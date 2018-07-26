@@ -133,6 +133,20 @@ router.get('/schedule-notification/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl2)); 
 });
 
+//<=============================Weather req/res ============================>
+
+//Testing req/res
+
+router.get('/weather/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/templates/weather/index.html');
+});
+
+
+router.post('', (req, res, next) => {
+  res.status(200).json({
+    message: 'Post request handled!'
+  });
+});
 
 //<=============================Test req/res ============================>
 
