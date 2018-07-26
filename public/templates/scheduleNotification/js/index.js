@@ -83,7 +83,7 @@ function sendData(calendar_data){
     }
     closeWebview();
 
-    axios.post( URL + '/schedule/arrivalSchedules', data)
+    axios.post( URL_TEMP + '/schedule/arrivalSchedules', data)
     .then(function (response) {
       console.log(response.data);
     })

@@ -457,11 +457,17 @@ router.post('/arrivalSchedules', (req, res, next) => {
         block_name: block_name,
         language: language
     });
-    console.log(date_of_arrival);
+
+    //var date_post = date_of_arrival.getYear() + ' ' + date_of_arrival.getMonth() + ' ' + date_of_arrival.getDate();
+    const temp_date = new Date(date_of_arrival);
+
+    const date_post = temp_date.getDate() + '.' + temp_date.getMonth() + '. ' + temp_date.getFullYear() 
+
     arrivalSchedule.save()
     .then(result => {
         console.log(result);
-        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + chatfuel_bot_id + '/users/' + messenger_id + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=timetestresponse' + '&date_of_arrival=' + date_of_arrival;
+
+        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + chatfuel_bot_id + '/users/' + messenger_id + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=timetestresponse' + '&date_of_arrival=' + date_post;
 
         // Send a POST request to chatfue api with specific Content type
         var postData = {
