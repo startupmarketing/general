@@ -461,6 +461,37 @@ router.post('/arrivalSchedules', (req, res, next) => {
     arrivalSchedule.save()
     .then(result => {
         console.log(result);
+        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + chatfuel_bot_id + '/users/' + messenger_id + '/send?chatfuel_token=' + chatfuel_token + '&chatfuel_block_name=timetestresponse' + '&date_of_arrival=' + date_of_arrival;
+
+        // Send a POST request to chatfue api with specific Content type
+        var postData = {
+        };
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+
+                
+        axios.post(broadcastApiUrl, postData, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+        })
+
+        console.log("REMOVING ENTRY FROM DB AND LIST OF ARRIVALS");
+
+        await ArrivalSchedule.remove({ _id: LIST_OF_ARRIVALS[i]._id })
+        .exec()
+        .then(result => {
+        })
+        .catch(err => {
+            console.log(err);
+        });
         res.status(200).json({
             message: 'Post request handled!',
             result : arrivalSchedule
