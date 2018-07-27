@@ -4,6 +4,9 @@ class App extends React.Component {
     this.state = {
       EUR_USD : 0,
       EUR_HRK : 0,
+      EUR_GBP : 0,
+      EUR_CNY : 0,
+      EUR_CHF : 0,
       amount: 0,
       currencyFrom: 'USD',
       currencyTo: 'EUR',
@@ -21,6 +24,10 @@ class App extends React.Component {
   async getExchangeRate(){
     var dataEUR_USD;
     var dataEUR_HRK;
+    var dataEUR_GBP;
+    var dataEUR_CNY;
+    var dataEUR_CHF;
+
     await axios.get('https://free.currencyconverterapi.com/api/v5/convert?q=EUR_USD&compact=ultra')
       .then(response => {
         dataEUR_USD = response.data;
@@ -36,13 +43,46 @@ class App extends React.Component {
         dataEUR_HRK = response.data;
         console.log("Exchange rate obtained!")
         console.log(response.data);
-
       })
       .catch(error => {
         console.log(error);
     });
+
+    await axios.get('https://free.currencyconverterapi.com/api/v5/convert?q=EUR_GBP&compact=ultra')
+      .then(response => {
+        dataEUR_GBP = response.data;
+        console.log("Exchange rate obtained!")
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
+
+    await axios.get('https://free.currencyconverterapi.com/api/v5/convert?q=EUR_CNY&compact=ultra')
+      .then(response => {
+        dataEUR_CNY = response.data;
+        console.log("Exchange rate obtained!")
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
+
+    await axios.get('https://free.currencyconverterapi.com/api/v5/convert?q=EUR_CHF&compact=ultra')
+      .then(response => {
+        dataEUR_CHF = response.data;
+        console.log("Exchange rate obtained!")
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
+
     await this.setState({EUR_USD: dataEUR_USD.EUR_USD});
     await this.setState({EUR_HRK: dataEUR_HRK.EUR_HRK});
+    await this.setState({EUR_GBP: dataEUR_GBP.EUR_GBP});
+    await this.setState({EUR_CNY: dataEUR_CNY.EUR_CNY});
+    await this.setState({EUR_CHF: dataEUR_CHF.EUR_CHF});
   }
 
 
@@ -50,22 +90,138 @@ class App extends React.Component {
   getConversionRate(){
     if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'USD'){
       return this.state.EUR_USD;
+    }
 
-    }else if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'HRK'){
+    else if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'HRK'){
       return this.state.EUR_HRK;
+    }
 
-    }else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'EUR'){
+    else if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'GBP'){
+      return this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'CNY'){
+      return this.state.EUR_CNY;
+    }
+
+    else if(this.state.currencyFrom === 'EUR' && this.state.currencyTo === 'CHF'){
+      return this.state.EUR_CHF;
+    }
+//---------------------------------------------------------------------------------------
+
+    else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'EUR'){
       return 1/this.state.EUR_USD;
+    }
 
-    }else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'EUR'){
+    else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'EUR'){
       return 1/this.state.EUR_HRK;
     }
+
+    else if(this.state.currencyFrom === 'GBP' && this.state.currencyTo === 'EUR'){
+      return 1/this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'CNY' && this.state.currencyTo === 'EUR'){
+      return 1/this.state.EUR_CNY;
+    }
+
+    else if(this.state.currencyFrom === 'CHF' && this.state.currencyTo === 'EUR'){
+      return 1/this.state.EUR_CHF;
+    }
+
+//----------------------------------USD with others than EURO--------------------------------------------------
+
     else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'HRK'){
       return 1/this.state.EUR_USD * this.state.EUR_HRK;
+    }
 
-    }else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'USD'){
+    else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'GBP'){
+      return 1/this.state.EUR_USD * this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'CNY'){
+      return 1/this.state.EUR_USD * this.state.EUR_CNY;
+    }
+
+    else if(this.state.currencyFrom === 'USD' && this.state.currencyTo === 'CHF'){
+      return 1/this.state.EUR_USD * this.state.EUR_CHF;
+    }
+
+//-----------------------------------------HRK to others than EURO----------------------------------------------
+
+    else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'USD'){
       return 1/this.state.EUR_HRK * this.state.EUR_USD;
-    }else if(this.state.currencyFrom === this.state.currencyTo){
+    }
+
+    else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'GBP'){
+      return 1/this.state.EUR_HRK * this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'CNY'){
+      return 1/this.state.EUR_HRK * this.state.EUR_CNY;
+    }
+
+    else if(this.state.currencyFrom === 'HRK' && this.state.currencyTo === 'CHF'){
+      return 1/this.state.EUR_HRK * this.state.EUR_CHF;
+    }
+
+//-----------------------------------------GBP to others than EURO----------------------------------------------
+
+    else if(this.state.currencyFrom === 'GBP' && this.state.currencyTo === 'USD'){
+      return 1/this.state.EUR_GBP * this.state.EUR_USD;
+    }
+
+    else if(this.state.currencyFrom === 'GBP' && this.state.currencyTo === 'HRK'){
+      return 1/this.state.EUR_GBP * this.state.EUR_HRK;
+    }
+
+    else if(this.state.currencyFrom === 'GBP' && this.state.currencyTo === 'CNY'){
+      return 1/this.state.EUR_GBP * this.state.EUR_CNY;
+    }
+
+    else if(this.state.currencyFrom === 'GBP' && this.state.currencyTo === 'CHF'){
+      return 1/this.state.EUR_GBP * this.state.EUR_CHF;
+    }
+
+//-----------------------------------------CYN to others than EURO--------------------------------------------
+
+    else if(this.state.currencyFrom === 'CNY' && this.state.currencyTo === 'USD'){
+      return 1/this.state.EUR_CNY * this.state.EUR_USD;
+    }
+
+    else if(this.state.currencyFrom === 'CNY' && this.state.currencyTo === 'HRK'){
+      return 1/this.state.EUR_CNY * this.state.EUR_HRK;
+    }
+
+    else if(this.state.currencyFrom === 'CNY' && this.state.currencyTo === 'GBP'){
+      return 1/this.state.EUR_CNY * this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'CNY' && this.state.currencyTo === 'CHF'){
+      return 1/this.state.EUR_CNY * this.state.EUR_CHF;
+    }
+
+//-----------------------------------------CHF to others than EURO--------------------------------------------
+
+    else if(this.state.currencyFrom === 'CHF' && this.state.currencyTo === 'USD'){
+      return 1/this.state.EUR_CHF * this.state.EUR_USD;
+    }
+
+    else if(this.state.currencyFrom === 'CHF' && this.state.currencyTo === 'HRK'){
+      return 1/this.state.EUR_CHF * this.state.EUR_HRK;
+    }
+
+    else if(this.state.currencyFrom === 'CHF' && this.state.currencyTo === 'GBP'){
+      return 1/this.state.EUR_CHF * this.state.EUR_GBP;
+    }
+
+    else if(this.state.currencyFrom === 'CHF' && this.state.currencyTo === 'CNY'){
+      return 1/this.state.EUR_CHF * this.state.EUR_CNY;
+    }
+
+
+//------------------------------------------------------------------------------------------
+    else if(this.state.currencyFrom === this.state.currencyTo){
       return 1;
     }
   }
@@ -125,6 +281,9 @@ class App extends React.Component {
 				                        <option value="USD">USD - Ameriški dolar</option>
 				                        <option value="EUR">EUR - Euro</option>
 				                        <option value="HRK">HRK - Hrvaška kuna</option>
+                                <option value="GBP">GBP - Angleški funt</option>
+                                <option value="CNY">CNY - Kitajski yuan</option>
+                                <option value="CHF">CHF - Švicarski frank</option>
 				                    </select>
 				                </div>
 				              </div>
@@ -145,9 +304,12 @@ class App extends React.Component {
 				                      	onChange={this.handleChangeCurrencyTo}
 				                      	className="webvUI-select"
 				                      >     
-				                          <option value="USD">USD - Ameriški dolar</option>
-				                          <option value="EUR">EUR - Euro</option>
-				                          <option value="HRK">HRK - Hrvaška kuna</option>
+                                <option value="USD">USD - Ameriški dolar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="HRK">HRK - Hrvaška kuna</option>
+                                <option value="GBP">GBP - Angleški funt</option>
+                                <option value="CNY">CNY - Kitajski yuan</option>
+                                <option value="CHF">CHF - Švicarski frank</option>
 				                      </select>
 				                  </div>
 				              </div>
