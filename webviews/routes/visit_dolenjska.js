@@ -80,7 +80,7 @@ router.get('/weather-crnomelj/show', (req, res, next) => {
 });
 
 router.get('/weather-crnomelj/chatfuel', (req, res, next) => {
-  const displayUrl = 'https://api.messengerbot.si/webviews/weather-crnomelj/show';
+  const displayUrl = 'https://api.messengerbot.si/visit-dolenjska/webviews/weather-crnomelj/show';
   res.json(createButtons(displayUrl)); 
 });
 
