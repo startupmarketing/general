@@ -279,7 +279,7 @@ class App extends React.Component {
 				                    	className="webvUI-select"
 				                    >     
 				                        <option value="USD">USD - Ameriški dolar</option>
-				                        <option value="EUR">EUR - Euro</option>
+				                        <option value="EUR">EUR - Evro</option>
 				                        <option value="HRK">HRK - Hrvaška kuna</option>
                                 <option value="GBP">GBP - Angleški funt</option>
                                 <option value="CNY">CNY - Kitajski yuan</option>
@@ -305,7 +305,7 @@ class App extends React.Component {
 				                      	className="webvUI-select"
 				                      >     
                                 <option value="USD">USD - Ameriški dolar</option>
-                                <option value="EUR">EUR - Euro</option>
+                                <option value="EUR">EUR - Evro</option>
                                 <option value="HRK">HRK - Hrvaška kuna</option>
                                 <option value="GBP">GBP - Angleški funt</option>
                                 <option value="CNY">CNY - Kitajski yuan</option>

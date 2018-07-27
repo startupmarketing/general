@@ -81,8 +81,8 @@ const createCurrencyButton = (displayUrl) => {
             template_type: 'generic',
             image_aspect_ratio: 'square',
             elements: [{
-              title: 'Živjo!',
-              subtitle: 'Klikni tukaj',
+              title: 'Uporabi pretvornik valut:',
+              subtitle: '',
               buttons:[
                 {
                   type: 'web_url',
