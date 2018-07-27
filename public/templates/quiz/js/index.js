@@ -135,7 +135,7 @@ class App extends React.Component {
                 </div>
                 
                 <div className="separator-wrapper">
-                    <div className="separator"><img src={"/public/templates/quiz/images/i_or.svg"} alt="" height="20" width="20"/></div>
+                    <div className="separator"><img src={"/public/templates/quiz/images/i_emoji.JPG"} alt="" height="20" width="20"/></div>
                 </div>
                 
                 <div onClick={() => this.handleClick("bottom")} className="bottom-image">

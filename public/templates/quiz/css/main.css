@@ -37,6 +37,12 @@ body {
     background: #fafafa;
 }
 
+.currency-content {
+    /*background: #ffffff;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,.1);*/
+}
 
 .swap {
     text-align: center;
@@ -72,13 +78,15 @@ body {
 
 
 .top-image, .bottom-image {
-    background: gray;
     display: inline-block;
+    width: 100%;
     position: relative;
 }
 
 .top-image img, .bottom-image img {
     display: block;
+    width: 100%;
+    height: auto;
 }
 
 .answer {
@@ -100,18 +108,18 @@ body {
 
 .separator-wrapper {
     text-align: center;
-    width: 300px;
+    width: 100%;
 }
 
 .separator {
-    width: 34px;
-    height: 34px;
+    width: 48px;
+    height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f8f8f8;
     border-radius: 50%;
-    margin: -20px auto -15px;
+    margin: -25px auto -20px;
     position: relative;
     z-index: 100;
 }
