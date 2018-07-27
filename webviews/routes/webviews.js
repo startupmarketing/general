@@ -145,7 +145,7 @@ router.get('/currency_exchange_eng/show', (req, res, next) => {
 
 router.get('/currency_exchange_eng/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange_eng/show';
-  res.json(createCurrencyButton(displayUrl)); 
+  res.json(createCurrencyButtonEng(displayUrl)); 
 });
 
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
