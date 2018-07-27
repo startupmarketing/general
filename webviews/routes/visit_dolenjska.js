@@ -20,16 +20,9 @@ const createButtonsSlo = () => {
             template_type: 'generic',
             image_aspect_ratio: 'square',
             elements: [{
-              title: 'Izberi kraj!',
+              title: 'Izberi kraj:',
               subtitle: '',
               buttons:[
-                {
-                  type: 'web_url',
-                  url: CRNOMELJ_SLO_URL,
-                  title: 'Črnomelj',
-                  messenger_extensions: true,
-                  webview_height_ratio: 'compact'
-                },
                 {
                   type: 'web_url',
                   url: NOVO_MESTO_SLO_URL,
@@ -37,6 +30,14 @@ const createButtonsSlo = () => {
                   messenger_extensions: true,
                   webview_height_ratio: 'compact'
                 },
+                {
+                  type: 'web_url',
+                  url: CRNOMELJ_SLO_URL,
+                  title: 'Črnomelj',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'compact'
+                },
+
                 {
                   type: 'web_url',
                   url: KOCEVJE_SLO_URL,
@@ -62,20 +63,20 @@ const createButtonsEng = () => {
             template_type: 'generic',
             image_aspect_ratio: 'square',
             elements: [{
-              title: 'Choose your destination!',
+              title: 'Choose your destination:',
               subtitle: '',
               buttons:[
                 {
                   type: 'web_url',
-                  url: CRNOMELJ_ENG_URL,
-                  title: 'Črnomelj',
+                  url: NOVO_MESTO_ENG_URL,
+                  title: 'Novo mesto',
                   messenger_extensions: true,
                   webview_height_ratio: 'compact'
                 },
                 {
                   type: 'web_url',
-                  url: NOVO_MESTO_ENG_URL,
-                  title: 'Novo mesto',
+                  url: CRNOMELJ_ENG_URL,
+                  title: 'Črnomelj',
                   messenger_extensions: true,
                   webview_height_ratio: 'compact'
                 },
