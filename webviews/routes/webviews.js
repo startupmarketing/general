@@ -81,13 +81,41 @@ const createCurrencyButton = (displayUrl) => {
             template_type: 'generic',
             image_aspect_ratio: 'square',
             elements: [{
-              title: 'Uporabi pretvornik valut:',
+              title: 'Preveri trenutne tečaje',
               subtitle: '',
               buttons:[
                 {
                   type: 'web_url',
                   url: displayUrl,
-                  title: 'Pretvornik valut',
+                  title: 'Začni tukaj',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'tall' // tall view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
+
+const createCurrencyButtonEng = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'Check currency exchange rates',
+              subtitle: '',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Start here',
                   messenger_extensions: true,
                   webview_height_ratio: 'tall' // tall view
                 }
@@ -108,6 +136,15 @@ router.get('/currency_exchange/show', (req, res, next) => {
 
 router.get('/currency_exchange/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange/show';
+  res.json(createCurrencyButton(displayUrl)); 
+});
+
+router.get('/currency_exchange_eng/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/currency_exchange_eng/index.html');
+});
+
+router.get('/currency_exchange_eng/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/webviews/currency_exchange_eng/show';
   res.json(createCurrencyButton(displayUrl)); 
 });
 
