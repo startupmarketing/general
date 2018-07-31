@@ -7,7 +7,7 @@ const CHATFUEL_TOKEN = urlParams.get('chatfuel_token');
 const broadcast_data = {
   messenger_id : USER_ID,
   chatfuel_bot_id : CHATFUEL_BOT_ID,
-  chatfuel_token : CHATFUEL_TOKEN,
+  chatfuel_token : CHATFUEL_TOKEN
 }
 
 var loaded = false;
