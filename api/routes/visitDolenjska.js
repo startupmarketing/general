@@ -115,16 +115,39 @@ router.post('/quiz-broadcast-slo', (req, res, next) => {
 	console.log(req.body.broadcast_data);
 
 	const botId = req.body.broadcast_data.chatfuel_bot_id;
-	console.log("botId : " + botId);
+
 
 	const chatfuelToken = req.body.broadcast_data.chatfuel_token;
-	console.log("chatfuel_token: " + chatfuelToken);
+
 
 	const userId = req.body.broadcast_data.messenger_id;
-	console.log("userId: " + userId);
+
 
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + personality;
 	console.log(broadcastApiUrl);
+	res.status(200).json({
+		message: 'Post request handled!'
+	});
+
+	// Send a POST request to chatfue api with specific Content type
+    var postData = {
+    };
+
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    axios.post(broadcastApiUrl, postData, axiosConfig)
+    .then((res) => {
+      console.log("RESPONSE RECEIVED: ", res);
+    })
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+
 	res.status(200).json({
 		message: 'Post request handled!'
 	});
