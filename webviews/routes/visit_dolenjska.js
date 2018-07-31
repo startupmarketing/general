@@ -9,6 +9,47 @@ const CRNOMELJ_ENG_URL = 'https://api.messengerbot.si/visit-dolenjska/webviews/w
 const NOVO_MESTO_ENG_URL = 'https://api.messengerbot.si/visit-dolenjska/webviews/weather-novo-mesto-eng/show';
 const KOCEVJE_ENG_URL = 'https://api.messengerbot.si/visit-dolenjska/webviews/weather-kocevje-eng/show';
 
+const createButtons = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'Welcome!',
+              subtitle: 'Choose your preferences',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Webview (compact)',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'compact' // Small view
+                },
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Webview (tall)',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'tall' // Medium view
+                },
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Webview (full)',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'full' // large view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
 
 const createButtonsSlo = () => {
   return {
@@ -195,7 +236,15 @@ router.post('', (req, res, next) => {
   });
 });
 
-//<=============================Quiz Kočevje req/res ============================>
+// <================================CHATFUEL ENG WEATHER TEMPLATE========================>
+
+router.get('/quiz-slo/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/visit-dolenjska/webviews/quiz-slo/show'
+  res.json(createButtons(displayUrl)); 
+});
+
+
+//<=============================Quiz visit dolenjska req/res ============================>
 
 //Testing req/res
 
