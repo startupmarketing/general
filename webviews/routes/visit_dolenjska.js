@@ -51,6 +51,62 @@ const createButtons = (displayUrl) => {
   ]};
 };
 
+const createQuizButtonSlo = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'Kakšen tip popotnika si?',
+              subtitle: '',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Začni tukaj',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'full' // large view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
+
+const createQuizButtonEng = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'What type of traveler are you?',
+              subtitle: '',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Find out here',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'full' // large view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
+
 const createButtonsSlo = () => {
   return {
     messages:[
@@ -243,7 +299,7 @@ router.get('/quiz-slo/chatfuel', (req, res, next) => {
   const chatfuel_bot_id = req.query.chatfuel_bot_id;
   const chatfuel_token = req.query.chatfuel_token;
   const displayUrl = 'https://api.messengerbot.si/visit-dolenjska/webviews/quiz-slo/show?userId=' + userId + '&chatfuel_bot_id=' + chatfuel_bot_id + '&chatfuel_token=' + chatfuel_token;
-  res.json(createButtons(displayUrl)); 
+  res.json(createQuizButtonSlo(displayUrl)); 
 });
 
 router.get('/quiz-eng/chatfuel', (req, res, next) => {
@@ -251,7 +307,7 @@ router.get('/quiz-eng/chatfuel', (req, res, next) => {
   const chatfuel_bot_id = req.query.chatfuel_bot_id;
   const chatfuel_token = req.query.chatfuel_token;
   const displayUrl = 'https://api.messengerbot.si/visit-dolenjska/webviews/quiz-eng/show?userId=' + userId + '&chatfuel_bot_id=' + chatfuel_bot_id + '&chatfuel_token=' + chatfuel_token;
-  res.json(createButtons(displayUrl)); 
+  res.json(createQuizButtonEng(displayUrl)); 
 });
 
 
