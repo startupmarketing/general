@@ -133,7 +133,7 @@ class App extends React.Component {
         <div className="main-container">
             <div className="page__hd">
               <h1 className="page__title">{this.state.question}</h1>
-              <p className="page__desc">Kratek kviz, ki vam lahko prinese lepo nagrado. </p>
+              
             </div>
 
             <div>
