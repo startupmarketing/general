@@ -112,6 +112,7 @@ router.post('/quiz-broadcast-slo', (req, res, next) => {
 	}
 
 	console.log('Osebnost: ' + personality);
+	console.log(req.body.broadcast_data);
 
 	const botId = req.body.broadcast_data.chatfuel_bot_id;
 	console.log("botId : " + botId);
@@ -119,7 +120,7 @@ router.post('/quiz-broadcast-slo', (req, res, next) => {
 	const chatfuelToken = req.body.broadcast_data.chatfuel_token;
 	console.log("chatfuel_token: " + chatfuelToken);
 
-	const userId = req.body.broadcast_data.userId;
+	const userId = req.body.broadcast_data.messenger_id;
 	console.log("userId: " + userId);
 
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + personality;
