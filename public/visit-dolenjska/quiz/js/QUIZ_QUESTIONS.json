@@ -20,7 +20,7 @@ var QUIZ_QUESTIONS = [
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
     "top_pic" : "/public/visit-dolenjska/quiz/images/2.vprašanje/Gurman2.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/2.vprašanje/romantik2.png"
+    "bottom_pic" : "/public/visit-dolenjska/quiz/images/2.vprašanje/romantik2.jpg"
   },
    {
     "question" : "Za tabo je naporen teden. Kako bi se sprostil za vikend?",
@@ -39,8 +39,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/gurman4.png",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/romantik4.png"
+    "top_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/gurman4.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/romantik4.jpg"
   },
    {
     "question" : "Kaj pomisliš, ko zaslišiš besedo narava?",

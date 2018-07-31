@@ -9,8 +9,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/1.vprašanje/Avanturist.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/1.vprašanje/Romantik.jpg"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/1.vprašanje/Avanturist.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/1.vprašanje/Romantik.jpg"
   },
   {
     "question" : "Which picture best represents your kind of pleasure?",
@@ -19,8 +19,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/2.vprašanje/Gurman2.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/2.vprašanje/romantik2.png"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/2.vprašanje/Gurman2.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/2.vprašanje/romantik2.jpg"
   },
    {
     "question" : "It has been a long week. How will you relax on weekend?",
@@ -29,8 +29,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/3.vprašanje/avanturist3.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/3.vprašanje/Romantik3.jpg"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/3.vprašanje/avanturist3.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/3.vprašanje/Romantik3.jpg"
   },
    {
     "question" : "What would you take on deserted island?",
@@ -39,8 +39,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/gurman4.png",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/4.vprašanje/romantik4.png"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/4.vprašanje/gurman4.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/4.vprašanje/romantik4.jpg"
   },
    {
     "question" : "What does the word nature remind you of?",
@@ -49,8 +49,8 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/5.vprašanje/avanturist5.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/5.vprašanje/gurman5.jpg"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/5.vprašanje/avanturist5.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/5.vprašanje/gurman5.jpg"
   },
    {
     "question" : "Where do you go out - dinner or concert?",
@@ -59,7 +59,7 @@ var QUIZ_QUESTIONS = [
     "anwser" : null,
     "anwser_pic_top" : "/public/templates/quiz/images/i_success.svg",
     "anwser_pic_bot" : "/public/templates/quiz/images/i_success.svg",
-    "top_pic" : "/public/visit-dolenjska/quiz/images/6.vprašanje/avanturist.jpg",
-    "bottom_pic" : "/public/visit-dolenjska/quiz/images/6.vprašanje/gurman.jpg"
+    "top_pic" : "/public/visit-dolenjska/quiz-eng/images/6.vprašanje/avanturist.jpg",
+    "bottom_pic" : "/public/visit-dolenjska/quiz-eng/images/6.vprašanje/gurman.jpg"
   }
 ];
