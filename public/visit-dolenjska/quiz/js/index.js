@@ -4,12 +4,10 @@ var urlParams = new URLSearchParams(window.location.search);
 const USER_ID = urlParams.get('userId');
 const CHATFUEL_BOT_ID = urlParams.get('chatfuel_bot_id');
 const CHATFUEL_TOKEN = urlParams.get('chatfuel_token');
-const BLOCK_NAME = urlParams.get('block_name');
 const broadcast_data = {
   messenger_id : USER_ID,
   chatfuel_bot_id : CHATFUEL_BOT_ID,
   chatfuel_token : CHATFUEL_TOKEN,
-  block_name : BLOCK_NAME
 }
 
 var loaded = false;

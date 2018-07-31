@@ -30,11 +30,6 @@ router.get('/quiz-broadcast-slo', (req, res, next) => {
 });
 
 router.post('/quiz-broadcast-slo', (req, res, next) => {
-
-	const botId = req.query.chatfuel_bot_id;
-	const chatfuelToken = req.query.chatfuel_token;
-
-	const userId = req.query.userId;
 	
 	var romantik = 0;
 	var gurman = 0;
@@ -118,10 +113,15 @@ router.post('/quiz-broadcast-slo', (req, res, next) => {
 
 	console.log('Osebnost: ' + personality);
 
+	const botId = req.query.chatfuel_bot_id;
+	console.log("botId : " + botId);
 
-	const blockName = 'WebviewResponse';
-	const chatfuelMessage = "This is response";
-	
+	const chatfuelToken = req.query.chatfuel_token;
+	console.log("chatfuel_token: " + chatfuelToken);
+
+	const userId = req.query.userId;
+	console.log("userId: " + userId);
+
 	const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + personality;
 	console.log(broadcastApiUrl);
 	res.status(200).json({
