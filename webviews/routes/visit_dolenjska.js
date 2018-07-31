@@ -246,6 +246,15 @@ router.get('/quiz-slo/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl)); 
 });
 
+router.get('/quiz-eng/chatfuel', (req, res, next) => {
+    const userId = req.query.userId;
+  const chatfuel_bot_id = req.query.chatfuel_bot_id;
+  const chatfuel_token = req.query.chatfuel_token;
+  const displayUrl = 'https://api.messengerbot.si/visit-dolenjska/webviews/quiz-eng/show?userId=' + userId + '&chatfuel_bot_id=' + chatfuel_bot_id + '&chatfuel_token=' + chatfuel_token;
+  res.json(createButtons(displayUrl)); 
+});
+
+
 
 //<=============================Quiz visit dolenjska req/res ============================>
 
@@ -256,7 +265,7 @@ router.get('/quiz-slo/show', (req, res, next) => {
 });
 
 router.get('/quiz-eng/show', (req, res, next) => {
-  res.sendFile('/var/www/messengerbot.si/api/general/public/visit-dolenjska/quiz/index.html');
+  res.sendFile('/var/www/messengerbot.si/api/general/public/visit-dolenjska/quiz-eng/index.html');
 });
 
 
