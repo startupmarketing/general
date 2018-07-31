@@ -5,6 +5,7 @@ const apiRoutes = require('./api/routes/generalApi');
 const scheduleRoutes = require('./api/routes/scheduleApi');
 const webviewsRoutes = require('./webviews/routes/webviews');
 const webviewsRoutesVisitDolenjska = require('./webviews/routes/visit_dolenjska');
+const apiRoutesVisitDolenjska = require('./api/routes/visitDolenjska');
 
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
@@ -25,6 +26,7 @@ app.use('/public', express.static('public/'));// setup static files into public 
 app.use('/schedule', scheduleRoutes);
 app.use('', apiRoutes);
 app.use('/visit-dolenjska/webviews', webviewsRoutesVisitDolenjska);
+app.use('/visit-dolenjska/api', apiRoutesVisitDolenjska);
 app.use('/webviews', webviewsRoutes);
 
 

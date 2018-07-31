@@ -195,6 +195,28 @@ router.post('', (req, res, next) => {
   });
 });
 
+//<=============================Quiz Kočevje req/res ============================>
+
+//Testing req/res
+
+router.get('/quiz-slo/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/visit-dolenjska/quiz/index.html');
+});
+
+router.get('/quiz-eng/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/visit-dolenjska/quiz/index.html');
+});
+
+
+
+
+router.post('', (req, res, next) => {
+  res.status(200).json({
+    message: 'Post request handled!'
+  });
+});
+
+
 //<=============================Test req/res ============================>
 
 //Testing req/res
