@@ -82,7 +82,7 @@ async function getListMoreThanTwelve (timezone) {
         };
 
                 
-        axios.post(broadcastApiUrl, postData, axiosConfig)
+        await axios.post(broadcastApiUrl, postData, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
         })
@@ -99,7 +99,6 @@ async function getListMoreThanTwelve (timezone) {
         .catch(err => {
             console.log(err);
         });
-        LIST_OF_ARRIVALS.splice(0, i+1);
     }
 }
 
@@ -158,7 +157,7 @@ async function getListMinusTwelve (timezone) {
         };
 
                 
-        axios.post(broadcastApiUrl, postData, axiosConfig)
+        await axios.post(broadcastApiUrl, postData, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
         })
@@ -175,7 +174,6 @@ async function getListMinusTwelve (timezone) {
         .catch(err => {
             console.log(err);
         });
-        LIST_OF_ARRIVALS.splice(0, i+1);
     }
 }
 
@@ -222,6 +220,7 @@ async function getListGeneral (timezone) {
         var blockName = LIST_OF_ARRIVALS[i].block_name;
                         
         var broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        console.log(broadcastApiUrl);
 
         // Send a POST request to chatfue api with specific Content type
         var postData = {
@@ -235,7 +234,7 @@ async function getListGeneral (timezone) {
         };
 
                 
-        axios.post(broadcastApiUrl, postData, axiosConfig)
+        await axios.post(broadcastApiUrl, postData, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
         })
@@ -252,7 +251,6 @@ async function getListGeneral (timezone) {
         .catch(err => {
             console.log(err);
         });
-        LIST_OF_ARRIVALS.splice(0, i+1);
     }
 }
 
@@ -364,6 +362,7 @@ var j_11 = schedule.scheduleJob('0 0 23 * * *', function(){
 var j_12 = schedule.scheduleJob('0 0 0 * * *', function(){
     getListMinusTwelve(-12);
 });
+
 
 //<------------------------get/delete/patch specific arrival---------------------------->
 
