@@ -48,6 +48,10 @@ router.post('/images', (req, res, next) => {
 	let date = new Date();
 	let fileName = req.body['fileName'];
 	let certName = req.body['certName'];
+	
+	console.log("fileName : " + fileName);
+	console.log("certName : " + certName);
+
 	res.status(200).json(
 		{
 		  "messages": [
