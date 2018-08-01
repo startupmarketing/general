@@ -94,6 +94,7 @@ router.get('/questions', (req, res, next) => {
 });
 
 router.post('/questions', (req, res, next) => {
+	const date = new Date();
 	const first_name = req.body['first name'];
 	const last_name = req.body['last name'];
 	const messenger_id = req.body['messenger user id'];
@@ -102,7 +103,8 @@ router.post('/questions', (req, res, next) => {
 		messenger_id: messenger_id,
 		first_name: first_name,
 		last_name: last_name,
-		question: req.body.question
+		question: req.body.question,
+		date: date 
 	});
 	question.save()
 	.then(result => {

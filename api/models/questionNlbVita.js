@@ -6,6 +6,7 @@ const questionNlbVitaSchema = mongoose.Schema({
 	first_name: String,
 	last_name: String, 
 	question: String,
+	date: Date,
 });
 
 module.exports = mongoose.model('QuestionNlbVita', questionNlbVitaSchema);
