@@ -62,19 +62,19 @@ async function getListMoreThanTwelve (timezone) {
     // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
     //Later add - Timezone to hours
     for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
-        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
-        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
+        var botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        var chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
 
-        const userId = LIST_OF_ARRIVALS[i].messenger_id;
-        const blockName = LIST_OF_ARRIVALS[i].block_name;
+        var userId = LIST_OF_ARRIVALS[i].messenger_id;
+        var blockName = LIST_OF_ARRIVALS[i].block_name;
                         
-        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        var broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 
         // Send a POST request to chatfue api with specific Content type
         var postData = {
         };
 
-        let axiosConfig = {
+        var axiosConfig = {
             headers: {
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
@@ -138,19 +138,19 @@ async function getListMinusTwelve (timezone) {
     // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
     //Later add - Timezone to hours
     for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
-        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
-        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
+        var botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        var chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
 
-        const userId = LIST_OF_ARRIVALS[i].messenger_id;
-        const blockName = LIST_OF_ARRIVALS[i].block_name;
+        var userId = LIST_OF_ARRIVALS[i].messenger_id;
+        var blockName = LIST_OF_ARRIVALS[i].block_name;
                         
-        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        var broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 
         // Send a POST request to chatfue api with specific Content type
         var postData = {
         };
 
-        let axiosConfig = {
+        var axiosConfig = {
             headers: {
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
@@ -215,19 +215,19 @@ async function getListGeneral (timezone) {
     // WE MUST CONSIDER TIMEZONES, so that server fires job right on time for user
     //Later add - Timezone to hours
     for(var i=0; i < LIST_OF_ARRIVALS.length; i++){
-        const botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
-        const chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
+        var botId = LIST_OF_ARRIVALS[i].chatfuel_bot_id;
+        var chatfuelToken = LIST_OF_ARRIVALS[i].chatfuel_token;
 
-        const userId = LIST_OF_ARRIVALS[i].messenger_id;
-        const blockName = LIST_OF_ARRIVALS[i].block_name;
+        var userId = LIST_OF_ARRIVALS[i].messenger_id;
+        var blockName = LIST_OF_ARRIVALS[i].block_name;
                         
-        const broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
+        var broadcastApiUrl = 'https://api.chatfuel.com/bots/' + botId + '/users/' + userId + '/send?chatfuel_token=' + chatfuelToken + '&chatfuel_block_name=' + blockName;
 
         // Send a POST request to chatfue api with specific Content type
         var postData = {
         };
 
-        let axiosConfig = {
+        var axiosConfig = {
             headers: {
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
