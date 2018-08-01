@@ -51,6 +51,7 @@ router.post('/images', (req, res, next) => {
 
 	console.log("fileName : " + fileName);
 	console.log("certName : " + certName);
+	console.log("date : " + date.toString());
 
 	res.status(200).json(
 		{
@@ -59,7 +60,7 @@ router.post('/images', (req, res, next) => {
 		      "attachment": {
 		        "type": "image",
 		        "payload": {
-		          "url": "https://res.cloudinary.com/ddqkeaqnm/image/upload/c_thumb,g_face:auto,h_255,w_255/l_Cloudinary:certificate,y_60/l_text:Georgia_16_bold_center:" + date + ",x_-262,y_-14,co_rgb:594b3C/l_text:Futura_22_italic_center:" + certName + ",y_61,co_rgb:FFFFFF,a_-7/" + fileName
+		          "url": "https://res.cloudinary.com/ddqkeaqnm/image/upload/c_thumb,g_face:auto,h_255,w_255/l_Cloudinary:certificate,y_60/l_text:Georgia_16_bold_center:" + date.toString() + ",x_-262,y_-14,co_rgb:594b3C/l_text:Futura_22_italic_center:" + certName + ",y_61,co_rgb:FFFFFF,a_-7/" + fileName
 		        }
 		      }
 		    }
