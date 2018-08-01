@@ -6,6 +6,7 @@ const scheduleRoutes = require('./api/routes/scheduleApi');
 const webviewsRoutes = require('./webviews/routes/webviews');
 const webviewsRoutesVisitDolenjska = require('./webviews/routes/visit_dolenjska');
 const apiRoutesVisitDolenjska = require('./api/routes/visitDolenjska');
+const apiRoutesNlbVita = require('./api/routes/nlbVitaApi');
 
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
@@ -27,6 +28,7 @@ app.use('/schedule', scheduleRoutes);
 app.use('', apiRoutes);
 app.use('/visit-dolenjska/webviews', webviewsRoutesVisitDolenjska);
 app.use('/visit-dolenjska/api', apiRoutesVisitDolenjska);
+app.use('/nlb-vita/api', apiRoutesNlbVita);
 app.use('/webviews', webviewsRoutes);
 
 
