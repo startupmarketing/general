@@ -95,13 +95,18 @@ router.get('/questions', (req, res, next) => {
 });
 
 router.post('/questions', (req, res, next) => {
-
 	const temp_date = new Date();
+	
+	var day = temp_date.getDate();
+	var hours = temp_date.getHours() + 2;
 
-	const date = temp_date.getDate().toString() + '.' + (temp_date.getMonth() + 1).toString() + '.' + temp_date.getFullYear().toString();
+	if (hours > 24){
+		hours = hours - 24;
+		day += 1;
+	}
 
-	const time = (temp_date.getHours()).toString() + ':' + (temp_date.getMinutes()).toString() + ':' + (temp_date.getSeconds()).toString();
-
+	const time = (hours).toString() + ':' + (temp_date.getMinutes()).toString() + ':' + (temp_date.getSeconds()).toString();
+	const date = day.toString() + '.' + (temp_date.getMonth() + 1).toString() + '.' + temp_date.getFullYear().toString();
 
 	const first_name = req.body['first name'];
 	const last_name = req.body['last name'];
