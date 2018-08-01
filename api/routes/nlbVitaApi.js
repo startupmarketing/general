@@ -81,6 +81,7 @@ router.patch('/questions/:questionId', (req, res, next) => {
 
 //get/post requests for questions
 router.get('/questions', (req, res, next) => {
+
 	QuestionNlbVita.find()
 	.exec()
 	.then(docs => {
@@ -94,7 +95,14 @@ router.get('/questions', (req, res, next) => {
 });
 
 router.post('/questions', (req, res, next) => {
-	const date = new Date();
+
+	const temp_date = new Date();
+
+	const date = temp_date.getDate().toString() + '.' + (temp_date.getMonth() + 1).toString() + '.' + temp_date.getFullYear().toString();
+
+	const time = (temp_date.getHours()).toString() + ':' + (temp_date.getMinutes()).toString() + ':' + (temp_date.getSeconds()).toString();
+
+
 	const first_name = req.body['first name'];
 	const last_name = req.body['last name'];
 	const messenger_id = req.body['messenger user id'];
@@ -104,7 +112,8 @@ router.post('/questions', (req, res, next) => {
 		first_name: first_name,
 		last_name: last_name,
 		question: req.body.question,
-		date: date 
+		date: date,
+		time: time
 	});
 	question.save()
 	.then(result => {
