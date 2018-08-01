@@ -45,11 +45,22 @@ router.get('/images', (req, res, next) => {
 });
 
 router.post('/images', (req, res, next) => {
-	let date = new Date();
 	let fileName = req.body['fileName'];
 	let certName = req.body['certName'];
 
-	let temp_date = "12345";
+	const temp_date = new Date();
+	
+	var day = temp_date.getDate();
+	var hours = temp_date.getHours() + 2;
+
+	if (hours > 24){
+		hours = hours - 24;
+		day += 1;
+	}
+
+	const time = (hours).toString() + ':' + (temp_date.getMinutes()).toString() + ':' + (temp_date.getSeconds()).toString();
+	const date = day.toString() + '.' + (temp_date.getMonth() + 1).toString() + '.' + temp_date.getFullYear().toString();
+
 
 	console.log("fileName : " + fileName);
 	console.log("certName : " + certName);
@@ -62,7 +73,7 @@ router.post('/images', (req, res, next) => {
 		      "attachment": {
 		        "type": "image",
 		        "payload": {
-		          "url": "https://res.cloudinary.com/ddqkeaqnm/image/upload/c_thumb,g_face:auto,h_255,w_255/l_Cloudinary:certificate,y_60/l_text:Georgia_16_bold_center:" + temp_date + ",x_-262,y_-14,co_rgb:594b3C/l_text:Futura_22_italic_center:" + certName + ",y_61,co_rgb:FFFFFF,a_-7/" + fileName
+		          "url": "https://res.cloudinary.com/ddqkeaqnm/image/upload/c_thumb,g_face:auto,h_255,w_255/l_Cloudinary:certificate,y_60/l_text:Georgia_16_bold_center:" + date + ",x_-262,y_-14,co_rgb:594b3C/l_text:Futura_22_italic_center:" + certName + ",y_61,co_rgb:FFFFFF,a_-7/" + fileName
 		        }
 		      }
 		    }
