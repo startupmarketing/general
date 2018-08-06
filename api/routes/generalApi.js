@@ -78,12 +78,16 @@ router.post('/images', (req, res, next) => {
 		      }
 		    },
 			{
-		      "text":  "",
+		      "text":  "Did you enjoy the last game of the CF Rockets?",
 		      "quick_replies": [
 		        {
-		          "title":"Domov 🏠",
-		          "block_names": ["menu", ]
+		          "title":"Loved it!",
+		          "block_names": ["Block 1", "Block 2"]
 		        },
+		        {
+		          "title":"Loved it!2",
+		          "block_names": ["Block 3", "Block 4"]
+		        }
 		      ]
 		    }
 		  ]
