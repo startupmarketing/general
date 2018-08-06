@@ -78,17 +78,12 @@ router.post('/images', (req, res, next) => {
 		      }
 		    },
 			{
-		      "text":  "Did you enjoy the last game of the CF Rockets?",
+		      "text":  "",
 		      "quick_replies": [
 		        {
-		          "title":"Loved it!",
-		          "block_names": ["Block 1", "Block 2"]
+		          "title":"Domov 🏠",
+		          "block_names": ["menu", ]
 		        },
-		        {
-		          "title":"Not really...",
-		          "url": "https://rockets.chatfuel.com/api/sad-match",
-		          "type":"json_plugin_url"
-		        }
 		      ]
 		    }
 		  ]
