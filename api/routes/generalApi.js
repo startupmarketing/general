@@ -78,8 +78,7 @@ router.post('/images', (req, res, next) => {
 		      }
 		    },
 			{
-		      "text":  "Did you enjoy the last game of the CF Rockets?",
-		      "quick_replies": [
+		      "text":  "": [
 		        {
 		          "title":"🏠 Domov",
 		          "block_names": ["menu", ""]
