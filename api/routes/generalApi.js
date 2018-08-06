@@ -82,11 +82,11 @@ router.post('/images', (req, res, next) => {
 		      "quick_replies": [
 		        {
 		          "title":"Loved it!",
-		          "block_names": ["Block 1", "Block 2"]
+		          "block_names": ["responseimages", ""]
 		        },
 		        {
 		          "title":"Loved it!2",
-		          "block_names": ["Block 3", "Block 4"]
+		          "block_names": ["menu", "Block 4"]
 		        }
 		      ]
 		    }
