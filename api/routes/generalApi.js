@@ -37,7 +37,18 @@ router.get('/images', (req, res, next) => {
 		          "url": "https://res.cloudinary.com/ddqkeaqnm/image/upload/c_thumb,g_face:auto,h_255,w_255/l_Cloudinary:certificate,y_60/l_text:Georgia_16_bold_center:" + date.toString() + ",x_-262,y_-14,co_rgb:594b3C/l_text:Futura_22_italic_center:" + certName + ",y_61,co_rgb:FFFFFF,a_-7/" + fileName
 		        }
 		      }
-		    }
+		    },
+		    "quick_replies": [
+		        {
+		          "title":"Loved it!",
+		          "block_names": ["Block 1", "Block 2"]
+		        },
+		        {
+		          "title":"Not really...",
+		          "url": "https://rockets.chatfuel.com/api/sad-match",
+		          "type":"json_plugin_url"
+		        }
+	      	]
 		  ]
 		}
 
