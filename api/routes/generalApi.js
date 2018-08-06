@@ -78,7 +78,7 @@ router.post('/images', (req, res, next) => {
 		      }
 		    },
 			{
-		      "text":  "": [
+		      "text":  " ": [
 		        {
 		          "title":"🏠 Domov",
 		          "block_names": ["menu", ""]
