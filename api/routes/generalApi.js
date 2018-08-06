@@ -77,17 +77,15 @@ router.post('/images', (req, res, next) => {
 		        }
 		      }
 		    },
-			{
-		      "text":  " ": [
-		        {
+			"quick_replies": [
+	        	{
 		          "title":"🏠 Domov",
-		          "block_names": ["menu", ""]
+		          "block_names": ["menu",]
 		        },
-		      ]
-		    }
+      		]
 		  ]
 		}
-);
+	);
 });
 
 //<=====================Gif-voting right/wrong template broadcast API================================>
