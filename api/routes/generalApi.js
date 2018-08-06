@@ -81,13 +81,9 @@ router.post('/images', (req, res, next) => {
 		      "text":  "Did you enjoy the last game of the CF Rockets?",
 		      "quick_replies": [
 		        {
-		          "title":"Loved it!",
+		          "title":"Domov!",
 		          "block_names": ["responseimages", ""]
 		        },
-		        {
-		          "title":"Loved it!2",
-		          "block_names": ["menu", "Block 4"]
-		        }
 		      ]
 		    }
 		  ]
