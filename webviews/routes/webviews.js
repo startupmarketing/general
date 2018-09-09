@@ -154,6 +154,11 @@ router.get('/lpp-buses/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/lpp/index.html');
 });
 
+router.get('/lpp-buses/chatfuel', (req, res, next) => {
+  const displayUrl = 'https://api.messengerbot.si/webviews/lpp-buses/show';
+  res.json(createButtons(displayUrl)); 
+});
+
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
 
 router.get('/gif_voting2/show', (req, res, next) => {

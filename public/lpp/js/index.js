@@ -52,7 +52,7 @@ const BUSES = [
 ["61", "Vodice", "Zapoge"]
 ];
 
-
+/*
 //for loading Mssenger Extension SDK functions
 (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -90,7 +90,7 @@ function closeWebview(){
   }
 }
 
-/*
+
   sendData(data){
     axios.post( URL + '/quiz-template-broadcast', {data, broadcast_data})
     .then(function (response) {
