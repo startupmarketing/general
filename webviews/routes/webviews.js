@@ -148,6 +148,12 @@ router.get('/currency_exchange_eng/chatfuel', (req, res, next) => {
   res.json(createCurrencyButtonEng(displayUrl)); 
 });
 
+//<===========================LPP BUSES Webview=====================================================>
+
+router.get('/lpp-buses/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/lpp/index.html');
+});
+
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
 
 router.get('/gif_voting2/show', (req, res, next) => {
