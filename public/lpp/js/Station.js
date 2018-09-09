@@ -1,4 +1,4 @@
-class BusLine extends React.Component {
+class Station extends React.Component {
   constructor(props) {
     super(props);
 
@@ -8,7 +8,7 @@ class BusLine extends React.Component {
 
     return (
       <div onClick={() => this.props.clicked(this.props.numberInArray)}>
-        {this.props.line}  {this.props.direction1} - {this.props.direction2}
+        {this.props.nameOfStation}
       </div>
     );
   }

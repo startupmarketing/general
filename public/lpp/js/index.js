@@ -1,5 +1,8 @@
 var loaded = false;
 
+const PUBLIC_FILES_URL = "http://localhost:8000/public/";
+const URL = "http://localhost:8000/";
+
 const BUSES = [
 ["1", "Mestni log", "Vižmarje"],
 ["1B", "Gameljne", "Mestni log"],
@@ -103,13 +106,21 @@ function closeWebview(){
 
 
 
-
+//======================APPLICATION===================================
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValue : ""
+      searchValue : "",
+      line : null,
+      directionFrom : null,
+      directionTo : null,
+      allStations : null,
+      station : null,
+      allStationsData : null,
+      stationNumber : null,
+      allArrivals : null
     }
     this.handleChange = this.handleChange.bind(this);
   } 
@@ -144,7 +155,7 @@ class App extends React.Component {
       //
       displayFilteredBuses.push(
           <BusLine
-            clicked={(number) => this.handleClick(number)}
+            clicked={(number) => this.handleClickLine(number)}
             numberInArray={filtered_lines[i]}
             line={BUSES[filtered_lines[i]][0]}
             direction1={BUSES[filtered_lines[i]][1]}
@@ -155,26 +166,170 @@ class App extends React.Component {
     return displayFilteredBuses;
   }
 
-//================================================================================
+//=======================Handle functions=======================================
+  async handleBack(){
+    if(this.state.station)
+    {
+      await this.setState({allArrivals: null});
+      await this.setState({station: null});
+    }else{
+      await this.setState({searchValue: ""});
+      await this.setState({line: null});
+    }
+  }
 
   handleChange(event) {
     this.setState({searchValue: event.target.value});
   }
 
-  handleClick(number){
+  async handleClickLine(number){
+    
     console.log("Clicked number " + number);
+    await this.setState({line: BUSES[number][0]});
+    await this.setState({directionFrom: BUSES[number][1]});
+    await this.setState({directionTo: BUSES[number][2]});
+    this.getStations();
   }
 
-  render() {
-    
-    return (
-      <div>
-        Prosimo poiščite ali izberite linijo!
-        <input type="text" value={this.state.searchValue} onChange={this.handleChange} />
+  async handleClickStation(number){
+    console.log(this.state.allStationsData[number].number);
+    await this.setState({station: true});
+    await this.setState({stationNumber: this.state.allStationsData[number].number});
+    this.getArrivals();
+  }
 
-        { this.checkSearch(this.state.searchValue.toLowerCase()) }
-      </div>
-    );
+  async changeDirections(){
+    var temp_directionFrom = this.state.directionFrom;
+    var temp_directionTo = this.state.directionTo;
+    
+    await this.setState({directionFrom: temp_directionTo});
+    await this.setState({directionTo: temp_directionFrom});
+    this.getStations();
+  }
+
+//===================Get and set stations for display====================
+
+  async setStations(data){
+    var setStations = [];
+  
+    for (var i=0; i<data.length; i++){
+      console.log(data[i].station)
+      setStations.push(
+          <Station
+            clicked={(number) => this.handleClickStation(number)}
+            numberInArray={i}
+            nameOfStation={data[i].station}
+          /> 
+      );
+    };
+    await this.setState({allStationsData: data});
+    return await this.setState({allStations: setStations});  
+  }
+
+  async getStations(){
+    var data;
+    await axios.get( PUBLIC_FILES_URL + 'lpp/js/stations/' + this.state.line + this.state.directionTo + '.json')
+    .then(function (response) {
+      console.log(response.data);
+      data = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    return this.setStations(data);
+  }
+
+//=======================================Arrivals functions===================================
+  setArrivals(data){
+    var setArrivals = [];
+  
+    for (var i=0; i<data.stations[0].buses.length; i++){
+
+      if(this.state.line === data.stations[0].buses[i].number){
+        console.log(this.state.line);
+        console.log(data.stations[0].buses[i]);
+        console.log(data.stations[0].buses[i].arrivals)
+        if (data.stations[0].buses[i].arrivals.length > 0) {
+          for(var j=0; j < data.stations[0].buses[i].arrivals.length; j++){
+            setArrivals.push(
+              <div>
+                {data.stations[0].buses[i].number} {data.stations[0].buses[i].direction} {data.stations[0].buses[i].arrivals} minut
+              </div>
+            );
+          }
+        }
+      }
+    }
+    if(setArrivals.length === 0){
+      return this.setState({allArrivals: "Trenutno ni prihodov"});
+    }
+    return this.setState({allArrivals: setArrivals});
+  }
+
+  async getArrivals(){
+    var data;
+    var lineNumber = this.state.line;
+    lineNumber = lineNumber.replace(/[^\d]/g, '');
+    var lpp_url = 'https://www.trola.si/' + this.state.stationNumber + '/' + lineNumber + '/';
+    console.log(lpp_url);
+    await axios.get( URL + 'lpp/bus-arrivals?url=' + lpp_url)
+    .then(function (response) {
+      console.log(response.data.stations[0]);
+      data = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+    return this.setArrivals(data);
+  }
+
+//===========================================================================
+
+  render() {
+    if(this.state.line && !this.state.station){
+      return(
+            <div>
+              Linija {this.state.line} V smeri: <button onClick={() => this.handleBack()}>Back</button><br/>
+              Iz: {this.state.directionFrom}<br/>
+              <img onClick={() => this.changeDirections()} src="/public/lpp/images/i_or.svg"/><br/>
+              Proti: {this.state.directionTo}<br/>
+              <hr/>
+              {this.state.allStations}
+            </div>);
+    }
+
+    else if(this.state.line && this.state.station){
+      if(this.state.allArrivals === null){
+        return(
+          <div>
+            Loading...
+          </div>
+        );
+      }
+
+      return (
+      <div>
+        Prihodi<br/>
+        <button onClick={() => this.handleBack()}>Back</button>
+        <hr/>
+        Naslednji čez:<br/>
+        {this.state.allArrivals}
+      </div>);
+    }
+
+    else{
+      return (
+        <div>
+          Prosimo poiščite ali izberite linijo!
+          <input type="text" value={this.state.searchValue} onChange={this.handleChange} />
+          <br/>
+          RELACIJE:<br/>
+          
+          { this.checkSearch(this.state.searchValue.toLowerCase()) }
+        </div>
+      );
+    }
   }
 }
 
