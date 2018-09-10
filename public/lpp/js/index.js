@@ -253,7 +253,7 @@ class App extends React.Component {
           for(var j=0; j < data.stations[0].buses[i].arrivals.length; j++){
             setArrivals.push(
               <div>
-                {data.stations[0].buses[i].number} {data.stations[0].buses[i].direction} {data.stations[0].buses[i].arrivals} minut
+                {data.stations[0].buses[i].number} {data.stations[0].buses[i].direction} {data.stations[0].buses[i].arrivals[j]} minut
               </div>
             );
           }
