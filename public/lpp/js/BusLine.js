@@ -8,7 +8,7 @@ class BusLine extends React.Component {
 
     return (
       <div onClick={() => this.props.clicked(this.props.numberInArray)}>
-        {this.props.line}  {this.props.direction1} - {this.props.direction2}
+        <li><span className="bus-num">{this.props.line}</span> {this.props.direction1} - {this.props.direction2}</li>
       </div>
     );
   }

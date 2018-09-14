@@ -1,6 +1,6 @@
 var loaded = false;
 
-const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
+const PUBLIC_FILES_URL = "http://localhost:8000/public/";
 const URL = "https://api.messengerbot.si/";
 
 const BUSES = [
@@ -114,8 +114,11 @@ class App extends React.Component {
     this.state = {
       searchValue : "",
       line : null,
-      directionFrom : null,
-      directionTo : null,
+      direction1 : null,
+      direction2 : null,
+      directionActive : null,
+      isActiveStation1 : "",
+      isActiveStation2 : "",
       allStations : null,
       station : null,
       allStationsData : null,
@@ -167,14 +170,44 @@ class App extends React.Component {
   }
 
 //=======================Handle functions=======================================
+  async handleChangeActive1(){
+    console.log("Clicked Active Button");
+    if(this.state.isActiveStation1 !== "active"){
+      await this.setState({directionActive: this.state.direction1});
+      await this.setState({isActiveStation1: "active"});
+      await this.setState({isActiveStation2: ""});
+      await console.log(this.state.isActiveStation1);
+      await console.log(this.state.isActiveStation2);
+      await this.getStations();
+    }
+  }
+
+  async handleChangeActive2(){
+    console.log("Clicked Active Button");
+    if (this.state.isActiveStation2 !== "active"){
+      await this.setState({directionActive: this.state.direction2});
+      await this.setState({isActiveStation1: ""});
+      await this.setState({isActiveStation2: "active"});
+      await console.log(this.state.isActiveStation1);
+      await console.log(this.state.isActiveStation2);
+      await this.getStations();
+    }
+  }
+
   async handleBack(){
     if(this.state.station)
     {
       await this.setState({allArrivals: null});
       await this.setState({station: null});
+      await this.setState({directionActive: null});
+      await this.setState({isActiveStation1: ""});
+      await this.setState({isActiveStation2: ""});
     }else{
       await this.setState({searchValue: ""});
       await this.setState({line: null});
+      await this.setState({directionActive: null});
+      await this.setState({isActiveStation1: ""});
+      await this.setState({isActiveStation2: ""});
     }
   }
 
@@ -186,9 +219,11 @@ class App extends React.Component {
     
     console.log("Clicked number " + number);
     await this.setState({line: BUSES[number][0]});
-    await this.setState({directionFrom: BUSES[number][1]});
-    await this.setState({directionTo: BUSES[number][2]});
-    this.getStations();
+    await this.setState({direction1: BUSES[number][1]});
+    await this.setState({direction2: BUSES[number][2]});
+    await this.setState({directionActive: BUSES[number][1]});
+    await this.setState({isActiveStation1: "active"});
+    await this.getStations();
   }
 
   async handleClickStation(number){
@@ -199,11 +234,11 @@ class App extends React.Component {
   }
 
   async changeDirections(){
-    var temp_directionFrom = this.state.directionFrom;
-    var temp_directionTo = this.state.directionTo;
+    var temp_directionFrom = this.state.direction1;
+    var temp_directionTo = this.state.direction2;
     
-    await this.setState({directionFrom: temp_directionTo});
-    await this.setState({directionTo: temp_directionFrom});
+    await this.setState({direction1: temp_directionTo});
+    await this.setState({direction2: temp_directionFrom});
     this.getStations();
   }
 
@@ -228,7 +263,8 @@ class App extends React.Component {
 
   async getStations(){
     var data;
-    await axios.get( PUBLIC_FILES_URL + 'lpp/js/stations/' + this.state.line + this.state.directionTo + '.json')
+    console.log(this.state.line + this.state.directionActive + '.json');
+    await axios.get( PUBLIC_FILES_URL + 'lpp/js/stations/' + this.state.line + this.state.directionActive + '.json')
     .then(function (response) {
       console.log(response.data);
       data = response.data;
@@ -287,17 +323,66 @@ class App extends React.Component {
 //===========================================================================
 
   render() {
+
+//Here we render second page, where client chooses stations and direction========================================
+
     if(this.state.line && !this.state.station){
+      let toggleStationClass1 = ["station"];
+        if(this.state.isActiveStation1 === "active") {
+          toggleStationClass1.push('active');
+        }
+
+      let toggleStationClass2 = ["station"];
+        if(this.state.isActiveStation2 === "active") {
+          toggleStationClass2.push('active');
+        }
+
       return(
+        <div>
+          <div className="main-container">
+            <div className="page__header">
+                <h1 className="page__title ui-page-title ui-title-left"><strong>Linija {this.state.line}</strong> v smeri</h1>
+                
+                <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
+
+                
+                <div className="station-toggle">
+                    <div className={toggleStationClass1.join(' ')} onClick={() => this.handleChangeActive1()}>{this.state.direction1}</div>
+                    <div className={toggleStationClass2.join(' ')} onClick={() => this.handleChangeActive2()}>{this.state.direction2}</div>
+                </div>
+               
+                <div className="header__image">
+                    <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
+                </div>
+            </div>
+
+            <div className="page__content">
+                    <h2 className="list-title">Izberi postajališče</h2>
+                    
+                    <ul className="ui-list">
+                        <li>MESTNI LOG</li>
+                        <li><img src="/public/lpp/images/i_tree.svg" height="18" alt="" className="icon-tree"/>Tbilisijska</li>
+                        <li><img src="/public/lpp/images/i_tree.svg" height="18" alt="" className="icon-tree"/>Koprska</li>
+                        
+                        <li>VIŽMARJE</li>
+                    </ul>
+                </div>
+
+
+          </div>
             <div>
               Linija {this.state.line} V smeri: <button onClick={() => this.handleBack()}>Back</button><br/>
-              Iz: {this.state.directionFrom}<br/>
-              <img onClick={() => this.changeDirections()} src="/public/lpp/images/i_or.svg"/><br/>
-              Proti: {this.state.directionTo}<br/>
+              Spremeni smer:<br/>
+              <img onClick={() => this.changeDirections()} src="/public/lpp/images/i_arrow-back.svg"/><br/>
+              Proti: {this.state.directionActive}<br/>
               <hr/>
               {this.state.allStations}
-            </div>);
+            </div>
+        </div>
+      );
     }
+
+//Here we render last page where he gets informations about arrivals=========================================
 
     else if(this.state.line && this.state.station){
       if(this.state.allArrivals === null){
@@ -318,16 +403,31 @@ class App extends React.Component {
       </div>);
     }
 
+//Here we render first page, where clinet chooses bus line===========================================
+
     else{
       return (
-        <div>
-          Prosimo poiščite ali izberite linijo!
-          <input type="text" value={this.state.searchValue} onChange={this.handleChange} />
-          <br/>
-          RELACIJE:<br/>
-          
-          { this.checkSearch(this.state.searchValue.toLowerCase()) }
+
+<div className="main-container">
+   
+   <div className="page__header">
+        <h1 className="page__title ui-page-title">Prosim poiščite ali izberite linijo!</h1>
+        <input type="text" className="ui-input ui-input__ondark" placeholder="Vpiši linijo ali končno postajo..." value={this.state.searchValue} onChange={this.handleChange}/>
+        <div className="header__image">
+            <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
         </div>
+    </div>
+
+    <div className="page__content">
+        <h2 className="list-title">Relacije</h2>
+        
+        <ul className="ui-list">
+            { this.checkSearch(this.state.searchValue.toLowerCase()) }
+        </ul>
+    </div>
+
+
+</div>
       );
     }
   }
