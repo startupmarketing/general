@@ -1,6 +1,6 @@
 var loaded = false;
 
-const PUBLIC_FILES_URL = "http://localhost:8000/public/";
+const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
 const URL = "https://api.messengerbot.si/";
 
 const BUSES = [
@@ -123,7 +123,9 @@ class App extends React.Component {
       station : null,
       allStationsData : null,
       stationNumber : null,
-      allArrivals : null
+      allArrivalsOnLine : null,
+      allArrivalsWithoutChosenLine : null,
+      allArrivalsData: null
     }
     this.handleChange = this.handleChange.bind(this);
   } 
@@ -172,6 +174,9 @@ class App extends React.Component {
 //=======================Handle functions=======================================
   async handleChangeActive1(){
     console.log("Clicked Active Button");
+
+//We check if stations is already active or not, and make it active if its not
+
     if(this.state.isActiveStation1 !== "active"){
       await this.setState({directionActive: this.state.direction1});
       await this.setState({isActiveStation1: "active"});
@@ -179,11 +184,27 @@ class App extends React.Component {
       await console.log(this.state.isActiveStation1);
       await console.log(this.state.isActiveStation2);
       await this.getStations();
-    }
+
+//We check if station is already chosen
+
+      if(this.state.station){
+        var setStations = [];
+      
+        for (var i=0; i<this.state.allStationsData.length; i++){
+          console.log(this.state.allStationsData[i].station);
+
+          if(this.state.station === (this.state.allStationsData[i].station)){
+            this.handleClickStation(i);
+          };
+        };
+      };
+    };
   }
 
   async handleChangeActive2(){
     console.log("Clicked Active Button");
+//We check if stations is already active or not, and make it active if its not
+
     if (this.state.isActiveStation2 !== "active"){
       await this.setState({directionActive: this.state.direction2});
       await this.setState({isActiveStation1: ""});
@@ -191,17 +212,29 @@ class App extends React.Component {
       await console.log(this.state.isActiveStation1);
       await console.log(this.state.isActiveStation2);
       await this.getStations();
+
+//We check if station is already chosen
+
+      if(this.state.station){
+        var setStations = [];
+      
+        for (var i=0; i<this.state.allStationsData.length; i++){
+          console.log(this.state.allStationsData[i].station)
+
+          if(this.state.station === (this.state.allStationsData[i].station)){
+            this.handleClickStation(i)
+          }
+        };
+      };
     }
   }
 
   async handleBack(){
     if(this.state.station)
     {
-      await this.setState({allArrivals: null});
+      await this.setState({allArrivalsData: null});
       await this.setState({station: null});
       await this.setState({directionActive: null});
-      await this.setState({isActiveStation1: ""});
-      await this.setState({isActiveStation2: ""});
     }else{
       await this.setState({searchValue: ""});
       await this.setState({line: null});
@@ -227,10 +260,11 @@ class App extends React.Component {
   }
 
   async handleClickStation(number){
-    console.log(this.state.allStationsData[number].number);
-    await this.setState({station: true});
+    console.log("Station number is: " + this.state.allStationsData[number].number);
+    console.log("Station name is: " + this.state.allStationsData[number].station)
+    await this.setState({station: this.state.allStationsData[number].station});
     await this.setState({stationNumber: this.state.allStationsData[number].number});
-    this.getArrivals();
+    await this.getArrivals();
   }
 
   async changeDirections(){
@@ -249,10 +283,16 @@ class App extends React.Component {
   
     for (var i=0; i<data.length; i++){
       console.log(data[i].station)
+      let lastStation = false;
+      if(i === (data.length-1)){
+        lastStation = true;
+      }
+
       setStations.push(
           <Station
             clicked={(number) => this.handleClickStation(number)}
             numberInArray={i}
+            lastStation={lastStation}
             nameOfStation={data[i].station}
           /> 
       );
@@ -276,20 +316,27 @@ class App extends React.Component {
   }
 
 //=======================================Arrivals functions===================================
-  setArrivals(data){
+
+  allArrivalsOnLine(){
     var setArrivals = [];
   
-    for (var i=0; i<data.stations[0].buses.length; i++){
+    for (var i=0; i<this.state.allArrivalsData.stations[0].buses.length; i++){
 
-      if(this.state.line === data.stations[0].buses[i].number){
+      if(this.state.line === this.state.allArrivalsData.stations[0].buses[i].number){
         console.log(this.state.line);
-        console.log(data.stations[0].buses[i]);
-        console.log(data.stations[0].buses[i].arrivals)
-        if (data.stations[0].buses[i].arrivals.length > 0) {
-          for(var j=0; j < data.stations[0].buses[i].arrivals.length; j++){
+        console.log(this.state.allArrivalsData.stations[0].buses[i]);
+        console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
+        if (this.state.allArrivalsData.stations[0].buses[i].arrivals.length > 0) {
+          for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){
             setArrivals.push(
               <div>
-                {data.stations[0].buses[i].number} {data.stations[0].buses[i].direction} {data.stations[0].buses[i].arrivals[j]} minut
+                <li>
+                  <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> 
+                  {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} minut 
+                  <span className="bus-direction">
+                    smer {this.state.allArrivalsData.stations[0].buses[i].direction}
+                  </span>
+                </li>
               </div>
             );
           }
@@ -297,16 +344,47 @@ class App extends React.Component {
       }
     }
     if(setArrivals.length === 0){
-      return this.setState({allArrivals: "Trenutno ni prihodov"});
+      return this.setState({allArrivalsOnLine: "Trenutno ni prihodov"});
     }
-    return this.setState({allArrivals: setArrivals});
+    return this.setState({allArrivalsOnLine: setArrivals});
   }
+
+  allArrivalsWithoutChosenLine(){
+    var setArrivals = [];
+  
+    for (var i=0; i<this.state.allArrivalsData.stations[0].buses.length; i++){
+
+      if(this.state.line !== this.state.allArrivalsData.stations[0].buses[i].number){
+        console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
+        if (this.state.allArrivalsData.stations[0].buses[i].arrivals.length > 0) {
+          for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){
+            setArrivals.push(
+              <div>
+                <li>
+                  <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> 
+                  Linija {this.state.allArrivalsData.stations[0].buses[i].number} - {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} minut
+                  <span className="bus-direction">
+                     smer {this.state.allArrivalsData.stations[0].buses[i].direction}
+                  </span>
+                </li>
+              </div>
+            );
+          }
+        }
+      }
+    }
+    if(setArrivals.length === 0){
+      return this.setState({allArrivalsWithoutChosenLine: "Trenutno ni drugih prihodov"});
+    }
+    return this.setState({allArrivalsWithoutChosenLine: setArrivals});
+  }
+
 
   async getArrivals(){
     var data;
     var lineNumber = this.state.line;
     lineNumber = lineNumber.replace(/[^\d]/g, '');
-    var lpp_url = 'https://www.trola.si/' + this.state.stationNumber + '/' + lineNumber + '/';
+    var lpp_url = 'https://www.trola.si/' + this.state.stationNumber + '/';
     console.log(lpp_url);
     await axios.get( URL + 'lpp/bus-arrivals?url=' + lpp_url)
     .then(function (response) {
@@ -316,8 +394,11 @@ class App extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
-    
-    return this.setArrivals(data);
+
+    await this.setState({allArrivalsData: data});
+    await this.allArrivalsOnLine();
+    await this.allArrivalsWithoutChosenLine();
+    return; 
   }
 
 //===========================================================================
@@ -357,27 +438,15 @@ class App extends React.Component {
             </div>
 
             <div className="page__content">
-                    <h2 className="list-title">Izberi postajališče</h2>
+                <h2 className="list-title">Izberi postajališče</h2>
                     
-                    <ul className="ui-list">
-                        <li>MESTNI LOG</li>
-                        <li><img src="/public/lpp/images/i_tree.svg" height="18" alt="" className="icon-tree"/>Tbilisijska</li>
-                        <li><img src="/public/lpp/images/i_tree.svg" height="18" alt="" className="icon-tree"/>Koprska</li>
-                        
-                        <li>VIŽMARJE</li>
-                    </ul>
-                </div>
+                  <ul className="ui-list">
+                    {this.state.allStations}
+                  </ul>
+            </div>
 
 
           </div>
-            <div>
-              Linija {this.state.line} V smeri: <button onClick={() => this.handleBack()}>Back</button><br/>
-              Spremeni smer:<br/>
-              <img onClick={() => this.changeDirections()} src="/public/lpp/images/i_arrow-back.svg"/><br/>
-              Proti: {this.state.directionActive}<br/>
-              <hr/>
-              {this.state.allStations}
-            </div>
         </div>
       );
     }
@@ -385,7 +454,7 @@ class App extends React.Component {
 //Here we render last page where he gets informations about arrivals=========================================
 
     else if(this.state.line && this.state.station){
-      if(this.state.allArrivals === null){
+      if(this.state.allArrivalsData === null){
         return(
           <div>
             Loading...
@@ -395,15 +464,40 @@ class App extends React.Component {
 
       return (
       <div>
-        Prihodi<br/>
-        <button onClick={() => this.handleBack()}>Back</button>
-        <hr/>
-        Naslednji čez:<br/>
-        {this.state.allArrivals}
+        <div className="main-container">
+          <div className="page__header">
+          <h1 className="page__title ui-page-title ui-title-left"><strong>Linija {this.state.line}</strong> v smeri</h1>
+          
+          <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
+          
+              <div className="station-toggle green">
+                <strong>{this.state.directionActive}</strong>
+              </div>
+         
+              <div className="header__image">
+                  <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
+              </div>
+          </div>
+
+          <div className="page__content">
+            <h2 className="list-title">Prihodi za postajališče: {this.state.station}</h2>
+        
+            <ul className="ui-list">
+                {this.state.allArrivalsOnLine}
+            </ul>
+            <h2 className="list-title">Ostali avtobusi na postajališču:</h2>
+
+            <ul className="ui-list">
+                {this.state.allArrivalsWithoutChosenLine}
+            </ul>
+          </div>
+
+
+        </div>
       </div>);
     }
 
-//Here we render first page, where clinet chooses bus line===========================================
+//Here we render first page, where client chooses bus line===========================================
 
     else{
       return (
