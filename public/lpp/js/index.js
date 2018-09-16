@@ -7,15 +7,15 @@ const BUSES = [
 ["1", "Mestni log", "Vižmarje"],
 ["1B", "Gameljne", "Mestni log"],
 ["1D",  "Dolgi most P+R", "Vižmarje"],
-["N1",  "Bavarski dvor (Kozolec)", "Brod"],
+["1N",  "Bavarski dvor (Kozolec)", "Brod"],
 ["2", "Nove Jarše", "Zelena jama"],
 ["3", "Litostroj", "Rudnik"],
 ["3B",  "Litostroj", "Škofljica"],
 ["3G",  "Železna", "Grosuplje"],
-["N3",  "Bavarski dvor (Kozolec)", "Rudnik"],
+["3N",  "Bavarski dvor (Kozolec)", "Rudnik"],
 ["N3B", "Bavarski dvor (Kozolec)", "Škofljica"],
 ["5", "Podutik", "Štepanjsko naselje"],
-["N5",  "Podutik", "Štepanjsko naselje"],
+["5N",  "Podutik", "Štepanjsko naselje"],
 ["6", "Črnuče", "Dolgi most P+R"],
 ["6B",  "Železna", "Notranje Gorice"],
 ["7", "Nove Jarše", "Pržan"],
@@ -52,59 +52,6 @@ const BUSES = [
 ["61", "Vodice", "Zapoge"]
 ];
 
-/*
-//for loading Mssenger Extension SDK functions
-(function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'Messenger'));
-
-window.extAsyncInit = function() {
-  console.log("Messenger extensions are ready!");
-
-  window.MessengerExtensions.getSupportedFeatures(function success(result) {
-    let features = result.supported_features;
-    console.log(features);
-    if(features.includes("context")){
-      loaded = true;
-    }
-  }, function error(err) {
-      console.log(err);
-  });
-};
-
-
-// Close webview function
-function closeWebview(){
-  if(loaded){
-    window.MessengerExtensions.requestCloseBrowser(function success() {
-          console.log("Window will be closed!");
-        }, function error(err) {
-          console.log(err);
-        });
-  }else{
-    alert("Webview can be viewed only on mobile devices on messenger app 113+. Please use it on mobile device and/or update your messenger app");
-  }
-}
-
-
-  sendData(data){
-    axios.post( URL + '/quiz-template-broadcast', {data, broadcast_data})
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    console.log(data);
-  }
-*/
-
-
-
 
 //======================APPLICATION===================================
 
@@ -136,14 +83,19 @@ class App extends React.Component {
 //CALLBACK FUNCTION TO CREATE ARRAY OF FILTERED LINES
   checkSearch(search){
     var temp_array = [];
+    var temp_string_search = search.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z');
     for (var i=0; i<BUSES.length; i++){
-      if(BUSES[i][0].toLowerCase().includes(search)){
+      var temp_string_buses0 = BUSES[i][0].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+      var temp_string_buses1 = BUSES[i][1].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+      var temp_string_buses2 = BUSES[i][2].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+      
+      if(temp_string_buses0.includes(temp_string_search)){
         temp_array.push(i);
       }
-      else if(BUSES[i][1].toLowerCase().includes(search)){
+      else if(temp_string_buses1.includes(temp_string_search)){
         temp_array.push(i);
       }
-      else if(BUSES[i][2].toLowerCase().includes(search)){
+      else if(temp_string_buses2.includes(temp_string_search)){
         temp_array.push(i);
       }
     };

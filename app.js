@@ -3,6 +3,7 @@ const app = express();
 
 const apiRoutes = require('./api/routes/generalApi');
 const lppRoutes = require('./api/routes/lppApi');
+
 const scheduleRoutes = require('./api/routes/scheduleApi');
 const webviewsRoutes = require('./webviews/routes/webviews');
 const webviewsRoutesVisitDolenjska = require('./webviews/routes/visit_dolenjska');

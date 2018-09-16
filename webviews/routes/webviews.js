@@ -159,6 +159,7 @@ router.get('/lpp-buses/chatfuel', (req, res, next) => {
   res.json(createButtons(displayUrl)); 
 });
 
+
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
 
 router.get('/gif_voting2/show', (req, res, next) => {
