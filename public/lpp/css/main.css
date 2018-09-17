@@ -195,29 +195,12 @@ body {
     display: flex;
     width: 100%;
 }
-
-.station-toggle.green {
-background: rgb(157,213,58);
-background: -moz-linear-gradient(top, rgba(157,213,58,1) 0%, rgba(161,213,79,1) 50%, rgba(128,194,23,1) 51%, rgba(124,188,10,1) 100%);
-background: -webkit-linear-gradient(top, rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%);
-background: linear-gradient(to bottom, rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dd53a', endColorstr='#7cbc0a',GradientType=0 );
-
-background: rgb(182,224,38);
-background: -moz-linear-gradient(top, rgba(182,224,38,1) 0%, rgba(129,170,32,1) 100%);
-background: -webkit-linear-gradient(top, rgba(182,224,38,1) 0%,rgba(129,170,32,1) 100%);
-background: linear-gradient(to bottom, rgba(182,224,38,1) 0%,rgba(129,170,32,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e026', endColorstr='#81aa20',GradientType=0 );
-    
-    box-shadow: 0px 1px 4px rgba(0,0,0,.7);
-
-}
-
 .station {
     width: 50%;
     padding: 8px 12px;
     background: rgba(255,255,255,.1);
     text-align: center;
+    box-sizing: border-box;
 }
 
 .station:first-child {
@@ -228,8 +211,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e026', end
     border-radius: 0 6px 6px 0;
 }
 
-
-.station.active {
+.station.active, .station.selected {
 background: rgb(157,213,58);
 background: -moz-linear-gradient(top, rgba(157,213,58,1) 0%, rgba(161,213,79,1) 50%, rgba(128,194,23,1) 51%, rgba(124,188,10,1) 100%);
 background: -webkit-linear-gradient(top, rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%);
@@ -246,6 +228,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e026', end
 }
 
 
+.station.selected {
+    width: 100%;
+    border-radius: 6px;
+}
+
+
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loading-icon {
+    text-align: center;
+    font-size: 12px;
+    color: #888888;
+}
+
+.loading-icon img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0px;
+}
 
 
 

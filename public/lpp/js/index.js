@@ -186,7 +186,6 @@ class App extends React.Component {
     {
       await this.setState({allArrivalsData: null});
       await this.setState({station: null});
-      await this.setState({directionActive: null});
     }else{
       await this.setState({searchValue: ""});
       await this.setState({line: null});
@@ -408,28 +407,34 @@ class App extends React.Component {
     else if(this.state.line && this.state.station){
       if(this.state.allArrivalsData === null){
         return(
-          <div>
-            Loading...
-          </div>
+        <div className="loading-screen">
+
+            <div className="loading-icon">
+                <img src="/public/lpp/images/i_bus-loading.gif" alt=""/>
+                Nalagam...
+            </div>
+        </div>
         );
       }
 
       return (
       <div>
         <div className="main-container">
+
           <div className="page__header">
-          <h1 className="page__title ui-page-title ui-title-left"><strong>Linija {this.state.line}</strong> v smeri</h1>
-          
-          <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
-          
-              <div className="station-toggle green">
-                <strong>{this.state.directionActive}</strong>
+              <h1 className="page__title ui-page-title ui-title-left"><strong>Linija {this.state.line}</strong> v smeri</h1>
+              
+              <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
+              
+              <div className="station-toggle">
+                  <div className="station selected">{this.state.directionActive}</div>
               </div>
-         
+             
               <div className="header__image">
                   <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
               </div>
           </div>
+
 
           <div className="page__content">
             <h2 className="list-title">Prihodi za postajališče: {this.state.station}</h2>
