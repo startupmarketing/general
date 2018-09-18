@@ -81,13 +81,13 @@ const createLppBusButton = (displayUrl) => {
             template_type: 'generic',
             image_aspect_ratio: 'square',
             elements: [{
-              title: 'Poišči prihode avtobusov',
+              title: 'Poišči prihode mestnih avtobusov',
               subtitle: '',
               buttons:[
                 {
                   type: 'web_url',
                   url: displayUrl,
-                  title: 'Tukaj',
+                  title: 'Klikni tukaj',
                   messenger_extensions: true,
                   webview_height_ratio: 'tall' // Medium view
                 }
