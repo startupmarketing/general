@@ -184,7 +184,7 @@ router.get('/lpp-buses/show', (req, res, next) => {
 
 router.get('/lpp-buses/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/lpp-buses/show';
-  res.json(createLppBusButtons(displayUrl)); 
+  res.json(createLppBusButton(displayUrl)); 
 });
 
 
