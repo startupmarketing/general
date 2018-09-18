@@ -71,6 +71,34 @@ const createCompactButton = (displayUrl) => {
   ]};
 };
 
+const createLppBusButton = (displayUrl) => {
+  return {
+    messages:[
+      {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            image_aspect_ratio: 'square',
+            elements: [{
+              title: 'Poišči prihode avtobusov',
+              subtitle: '',
+              buttons:[
+                {
+                  type: 'web_url',
+                  url: displayUrl,
+                  title: 'Tukaj',
+                  messenger_extensions: true,
+                  webview_height_ratio: 'tall' // Medium view
+                }
+              ]
+            }]
+          }
+        }
+      }
+  ]};
+};
+
 const createCurrencyButton = (displayUrl) => {
   return {
     messages:[
@@ -156,7 +184,7 @@ router.get('/lpp-buses/show', (req, res, next) => {
 
 router.get('/lpp-buses/chatfuel', (req, res, next) => {
   const displayUrl = 'https://api.messengerbot.si/webviews/lpp-buses/show';
-  res.json(createButtons(displayUrl)); 
+  res.json(createLppBusButtons(displayUrl)); 
 });
 
 
