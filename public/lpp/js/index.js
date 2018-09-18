@@ -83,19 +83,57 @@ class App extends React.Component {
 //CALLBACK FUNCTION TO CREATE ARRAY OF FILTERED LINES
   checkSearch(search){
     var temp_array = [];
-    var temp_string_search = search.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z');
+
+
     for (var i=0; i<BUSES.length; i++){
       var temp_string_buses0 = BUSES[i][0].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
       var temp_string_buses1 = BUSES[i][1].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
       var temp_string_buses2 = BUSES[i][2].replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+  
+      var temp_string_buses1orig = BUSES[i][1].toLowerCase();
+      var temp_string_buses2orig = BUSES[i][2].toLowerCase();
+
+
+      var correct_characters1 = 0;
+      var correct_characters2 = 0;
+
+//Check every character in search and compare it to data
       
-      if(temp_string_buses0.includes(temp_string_search)){
+      for(var j=0; j<search.length;j++){
+      //Check first direction  
+        if(search[j] === temp_string_buses1[j]){
+          if(correct_characters1 === j){
+            correct_characters1 += 1;
+          }
+        }
+        else if(search[j] === temp_string_buses1orig[j]){
+          if(correct_characters1 === j){
+            correct_characters1 += 1;
+          }
+        }
+        //Check second direction  
+        if(search[j] === temp_string_buses2[j]){
+          if(correct_characters2 === j){
+            correct_characters2 += 1;
+          }
+        }    
+        else if(search[j] === temp_string_buses2orig[j]){
+          if(correct_characters2 === j){
+            correct_characters2 += 1;
+          }
+        }
+      }
+      //Check the results of comparison
+      if(temp_string_buses0.includes(search)){
         temp_array.push(i);
       }
-      else if(temp_string_buses1.includes(temp_string_search)){
+      else if(BUSES[i][0].toLowerCase().includes(search)){
         temp_array.push(i);
       }
-      else if(temp_string_buses2.includes(temp_string_search)){
+      else if(correct_characters1 === search.length){
+        temp_array.push(i);
+      }
+      else if(correct_characters2 === search.length){
         temp_array.push(i);
       }
     };
