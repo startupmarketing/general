@@ -187,6 +187,11 @@ router.get('/lpp-buses/chatfuel', (req, res, next) => {
   res.json(createLppBusButton(displayUrl)); 
 });
 
+//<===========================LPP BUSES Webview=====================================================>
+
+router.get('/lj-parkirisca/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/lj-parkirisca/index.html');
+});
 
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>
 
