@@ -110,7 +110,7 @@ class App extends React.Component {
       return <div>Ne najde parkirišč<br/></div>
     }
   }
-/
+
   filterParkingPlaces(filtered_parking_places){
     var displayFilteredParkingPlaces = [];
     for (var i=0; i<filtered_parking_places.length; i++){
