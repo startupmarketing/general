@@ -43,6 +43,7 @@ class App extends React.Component {
       allData: {Parkirisca : []},
       activeTab : "list",
       parking_place : null,
+      chosen : false
     }
     this.getAllData();
     this.handleChange = this.handleChange.bind(this);
@@ -119,6 +120,7 @@ class App extends React.Component {
 
         displayFilteredParkingPlaces.push(
           <ParkingPlace1
+            chosen={this.state.chosen}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
             number={i}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
@@ -131,6 +133,7 @@ class App extends React.Component {
       }else{
         displayFilteredParkingPlaces.push(
           <ParkingPlace2
+            chosen={this.state.chosen}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
             number={i}
@@ -146,6 +149,7 @@ class App extends React.Component {
 
   async handleClickOnParkingPlace(number){
     console.log(number);
+    await this.setState({chosen : true});
     await this.setState({parking_place: this.filterParkingPlaces([number])});
   }
 
@@ -161,8 +165,9 @@ class App extends React.Component {
     return this.setState({activeTab: "map"});
   }
 
-  handleBack(){
-    this.setState({parking_place : null})
+  async handleBack(){
+    await this.setState({parking_place : null});
+    await this.setState({chosen : false})
   }
 
 //===========================================================================
