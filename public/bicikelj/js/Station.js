@@ -8,7 +8,8 @@ class Station extends React.Component {
       return(
         <div onClick={() => this.props.handleClickOnStation(this.props.number)} id="parkirisce">
           <strong>{this.props.name}:</strong><br/> 
-          Prosto: {this.props.free}/{this.props.allSpaces}<br/>
+            - Prosta kolesa: {this.props.free}<br/>
+            - Proste postaje: {(this.props.allSpaces - this.props.free)}<br/>
           <hr/>
         </div>
       );
