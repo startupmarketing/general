@@ -187,10 +187,16 @@ router.get('/lpp-buses/chatfuel', (req, res, next) => {
   res.json(createLppBusButton(displayUrl)); 
 });
 
-//<===========================LPP BUSES Webview=====================================================>
+//<===========================PARKIRISCA Webview=====================================================>
 
 router.get('/lj-parkirisca/show', (req, res, next) => {
   res.sendFile('/var/www/messengerbot.si/api/general/public/lj-parkirisca/index.html');
+});
+
+//<===========================BICIKELJ Webview=====================================================>
+
+router.get('/bicikelj/show', (req, res, next) => {
+  res.sendFile('/var/www/messengerbot.si/api/general/public/bicikelj/index.html');
 });
 
 //<===========================Gif voting right/wrong webview TEMPLATE=====================================>

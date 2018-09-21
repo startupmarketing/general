@@ -70,7 +70,7 @@ class App extends React.Component {
 
     var temp_array = [];
 
-    var temp_string_search = search.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+    //var temp_string_search = search.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
 
     for (var i=0; i<Object.keys(this.state.allData.Parkirisca).length; i++){
       
@@ -90,7 +90,7 @@ class App extends React.Component {
         }
 
         //Check second without č š ž
-        if(temp_string_search[j] === temp_string_data[j]){
+        if(search[j].toLowerCase() === temp_string_data[j]){
           if(correct_characters2 === j){
             correct_characters2 += 1;
           }
@@ -122,7 +122,7 @@ class App extends React.Component {
           <ParkingPlace1
             chosen={this.state.chosen}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
-            number={i}
+            number={filtered_parking_places[i]}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
             price={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]}
             free={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki}
@@ -136,7 +136,7 @@ class App extends React.Component {
             chosen={this.state.chosen}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
-            number={i}
+            number={filtered_parking_places[i]}
             price={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]}
             allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
             invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
@@ -215,7 +215,7 @@ class App extends React.Component {
               </div>
               
               <div className="page__content">
-                  <iframe src="https://www.google.com/maps/d/embed?mid=1yc5GwaM8U67g3LIzLBbmtyGhMbbo6nmu" width="640" height="480"></iframe>
+                  <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1xBpXwxQPmg20ERJvzWzU7pkInumwS9ho" width="640" height="480"></iframe>
               </div>
           </div>
         );
