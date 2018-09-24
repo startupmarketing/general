@@ -2,35 +2,127 @@ const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
 const URL = "https://api.messengerbot.si/";
 
 const PRICES = {
-"PH Kozolec" : "\nDnevna: 1,20 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"Tivoli I" : "\nDnevna(6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
-"Kranjčeva" : "\nDnevna(7.00 do 19.00): Prvi dve uri: 0,60 € vsaka naslednja ura: 0,60 € \n Nočna(19.00 do 7.00): 1,80 €/noč",
-"Mirje" : "\nDnevna(7.00 do 19.00): 0,70 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"P+R Studenec" : "\nDnevna: 2,40 €/dan",
-"Trg MDB" : "\nDnevna(7.00 do 19.00): 0,70 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"Gospodarsko raz." : "\nDnevna(7.00 do 19.00): Do 1 ure - 1,00 €\nOd 1 do 3 ur - 2,00 €\r\nOd 3 do 5 ur - 2,50 €\r\nOd 5 do 8 ur - 3,00 €\r\nNad 8 ur - 3,50 €\r\n Nočna(19.00 do 7.00): 1,50 €/noč\r\nV času sejma na GR : prvi dve uri/ 1,00 €, vsaka naslednja ura 1,00 €",
-"Bežigrad" : "\nDnevna(7.00 do 19.00): 0,70 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"Trg preko. brigad  " : "\nDnevna(7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €\r\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"Sanatorij Emona" : "\nDnevna(7.00 do 19.00): 1,20 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"Petkovskovo  II" : "\nDnevna(7.00 do 19.00): 1,20 €/uro\n Nočna(19.00 do 7.00): 1,8 €/noč",
-"P+R Dolgi most" : "\n1,20 €/dan",
-"Parkomati" : "\nCONA 1: 0,70 €/uro\r\nObratovalni čas CONA 1: 8.00 do 18.00 ponedeljek - petek, od 8:00 do 13:00 ure sobota\r\nCONA 2: 0,40 €/uro\r\nObratovalni čas CONA 2: od 7:00 do 17:00 ure ponedeljek - petek",
-"Tivoli II" : "\nDnevna(6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €\r\nAvtobus dnevna(6.00 do 22.00) 4,80 €/uro\r\nParkirnina avtodom: 3,60 €/uro",
-"Žale II" : "\nPrvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
-"Žale I" : "\nPrvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
-"NUK" : "\nDnevna(7.00 do 19.00): 1,20 €/uro\r\nNočna(19.00 do 7.00): 1,80 €/noč",
-"Žale III" : "\nPrvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
-"Center Stožice" : "\nP+R: 1,20 €/dan\r\nOstali uporabniki:\r\nDnevna(7.00 ure do 19.00): 1,20 €/uro\r\nNočna(19.00 ure do 7.00): 1,80 €/noč\r\nAvtobusi(7.00 do 19.00): 4,80 €/uro",
-"Žale IV": "\nPrvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
-"PH Kongresni trg" : "\nDnevna(7.00 ure do 24.00) do 3 ure: 1,20 €/uro\r\nNad 3 ure: 2,40 €/uro\r\nNočna(24.00 do 7.00): 1,80 €/noč\r\n",
-"Linhartova" : "\nDnevna(7.00 ure do 19.00):\r\nDo 1 ure - 1,00 €\r\nOd 1 do 3 ur - 2,00 €\r\nOd 3 do 5 ur - 2,50 €\r\nOd 5 do 8 ur - 3,00 €\r\nNad 8 ur - 3,50 €\r\nNočna(19.00 do 7.00): 1,50 €/noč\r\nV času sejma na GR : Prvi dve uri/ 1,00 €, vsaka naslednja ura 1,00 €",
-"Gosarjeva ulica" : "\nDnevna(7.00 ure do 19.00): 0,60 €/uro\r\nNočna(19.00 ure do 7.00): 1,80 €/noč\r\nLetna - abonenti: 180 €/leto",
-"Štembalova" : "\nMesečna - abonenti: 25,00 € /mes\r\n",
-"PH Kolezija" : "\nOb nakupu karte za kopanje: 0,40 €/uro\nDnevna(8.00 do 22.00): 0,70 €/uro\r\nNočna(22.00 do 8.00): 1,80 €/noč",
-"Barje" : "\nEnotna tarifa(00.00 do 24.00): 1,20 €/dan\r\nSobota in Nedelja - brezplačno",
-"Gosarjeva ulica II" : "\nDnevna(7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €\r\nNočna(19.00 do 07.00): 1,80 €/noč\r\nLetna - abonenti: 180 €/leto",
-"GR - Abonenti" : "",
-"Slovenčeva ulica" : "\nDnevna(7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €,\nNočna(19.00 do 7.00): 1,80 €/noč"
+"PH Kozolec" :  {  
+                  "Dnevna" : "Dnevna: 1,20 €/uro",
+                  "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                },
+"Tivoli I" :    {
+                  "Dnevna" : "Dnevna (6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
+                  "Nocna" : null
+                },
+"Kranjčeva" : {
+                "Dnevna" : "Dnevna (7.00 do 19.00): Prvi dve uri: 0,60 € vsaka naslednja ura: 0,60 €",
+                "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
+              },
+"Mirje" : {
+            "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro",
+            "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+          },
+"P+R Studenec" :  {
+                    "Dnevna" : "Dnevna: 2,40 €/dan",
+                    "Nocna" : null
+                  },
+"Trg MDB" : {
+              "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro", 
+              "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+            },
+"Gospodarsko raz." :  {
+                        "Dnevna" : "Dnevna (7.00 do 19.00): Do 1 ure - 1,00 €\nOd 1 do 3 ur - 2,00 €\r\nOd 3 do 5 ur - 2,50 €\r\nOd 5 do 8 ur - 3,00 €\r\nNad 8 ur - 3,50 €\r\n", 
+                        "Nocna" : "Nočna (19.00 do 7.00): 1,50 €/noč\r\nV času sejma na GR : prvi dve uri/ 1,00 €, vsaka naslednja ura 1,00 €"
+                      },
+"Bežigrad" :  {
+                "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro",
+                "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+              },
+"Trg preko. brigad  " : {
+                          "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
+                          "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                        },
+"Sanatorij Emona" : {
+                      "Dnevna" : "Dnevna (7.00 do 19.00): 1,20 €/uro",
+                      "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                    },
+"Petkovskovo  II" : {
+                      "Dnevna" : "Dnevna (7.00 do 19.00): 1,20 €/uro",
+                      "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                    },
+"P+R Dolgi most" :  {
+                      "Dnevna" : "1,20 €/dan",
+                      "Nocna" : null
+                    },
+"Parkomati" : {
+                "Dnevna" : "CONA 1: 0,70 €/uro\r\nObratovalni čas CONA 1: 8.00 do 18.00 ponedeljek - petek, od 8:00 do 13:00 ure sobota\r\nCONA 2: 0,40 €/uro\r\nObratovalni čas CONA 2: od 7:00 do 17:00 ure ponedeljek - petek",
+                "Nocna" : null
+              },
+"Tivoli II" : {
+                "Dnevna" : "Dnevna (6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €\r\nAvtobus dnevna(6.00 do 22.00) 4,80 €/uro\r\nParkirnina avtodom: 3,60 €/uro",
+                "Nocna" : null
+              },
+"Žale II" : {
+              "Dnevna" : "Prvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
+              "Nocna" : null
+            },
+"Žale I" :  {
+              "Dnevna" : "Prvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
+              "Nocna" : null
+            },
+"NUK" : {
+          "Dnevna" : "Dnevna (7.00 do 19.00): 1,20 €/uro\r\nNočna (19.00 do 7.00): 1,80 €/noč",
+          "Nocna" : null
+        },
+"Žale III" :  {
+                "Dnevna" : "Prvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
+                "Nocna" : null
+              },
+"Center Stožice" :  {
+                      "Dnevna" : "P+R: 1,20 €/dan\r\nOstali uporabniki:\r\nDnevna (7.00 ure do 19.00): 1,20 €/uro",
+                      "Nocna" : "Nočna (19.00 ure do 7.00): 1,80 €/noč\r\nAvtobusi (7.00 do 19.00): 4,80 €/uro"
+                    },
+"Žale IV":  {
+              "Dnevna" : "Prvi dve uri 0,60 €,\r\nVsaka naslednja ura 0,60 €",
+              "Nocna" : null
+            },
+"PH Kongresni trg" :  {
+                        "Dnevna" : "Dnevna (7.00 ure do 24.00) do 3 ure: 1,20 €/uro\r\nNad 3 ure: 2,40 €/uro",
+                        "Nocna" : "Nočna (24.00 do 7.00): 1,80 €/noč\r\n"
+                      },
+"Linhartova" :  {
+                  "Dnevna" : "Dnevna (7.00 ure do 19.00):\r\nDo 1 ure - 1,00 €\r\nOd 1 do 3 ur - 2,00 €\r\nOd 3 do 5 ur - 2,50 €\r\nOd 5 do 8 ur - 3,00 €\r\nNad 8 ur - 3,50 €",
+                  "Nocna" : "Nočna (19.00 do 7.00): 1,50 €/noč\r\nV času sejma na GR : Prvi dve uri/ 1,00 €, vsaka naslednja ura 1,00 €"
+                },
+"Gosarjeva ulica" : {
+                      "Dnevna" : "Dnevna (7.00 ure do 19.00): 0,60 €/uro",
+                      "Nocna" : "Nočna (19.00 ure do 7.00): 1,80 €/noč\r\nLetna - abonenti: 180 €/leto"
+                    },
+"Štembalova" :  {
+                  "Dnevna" : "Mesečna - abonenti: 25,00 € /mes\r\n",
+                  "Nocna" : null
+                },
+"PH Kolezija" : {
+                  "Dnevna" : "Ob nakupu karte za kopanje: 0,40 €/uro\nDnevna (8.00 do 22.00): 0,70 €/uro",
+                  "Nocna" : "Nočna (22.00 do 8.00): 1,80 €/noč"
+                },
+"Barje" : {
+            "Dnevna" : "Enotna tarifa (00.00 do 24.00): 1,20 €/dan\r\nSobota in Nedelja - brezplačno",
+            "Nocna" : null
+          },
+"Gosarjeva ulica II" :  {
+                          "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
+                          "Nocna" : "Nočna (19.00 do 07.00): 1,80 €/noč\r\nLetna - abonenti: 180 €/leto"
+                        },
+"GR - Abonenti" : {
+                    "Dnevna" : "Ni podatka",
+                    "Nocna" : null
+                  },
+"Slovenčeva ulica" :  {
+                        "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
+                        "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
+                      },
+"Povšetova ulica" : {
+  "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
+  "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
+}
+
 };
 
 //======================APPLICATION===================================
@@ -43,7 +135,9 @@ class App extends React.Component {
       allData: {Parkirisca : []},
       activeTab : "list",
       parking_place : null,
-      chosen : false
+      chosen : false,
+      isActiveList : "active",
+      isActiveMap : null
     }
     this.getAllData();
     this.handleChange = this.handleChange.bind(this);
@@ -117,14 +211,15 @@ class App extends React.Component {
     for (var i=0; i<filtered_parking_places.length; i++){
 
       if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost){
-
         displayFilteredParkingPlaces.push(
           <ParkingPlace1
+            handleBack={() => this.handleBack()}
             chosen={this.state.chosen}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
             number={filtered_parking_places[i]}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
-            price={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]}
+            priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
+            priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
             free={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki}
             allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
             invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
@@ -135,9 +230,11 @@ class App extends React.Component {
           <ParkingPlace2
             chosen={this.state.chosen}
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
+            handleBack={() => this.handleBack()}
             name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
             number={filtered_parking_places[i]}
-            price={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]}
+            priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
+            priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
             allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
             invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
           />
@@ -148,7 +245,6 @@ class App extends React.Component {
   }
 
   async handleClickOnParkingPlace(number){
-    console.log(number);
     await this.setState({chosen : true});
     await this.setState({parking_place: this.filterParkingPlaces([number])});
   }
@@ -170,14 +266,40 @@ class App extends React.Component {
     await this.setState({chosen : false})
   }
 
+  async changeToggleButton1(){
+    if(!this.state.list){
+      await this.setState({isActiveList : "active"});
+      await this.setState({isActiveMap : null});
+      return await this.setState({activeTab: "list"});
+    }
+  }
+
+  async changeToggleButton2(){
+    if(!this.state.map){
+      await this.setState({isActiveMap : "active"});
+      await this.setState({isActiveList : null});
+      return await this.setState({activeTab: "map"});
+    }
+  }
+
 //===========================================================================
 
   render() {
  //first page 
+    var toggleButtonClass1 = ["station"];
+      if(this.state.isActiveList === "active") {
+        toggleButtonClass1.push('active');
+      }
+
+    var toggleButtonClass2 = ["station"];
+      if(this.state.isActiveMap === "active") {
+        toggleButtonClass2.push('active');
+      }
+
+
     if(this.state.parking_place){
       return(
-        <div>
-          <button onClick={() => this.handleBack()}>Back</button>
+        <div id="parkirisce">
           {this.state.parking_place}
           <iframe src="https://www.google.com/maps/d/embed?mid=1yc5GwaM8U67g3LIzLBbmtyGhMbbo6nmu" width="640" height="480"></iframe>
         </div>);
@@ -185,20 +307,25 @@ class App extends React.Component {
     else{ 
       if(this.state.activeTab === "list"){
         return(
-          <div className="main-container">     
+          <div id="parkirisce" className="main-container">
               <div className="page__header">
-                  <button onClick={() => this.handleChangeParking()}>Parkirišča</button>
-                  <button onClick={() => this.handleChangeMap()}>Zemljevid</button>
+                 
+                  <div className="station-toggle">
+                      <div className={toggleButtonClass1.join(' ')} onClick={() => this.changeToggleButton1()}>Parkirišča</div>
+                      <div className={toggleButtonClass2.join(' ')} onClick={() => this.changeToggleButton2()}>Zemljevid</div>
+                  </div>
+                  
                   <h1 className="page__title ui-page-title">Poiščite parkirišče</h1>
-                  
-                  <input type="text" className="ui-input ui-input__ondark" placeholder="Vpiši postajališče..." value={this.state.searchValue} onChange={this.handleChange}/>
-                  
+                  <input value={this.state.searchValue} onChange={this.handleChange} type="text" className="ui-input ui-input__ondark" placeholder="Vpiši parkirišče..."/>
+                  <div className="header__image">
+                      <img src="/public/lj-parkirisca/img/i_parking.svg" height="50" alt=""/>
+                  </div>
               </div>
               
               <div className="page__content">
                   <h2 className="list-title">Parkirišča</h2>
                   
-                  <ul className="ui-list">
+                  <ul className="ui-list parking-spaces">
                       { this.checkSearch(this.state.searchValue) }
                   </ul>
               </div>
@@ -209,9 +336,17 @@ class App extends React.Component {
         return(
           <div className="main-container">     
               <div className="page__header">
-                  <button onClick={() => this.handleChangeParking()}>Parkirišča</button>
-                  <button onClick={() => this.handleChangeMap()}>Zemljevid</button>
-                  <h1 className="page__title ui-page-title">Poiščite parkirišče</h1>                
+                 
+                  <div className="station-toggle">
+                      <div className={toggleButtonClass1.join(' ')} onClick={() => this.changeToggleButton1()}>Parkirišča</div>
+                      <div className={toggleButtonClass2.join(' ')} onClick={() => this.changeToggleButton2()}>Zemljevid</div>
+                  </div>
+                  
+                  <h1 className="page__title ui-page-title">Poiščite parkirišče</h1>
+                  
+                  <div className="header__image">
+                      <img src="/public/lj-parkirisca/img/i_parking.svg" height="50" alt=""/>
+                  </div><br/>
               </div>
               
               <div className="page__content">
