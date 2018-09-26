@@ -46,9 +46,38 @@ class App extends React.Component {
       var temp_string_data = this.state.allData.markers[i.toString()].fullAddress.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
       var temp_string_data_orig = this.state.allData.markers[i.toString()].fullAddress.toLowerCase();
 
+      var words_in_string_orig = temp_string_data_orig.split(" ");
+      for(var h=0; h<words_in_string_orig.length; h++){
+          if(words_in_string_orig[h].includes("-")){
+            let temp_array = words_in_string_orig[h].split("-");
+            words_in_string_orig[h] = temp_array[0];
+            words_in_string_orig.push(temp_array[1]);
+          }
+      }
+
+      var words_in_string = temp_string_data.split(" ");
+      for(var t=0; t<words_in_string.length; t++){
+          if(words_in_string[t].includes("-")){
+            let temp_array = words_in_string[t].split("-");
+            words_in_string[t] = temp_array[0];
+            words_in_string.push(temp_array[1]);
+          }
+      }
+
+
+      var correct_characters_in_words1 = [];
+      for(var a = 0; a < words_in_string_orig.length; a++) {
+        correct_characters_in_words1[a] = 0;
+      }
+
+      var correct_characters_in_words2 = [];
+      for(var b = 0; b < words_in_string.length; b++) {
+        correct_characters_in_words2[b] = 0;
+      }
+
       var correct_characters1 = 0;
       var correct_characters2 = 0;
-
+      
       for(var j=0; j<search.length;j++){
         //Check first with š č ž
         if(search[j].toLowerCase() === temp_string_data_orig[j]){
@@ -64,12 +93,40 @@ class App extends React.Component {
           }
         }    
       }
-      //Check the results of comparison
-      if(correct_characters1 === search.length){
-        temp_array.push(i);
+
+      for(var c=0; c<words_in_string.length; c++){
+        for(var d=0; d<search.length; d++){
+          if(search[d].toLowerCase() === words_in_string_orig[c][d]){
+            correct_characters_in_words1[c] += 1;
+          }
+          if(search[d].toLowerCase() === words_in_string[c][d]){
+            correct_characters_in_words2[c] += 1;
+          }
+        }
       }
-      else if(correct_characters2 === search.length){
-        temp_array.push(i);
+
+      //Check the results of comparison
+      for(var e=0; e<correct_characters_in_words1.length; e++){      
+        if(correct_characters_in_words1[e] === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters_in_words2[e] === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters1 === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters2 === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }       
       }
     }
 
@@ -131,7 +188,7 @@ class App extends React.Component {
         <div>
           <button onClick={() => this.handleBack()}>Back</button>
           {this.state.station}
-          <iframe src="https://www.google.com/maps/d/embed?mid=1yc5GwaM8U67g3LIzLBbmtyGhMbbo6nmu" width="640" height="480"></iframe>
+          <iframe src="https://www.google.com/maps/place/Bicike(lj)/@46.0573245,14.5080687,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x930a81bae369be9e!8m2!3d46.0573245!4d14.5102574" width="640" height="480"></iframe>
         </div>);
     }
     else{ 

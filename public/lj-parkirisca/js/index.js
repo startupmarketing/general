@@ -172,37 +172,83 @@ class App extends React.Component {
 
       var temp_string_data_orig = this.state.allData.Parkirisca[i.toString()].Ime.toLowerCase();
 
+      //console.log(temp_string_data_orig + " " + temp_string_data);
+      
+      var words_in_string_orig = temp_string_data_orig.split(" ");
+      var words_in_string = temp_string_data.split(" ");
+
+      var correct_characters_in_words1 = [];
+      for(var a = 0; a < words_in_string_orig.length; a++) {
+        correct_characters_in_words1[a] = 0;
+      }
+
+      var correct_characters_in_words2 = [];
+      for(var b = 0; b < words_in_string.length; b++) {
+        correct_characters_in_words2[b] = 0;
+      }
+
       var correct_characters1 = 0;
       var correct_characters2 = 0;
 
       for(var j=0; j<search.length;j++){
-        //Check first with š č ž
+        //Check with š č ž
         if(search[j].toLowerCase() === temp_string_data_orig[j]){
           if(correct_characters1 === j){
             correct_characters1 += 1;
           }
         }
 
-        //Check second without č š ž
+        //Check without č š ž
         if(search[j].toLowerCase() === temp_string_data[j]){
           if(correct_characters2 === j){
             correct_characters2 += 1;
           }
-        }    
+        }
       }
+
+      for(var c=0; c<words_in_string.length; c++){
+        for(var d=0; d<search.length; d++){
+          if(search[d].toLowerCase() === words_in_string_orig[c][d]){
+            correct_characters_in_words1[c] += 1;
+          }
+          if(search[d].toLowerCase() === words_in_string[c][d]){
+            correct_characters_in_words2[c] += 1;
+          }
+        }
+      }
+
       //Check the results of comparison
-      if(correct_characters1 === search.length){
-        temp_array.push(i);
+
+      for(var e=0; e<correct_characters_in_words1.length; e++){      
+        if(correct_characters_in_words1[e] === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters_in_words2[e] === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters1 === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }
+        else if(correct_characters2 === search.length){
+          if(!temp_array.includes(i)){
+            temp_array.push(i);
+          }
+        }       
       }
-      else if(correct_characters2 === search.length){
-        temp_array.push(i);
-      }
+
+
     }
 
     if(temp_array.length > 0){
       return this.filterParkingPlaces(temp_array);
     }else{
-      return <div>Ne najde parkirišč<br/></div>
+      return <li>Ne najde parkirišč<br/></li>
     }
   }
 
@@ -211,6 +257,13 @@ class App extends React.Component {
     for (var i=0; i<filtered_parking_places.length; i++){
 
       if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost){
+        let temp_free;
+        if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki < 0){
+          temp_free = 0;
+        }
+        else{
+          temp_free = this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki;
+        }
         displayFilteredParkingPlaces.push(
           <ParkingPlace1
             handleBack={() => this.handleBack()}
@@ -220,7 +273,7 @@ class App extends React.Component {
             handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
             priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
             priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
-            free={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki}
+            free={temp_free}
             allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
             invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
           />
@@ -246,6 +299,7 @@ class App extends React.Component {
 
   async handleClickOnParkingPlace(number){
     await this.setState({chosen : true});
+    await this.setState({parking_place_name: this.state.allData.Parkirisca[number.toString()].Ime});
     await this.setState({parking_place: this.filterParkingPlaces([number])});
   }
 
@@ -301,7 +355,7 @@ class App extends React.Component {
       return(
         <div id="parkirisce">
           {this.state.parking_place}
-          <iframe src="https://www.google.com/maps/d/embed?mid=1yc5GwaM8U67g3LIzLBbmtyGhMbbo6nmu" width="640" height="480"></iframe>
+          <iframe src="https://www.google.com/maps/embed/v1/place/Parkirna+hi%C5%A1a+Kozolec/@46.0567897,14.5027459,17z/data=!3m1!4b1!4m5!3m4!1s0x4765329ef2f92c19:0xe93b35d4c04299b!8m2!3d46.0567897!4d14.5049346&output=embed" width="100%" height="480"></iframe>
         </div>);
     }
     else{ 
@@ -350,7 +404,7 @@ class App extends React.Component {
               </div>
               
               <div className="page__content">
-                  <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1xBpXwxQPmg20ERJvzWzU7pkInumwS9ho" width="640" height="480"></iframe>
+                  <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1xBpXwxQPmg20ERJvzWzU7pkInumwS9ho" width="100%" height="480"></iframe>
               </div>
           </div>
         );

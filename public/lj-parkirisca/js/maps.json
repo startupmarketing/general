@@ -1,0 +1,61 @@
+const MAPS = {
+"PH Kozolec": "https://www.google.com/maps/place/Parkirna+hi%C5%A1a+Kozolec/@46.0567897,14.5027459,17z/data=!3m1!4b1!4m5!3m4!1s0x4765329ef2f92c19:0xe93b35d4c04299b!8m2!3d46.0567897!4d14.5049346&output=embed",
+
+"Tivoli I": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Tivoli+I/@46.0576398,14.4968741,17z/data=!3m1!4b1!4m5!3m4!1s0x476532a1c80cdb63:0x1a0ebed091fad545!8m2!3d46.0576361!4d14.4990628",
+
+"Kranjčeva": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Kranj%C4%8Deva+(POP+TV)/@46.0702222,14.5199124,17z/data=!3m1!4b1!4m5!3m4!1s0x4765328d3929f64b:0x85a459441b9a568c!8m2!3d46.0702185!4d14.5221011",
+
+"Mirje": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Mirje/@46.0453178,14.4938958,16z/data=!4m8!1m2!2m1!1sMirje,+Ljubljana!3m4!1s0x47652d5d5d90ba93:0x4e81a04ef041eab9!8m2!3d46.0466557!4d14.4943632",
+
+"P+R Studenec": "https://www.google.com/maps/place/P%2BR+Studenec/@46.0541576,14.5652754,17z/data=!3m1!4b1!4m5!3m4!1s0x476532051f1baa79:0x7a82e3d7164ebf48!8m2!3d46.0541539!4d14.5674641",
+
+"Trg MDB": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+MDB/@46.0469197,14.4935305,17z/data=!3m1!4b1!4m5!3m4!1s0x47652d678e67f14d:0xd290823789ff25da!8m2!3d46.046916!4d14.4957192",
+
+"Gospodarsko raz.": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Gospodarsko+razstavi%C5%A1%C4%8De/@46.0614925,14.5066797,17z/data=!4m8!1m2!2m1!1zR09TUE9EQVJTS08gUkFaU1RBVknFoMSMRSBQQVJLSVJJxaDEjEU!3m4!1s0x4765329a18337d11:0x69966cbb1c66ecee!8m2!3d46.0618565!4d14.510097",
+
+"Bežigrad": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Be%C5%BEigrad/@46.0625096,14.5060959,17z/data=!3m1!4b1!4m5!3m4!1s0x47653299e88edc2f:0xe8c51d0ac4e32f3f!8m2!3d46.0625059!4d14.5082846",
+
+"Trg preko. brigad": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+trg+Prekomorskih+brigad/@46.0691515,14.4872436,17z/data=!3m1!4b1!4m5!3m4!1s0x476532b11838ed7b:0xccf195531f24e558!8m2!3d46.0691478!4d14.4894323",
+
+"Sanatorij Emona": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Sanatorij+Emona/@46.0535596,14.5064339,17z/data=!3m1!4b1!4m5!3m4!1s0x4765329d7ef40a57:0x3d32ea305b85b083!8m2!3d46.0535559!4d14.5086226",
+
+"Petkovskovo  II": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Petkov%C5%A1kovo+nabre%C5%BEje+II/@46.051823,14.5117162,17z/data=!3m1!4b1!4m5!3m4!1s0x47652d62b471d8f5:0x7ddd1e99abf8c945!8m2!3d46.0518193!4d14.5139049",
+
+"P+R Dolgi most": "https://www.google.com/maps/place/P%2BR+Dolgi+most/@46.0365865,14.4611001,17z/data=!3m1!4b1!4m5!3m4!1s0x47652d34d14a24d1:0x271240eee0da2569!8m2!3d46.0365828!4d14.4632888",
+
+"Parkomati": "",
+
+"Tivoli II": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Tivoli+II/@46.0571409,14.4866679,15z/data=!4m8!1m2!2m1!1stivoli+2!3m4!1s0x476532a3dc48bb79:0x4b49b7a7fe1d1db8!8m2!3d46.0600945!4d14.4971963",
+
+"Žale II": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+%C5%BDale+II/@46.0671236,14.5265478,17z/data=!3m1!4b1!4m5!3m4!1s0x4765328a4da39f8b:0xeb8fb5084402b725!8m2!3d46.0671199!4d14.5287365",
+
+"Žale I": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+%C5%BDale+I/@46.0689395,14.5267334,17z/data=!3m1!4b1!4m5!3m4!1s0x4765328a4ceee5e1:0x1120ffbe69e8c12e!8m2!3d46.0689358!4d14.5289221",
+
+"NUK": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+NUK+II/@46.0465338,14.5002478,17z/data=!4m5!3m4!1s0x47652d65d2f2bb85:0xca6da0f296e3026e!8m2!3d46.0467907!4d14.5022648",
+
+"Žale III": "https://www.google.com/maps/place/Unnamed+Road,+1000+Ljubljana/@46.0681789,14.5235267,603m/data=!3m2!1e3!4b1!4m5!3m4!1s0x4765328c7ff8d589:0xaa261cb1679ce452!8m2!3d46.0681789!4d14.5257154",
+
+"Center Stožice": "https://www.google.com/maps/place/P%2BR+Sto%C5%BEice/@46.0805763,14.5215405,17z/data=!4m8!1m2!2m1!1ssto%C5%BEice+parking!3m4!1s0x476532ef9030b833:0x86c01f5024cb9c4c!8m2!3d46.0813068!4d14.5234589",
+
+"Žale IV": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+%C5%BDale+IV/@46.0679311,14.526411,17z/data=!4m8!1m2!2m1!1zxb5hbGU!3m4!1s0x0:0xc874c06158b15d5!8m2!3d46.0695029!4d14.5270499",
+
+"PH Kongresni trg": "https://www.google.com/maps/place/Parkirna+hi%C5%A1a+Kongresni+trg/@46.0506341,14.501298,17z/data=!3m1!4b1!4m5!3m4!1s0x47652d6161e80f27:0x19dcddb1876a7bb6!8m2!3d46.0506304!4d14.5034867",
+
+"Linhartova": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Linhartova/@46.0625173,14.5070021,17z/data=!4m8!1m2!2m1!1slinhartova+parking!3m4!1s0x47653297582fb62d:0xeffa66abe1cd4c1f!8m2!3d46.0631707!4d14.5091685",
+
+"Gosarjeva ulica": "https://www.google.com/maps/place/Parkirna+hi%C5%A1a+FDV+-+DPL/@46.0744588,14.5118447,16z/data=!4m8!1m2!2m1!1sGosarjeva+ulica+parking!3m4!1s0x476532eb9ca9a99f:0xbb52f558305c931a!8m2!3d46.0747381!4d14.5138116",
+
+"Štembalova": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+%C5%A0tembalova+ulica/@46.0784258,14.513767,17z/data=!3m1!4b1!4m5!3m4!1s0x476532e916db9c25:0x7e5a4c6b838f2408!8m2!3d46.0784221!4d14.5159557",
+
+"PH Kolezija": "https://www.google.com/maps/place/Kopali%C5%A1%C4%8De+Kolezija/@46.0508547,14.4908288,15z/data=!4m8!1m2!2m1!1sparkirna+hi%C5%A1a+kolezija!3m4!1s0x47652d69c099ca21:0x2056db87ee418159!8m2!3d46.042091!4d14.4941556",
+
+"Barje": "https://www.google.com/maps/place/P%2BR+Barje/@46.027137,14.4976238,17z/data=!3m1!4b1!4m5!3m4!1s0x47652d0fcc8113dd:0xf2d62b5f74cadf55!8m2!3d46.0271333!4d14.4998125",
+
+"Gosarjeva ulica II": "https://www.google.com/maps/place/Ju%C5%BEno+parkiri%C5%A1%C4%8De+PEF/@46.074802,14.5134293,17z/data=!4m8!1m2!2m1!1sgosarjeva+ulica+parking!3m4!1s0x476532ec68eaf06b:0x3c57e6351e6049ae!8m2!3d46.0748437!4d14.5174243",
+
+"GR - Abonenti": "https://www.google.com/maps/place/Parkiri%C5%A1%C4%8De+Gospodarsko+razstavi%C5%A1%C4%8De/@46.0614925,14.5066797,17z/data=!4m8!1m2!2m1!1sgospodarsko+rastavi%C5%A1%C4%8De+abonenti!3m4!1s0x4765329a18337d11:0x69966cbb1c66ecee!8m2!3d46.0618565!4d14.510097",
+
+"Slovenčeva ulica": "https://www.google.com/maps/place/Sloven%C4%8Deva+ulica+153+Parking/@46.0894414,14.5052107,17z/data=!3m1!4b1!4m5!3m4!1s0x476532d908792639:0x89d119be5eb40709!8m2!3d46.0894377!4d14.5073994",
+
+"Povšetova ulica": "https://www.google.com/maps/place/Unnamed+Road,+1000+Ljubljana/@46.0517297,14.5289737,284m/data=!3m2!1e3!4b1!4m12!1m6!3m5!1s0x47652d877ae1054b:0xa678fccf6e2b059b!2sPark+Kodeljevo!8m2!3d46.0504078!4d14.5331431!3m4!1s0x4765327f4a25235d:0x320b8235b037cfa8!8m2!3d46.0517297!4d14.5300045"
+}
