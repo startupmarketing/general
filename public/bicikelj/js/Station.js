@@ -4,13 +4,14 @@ class Station extends React.Component {
   } 
 
   render() {
+    var name = this.props.name.split('-').join(' - ');
     if(this.props.chosen){
       return(
         <div>
           <div className="page__header">
               <div className="ui-back"><img onClick={() => this.props.handleBack()} src="/public/bicikelj/img/i_arrow-back.svg" height="24" width="24" alt=""/></div>
 
-              <h1 className="page__title ui-page-title title-bicycle">{this.props.name}</h1>
+              <h1 className="page__title ui-page-title title-bicycle">{name}</h1>
               
 
               <div className="header__image">
@@ -36,7 +37,7 @@ class Station extends React.Component {
       if(this.props.free < 5){
         return(
           <li onClick={() => this.props.handleClickOnStation(this.props.number)}>
-            <div className="parking-name">{this.props.name}</div>
+            <div className="parking-name">{name}</div>
             <div className="available">
               <img src="/public/bicikelj/img/i_tree2.svg" alt="" height="20"/>
               <div className="col"><span className="available-label">Prosta kolesa:</span><span className="available-value value-alert">{this.props.free}</span></div>
@@ -48,7 +49,7 @@ class Station extends React.Component {
       else if((this.props.allSpaces - this.props.free)<5){
         return(
             <li onClick={() => this.props.handleClickOnStation(this.props.number)}>
-                <div className="parking-name">{this.props.name}</div>
+                <div className="parking-name">{name}</div>
                 <div className="available">
                     <img src="/public/bicikelj/img/i_tree2.svg" alt="" height="20"/>
                     <div className="col"><span className="available-label">Prosta kolesa:</span><span className="available-value">{this.props.free}</span></div>
@@ -60,7 +61,7 @@ class Station extends React.Component {
       else{
         return(
           <li onClick={() => this.props.handleClickOnStation(this.props.number)} id="parkirisce">
-            <div className="parking-name">{this.props.name}</div>
+            <div className="parking-name">{name}</div>
             <div className="available">
               <img src="/public/bicikelj/img/i_tree2.svg" alt="" height="20"/>
               <div className="col"><span className="available-label">Prosta kolesa:</span><span className="available-value">{this.props.free}</span></div>

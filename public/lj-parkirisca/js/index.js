@@ -1,10 +1,17 @@
 const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
 const URL = "https://api.messengerbot.si/";
 
+/*
+"Parkomati" : {
+                "Dnevna" : "CONA 1: 0,70 €/uro\r\nObratovalni čas CONA 1: 8.00 do 18.00 ponedeljek - petek, od 8:00 do 13:00 ure sobota\r\nCONA 2: 0,40 €/uro\r\nObratovalni čas CONA 2: od 7:00 do 17:00 ure ponedeljek - petek",
+                "Nocna" : null
+              }
+*/
+
 const PRICES = {
 "PH Kozolec" :  {  
                   "Dnevna" : "Dnevna: 1,20 €/uro",
-                  "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                  "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
                 },
 "Tivoli I" :    {
                   "Dnevna" : "Dnevna (6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
@@ -16,7 +23,7 @@ const PRICES = {
               },
 "Mirje" : {
             "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro",
-            "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+            "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
           },
 "P+R Studenec" :  {
                     "Dnevna" : "Dnevna: 2,40 €/dan",
@@ -24,7 +31,7 @@ const PRICES = {
                   },
 "Trg MDB" : {
               "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro", 
-              "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+              "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
             },
 "Gospodarsko raz." :  {
                         "Dnevna" : "Dnevna (7.00 do 19.00): Do 1 ure - 1,00 €\nOd 1 do 3 ur - 2,00 €\r\nOd 3 do 5 ur - 2,50 €\r\nOd 5 do 8 ur - 3,00 €\r\nNad 8 ur - 3,50 €\r\n", 
@@ -32,28 +39,24 @@ const PRICES = {
                       },
 "Bežigrad" :  {
                 "Dnevna" : "Dnevna (7.00 do 19.00): 0,70 €/uro",
-                "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
               },
 "Trg preko. brigad  " : {
                           "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
-                          "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                          "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
                         },
 "Sanatorij Emona" : {
                       "Dnevna" : "Dnevna (7.00 do 19.00): 1,20 €/uro",
-                      "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                      "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
                     },
 "Petkovskovo  II" : {
                       "Dnevna" : "Dnevna (7.00 do 19.00): 1,20 €/uro",
-                      "Nocna" : "Nočna (19.00 do 7.00): 1,8 €/noč"
+                      "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
                     },
 "P+R Dolgi most" :  {
                       "Dnevna" : "1,20 €/dan",
                       "Nocna" : null
                     },
-"Parkomati" : {
-                "Dnevna" : "CONA 1: 0,70 €/uro\r\nObratovalni čas CONA 1: 8.00 do 18.00 ponedeljek - petek, od 8:00 do 13:00 ure sobota\r\nCONA 2: 0,40 €/uro\r\nObratovalni čas CONA 2: od 7:00 do 17:00 ure ponedeljek - petek",
-                "Nocna" : null
-              },
 "Tivoli II" : {
                 "Dnevna" : "Dnevna (6.00 do 22.00): Prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €\r\nAvtobus dnevna(6.00 do 22.00) 4,80 €/uro\r\nParkirnina avtodom: 3,60 €/uro",
                 "Nocna" : null
@@ -265,33 +268,35 @@ class App extends React.Component {
           temp_free = this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki;
         }
         displayFilteredParkingPlaces.push(
-          <ParkingPlace1
-            handleBack={() => this.handleBack()}
-            chosen={this.state.chosen}
-            name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
-            number={filtered_parking_places[i]}
-            handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
-            priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
-            priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
-            free={temp_free}
-            allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
-            invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
-          />
+            <ParkingPlace1
+              handleBack={() => this.handleBack()}
+              chosen={this.state.chosen}
+              name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
+              number={filtered_parking_places[i]}
+              handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
+              priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
+              priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
+              free={temp_free}
+              allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
+              invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
+            />
         );
       }else{
-        displayFilteredParkingPlaces.push(
-          <ParkingPlace2
-            chosen={this.state.chosen}
-            handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
-            handleBack={() => this.handleBack()}
-            name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
-            number={filtered_parking_places[i]}
-            priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
-            priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
-            allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
-            invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
-          />
-        );
+        if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime !== "Parkomati"){
+          displayFilteredParkingPlaces.push(
+            <ParkingPlace2
+              chosen={this.state.chosen}
+              handleClickOnParkingPlace={(number) => this.handleClickOnParkingPlace(number)}
+              handleBack={() => this.handleBack()}
+              name={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime}
+              number={filtered_parking_places[i]}
+              priceDay={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Dnevna"]}
+              priceNight={PRICES[this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Ime.toString()]["Nocna"]}
+              allSpaces={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].St_mest}
+              invalidi={this.state.allData.Parkirisca[filtered_parking_places[i].toString()].Invalidi_St_mest}
+            />
+          );
+        }
       }
     };
     return displayFilteredParkingPlaces;

@@ -214,9 +214,8 @@ class App extends React.Component {
     if(this.state.station){
       return(
         <div>
-          <button onClick={() => this.handleBack()}>Back</button>
           {this.state.station}
-          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1TmqWyqRmBvupyjM25gKkJKmc9FY5Kdkj&ll=46.06126496219192%2C14.51133310991213&z=13" width="640" height="480"></iframe>
+          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1TmqWyqRmBvupyjM25gKkJKmc9FY5Kdkj&ll=46.06126496219192%2C14.51133310991213&z=13" width="100%" height="480"></iframe>
         </div>);
     }
     else{ 
