@@ -360,7 +360,7 @@ class App extends React.Component {
       return(
         <div id="parkirisce">
           {this.state.parking_place}
-          <iframe src="https://www.google.com/maps/v1/place/Parkirna+hi%C5%A1a+Kozolec/@46.0567897,14.5027459,17z/data=!3m1!4b1!4m5!3m4!1s0x4765329ef2f92c19:0xe93b35d4c04299b!8m2!3d46.0567897!4d14.5049346" width="100%" height="480"></iframe>
+          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1xBpXwxQPmg20ERJvzWzU7pkInumwS9ho" width="100%" height="480"></iframe>
         </div>);
     }
     else{ 
