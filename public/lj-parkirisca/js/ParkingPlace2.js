@@ -13,7 +13,7 @@ class ParkingPlace2 extends React.Component {
                   <div className="parking-name">{this.props.name}</div>
                   <div className="available">
                     <div className="col"><span className="available-label"></span><span className="available-value"></span></div>
-                    <div className="col"><span className="available-label"><strong>Št. mest</strong></span><span className="available-value">{this.props.allSpaces}</span></div>
+                    <div className="col"><span className="available-label">Prosto</span><span className="available-value">/</span></div>
                   </div> 
                 
               </li>
@@ -25,7 +25,7 @@ class ParkingPlace2 extends React.Component {
                   <div className="parking-name">{this.props.name}</div>
                   <div className="available">
                     <div className="col"><span className="available-label"><img src="/public/lj-parkirisca/img/i_invalidi.svg" height="18" alt=""/></span><span className="available-value">{this.props.invalidi}</span></div>
-                    <div className="col"><span className="available-label"><strong>Št. mest</strong></span><span className="available-value">{this.props.allSpaces}</span></div>
+                    <div className="col"><span className="available-label">Prosto</span><span className="available-value">/</span></div>
                   </div> 
                 
               </li>
