@@ -6,6 +6,7 @@ class Station extends React.Component {
   render() {
     var name = this.props.name.split('-').join(' - ');
     if(this.props.chosen){
+      window.scrollTo(0, 0);
       return(
         <div>
           <div className="page__header">

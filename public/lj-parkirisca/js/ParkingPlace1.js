@@ -5,6 +5,7 @@ class ParkingPlace1 extends React.Component {
 
   render() {
     if(this.props.chosen){
+      window.scrollTo(0, 0);
       if(this.props.invalidi && this.props.priceNight){
         return(
           <div id="parkirisce">

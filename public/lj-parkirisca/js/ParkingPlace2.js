@@ -33,6 +33,7 @@ class ParkingPlace2 extends React.Component {
         }
     }
     else if(this.props.chosen){
+      window.scrollTo(0, 0);
       if((this.props.invalidi !== null) && (this.props.priceNight !== null)){
         return(
           <div id="parkirisce">
