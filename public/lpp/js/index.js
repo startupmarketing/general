@@ -140,7 +140,7 @@ class App extends React.Component {
     if(temp_array.length > 0){
       return this.filterLines(temp_array);
     }else{
-      return <div>Ne najde linije<br/></div>
+      return <li>Ne najde linije<br/></li>
     }
   }
 

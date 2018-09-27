@@ -12,7 +12,9 @@ class App extends React.Component {
       allData: {markers : []},
       activeTab : "list",
       station : null,
-      chosen : false
+      chosen : false,
+      isActiveList: "active",
+      isActiveMap: null
     }
     this.getAllData();
     this.handleChange = this.handleChange.bind(this);
@@ -133,7 +135,7 @@ class App extends React.Component {
     if(temp_array.length > 0){
       return this.filterStations(temp_array);
     }else{
-      return <div>Ne najde parkirišč<br/></div>
+      return <li>Ne najde parkirišč<br/></li>
     }
   }
 
@@ -149,6 +151,7 @@ class App extends React.Component {
           allSpaces={this.state.allData.markers[filtered_stations[i].toString()].station.total}
           chosen={this.state.chosen}
           handleClickOnStation={(number) => this.handleClickOnStation(number)}
+          handleBack={() => this.handleBack()}
         />
       );
 
@@ -179,36 +182,67 @@ class App extends React.Component {
     await this.setState({chosen : false})
   }
 
+  async changeToggleButton1(){
+    if(!this.state.list){
+      await this.setState({isActiveList : "active"});
+      await this.setState({isActiveMap : null});
+      return await this.setState({activeTab: "list"});
+    }
+  }
+
+  async changeToggleButton2(){
+    if(!this.state.map){
+      await this.setState({isActiveMap : "active"});
+      await this.setState({isActiveList : null});
+      return await this.setState({activeTab: "map"});
+    }
+  }
+
 //=================================================================================
 
   render() {
+    var toggleButtonClass1 = ["station"];
+      if(this.state.isActiveList === "active") {
+        toggleButtonClass1.push('active');
+      }
+
+    var toggleButtonClass2 = ["station"];
+      if(this.state.isActiveMap === "active") {
+        toggleButtonClass2.push('active');
+      }
  //first page 
     if(this.state.station){
       return(
         <div>
           <button onClick={() => this.handleBack()}>Back</button>
           {this.state.station}
-          <iframe src="https://www.google.com/maps/place/Bicike(lj)/@46.0573245,14.5080687,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x930a81bae369be9e!8m2!3d46.0573245!4d14.5102574" width="640" height="480"></iframe>
+          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1TmqWyqRmBvupyjM25gKkJKmc9FY5Kdkj&ll=46.06126496219192%2C14.51133310991213&z=13" width="640" height="480"></iframe>
         </div>);
     }
     else{ 
       if(this.state.activeTab === "list"){
         return(
-          <div className="main-container">     
+          <div className="main-container">
+
               <div className="page__header">
-                  <button onClick={() => this.handleChangeStations()}>Postaje</button>
-                  <button onClick={() => this.handleChangeMap()}>Zemljevid</button>
-                  <h1 className="page__title ui-page-title">Poiščite postajo</h1>
+                 
+                  <div className="station-toggle">
+                      <div className={toggleButtonClass1.join(' ')} onClick={() => this.changeToggleButton1()}>Postajališča</div>
+                      <div className={toggleButtonClass2.join(' ')} onClick={() => this.changeToggleButton2()}>Zemljevid</div>
+                  </div>
                   
+                  <h1 className="page__title ui-page-title">Poiščite postajališče</h1>
                   <input type="text" className="ui-input ui-input__ondark" placeholder="Vpiši postajališče..." value={this.state.searchValue} onChange={this.handleChange}/>
-                  
+                  <div className="header__image">
+                      <img src="/public/bicikelj/img/i_bicikelj.png" height="50" alt=""/>
+                  </div>
               </div>
               
               <div className="page__content">
                   <h2 className="list-title">Postajališča</h2>
                   
-                  <ul className="ui-list">
-                      { this.checkSearch(this.state.searchValue) }
+                  <ul className="ui-list bicycle-stations">
+                    { this.checkSearch(this.state.searchValue) }
                   </ul>
               </div>
           </div>
@@ -216,15 +250,23 @@ class App extends React.Component {
       }
       else if(this.state.activeTab === "map"){
         return(
-          <div className="main-container">     
+          <div className="main-container">
+
               <div className="page__header">
-                  <button onClick={() => this.handleChangeStations()}>Postaje</button>
-                  <button onClick={() => this.handleChangeMap()}>Zemljevid</button>
-                  <h1 className="page__title ui-page-title">Poiščite postajo</h1>                
+                 
+                  <div className="station-toggle">
+                      <div className={toggleButtonClass1.join(' ')} onClick={() => this.changeToggleButton1()}>Postajališča</div>
+                      <div className={toggleButtonClass2.join(' ')} onClick={() => this.changeToggleButton2()}>Zemljevid</div>
+                  </div>
+                  
+                  <h1 className="page__title ui-page-title">Poiščite postajališče</h1>
+                  <div className="header__image">
+                      <img src="/public/bicikelj/img/i_bicikelj.png" height="50" alt=""/>
+                  </div><br/>
               </div>
               
               <div className="page__content">
-                  <iframe src="https://www.google.com/maps/d/embed?mid=1yc5GwaM8U67g3LIzLBbmtyGhMbbo6nmu" width="640" height="480"></iframe>
+                  <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1TmqWyqRmBvupyjM25gKkJKmc9FY5Kdkj&ll=46.06126496219192%2C14.51133310991213&z=13" width="100%" height="480"></iframe>
               </div>
           </div>
         );
