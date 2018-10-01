@@ -7,6 +7,37 @@ const URL = "https://api.messengerbot.si/";
                 "Nocna" : null
               }
 */
+const MAPS = {
+"PH Kozolec": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.7146481418145!2d14.502745915468903!3d46.05678967911244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765329ef2f92c19%3A0xe93b35d4c04299b!2sThe+parking+garage+Kozolec!5e0!3m2!1sen!2ssi!4v1538243760617" width="100%" height="450"></iframe>,
+"Tivoli I": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2768.672023214965!2d14.4968741!3d46.0576398!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532a1c80cdb63%3A0x1a0ebed091fad545!2zUGFya2lyacWhxI1lIFRpdm9saSBJ!5e0!3m2!1ssl!2ssi!4v1538312674101" width="100%" height="450"></iframe>,
+"Kranjčeva": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.041259007793!2d14.519912415577874!3d46.07021847911271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765328d3929f64b%3A0x85a459441b9a568c!2zUGFya2lyacWhxI1lIEtyYW5qxI1ldmEgKFBPUCBUVik!5e0!3m2!1ssl!2ssi!4v1538312844461" width="100%" height="450"></iframe>,
+"Mirje": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5538.579573464778!2d14.4938958!3d46.0453178!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d5d5d90ba93%3A0x4e81a04ef041eab9!2zUGFya2lyacWhxI1lIE1pcmpl!5e0!3m2!1ssl!2ssi!4v1538312870616" width="100%" height="450"></iframe>,
+"P+R Studenec": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.8468028622565!2d14.565275415577263!3d46.05415387911228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532051f1baa79%3A0x7a82e3d7164ebf48!2sP%2BR+Studenec!5e0!3m2!1ssl!2ssi!4v1538312893555" width="100%" height="450"></iframe>,
+"Trg MDB": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.2096692446744!2d14.493530515577074!3d46.04691597911217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d678e67f14d%3A0xd290823789ff25da!2zUGFya2lyacWhxI1lIE1EQg!5e0!3m2!1ssl!2ssi!4v1538312919828" width="100%" height="450"></iframe>,
+"Gospodarsko raz.": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2768.4788418059684!2d14.5066797!3d46.0614925!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765329a18337d11%3A0x69966cbb1c66ecee!2zUGFya2lyacWhxI1lIEdvc3BvZGFyc2tvIHJhenN0YXZpxaHEjWU!5e0!3m2!1ssl!2ssi!4v1538312956103" width="100%" height="450"></iframe>,
+"Bežigrad": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.4280270485565!2d14.50609591557756!3d46.06250587911264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47653299e88edc2f%3A0xe8c51d0ac4e32f3f!2zUGFya2lyacWhxI1lIEJlxb5pZ3JhZA!5e0!3m2!1ssl!2ssi!4v1538312985527" width="100%" height="450"></iframe>,
+"Trg preko. brigad": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.094954994384!2d14.487243615577862!3d46.06914777911281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532b11838ed7b%3A0xccf195531f24e558!2sParkiri%C5%A1%C4%8De+trg+Prekomorskih+brigad!5e0!3m2!1ssl!2ssi!4v1538313014153" width="100%" height="450"></iframe>,
+"Sanatorij Emona": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.876784793081!2d14.506433915577317!3d46.05355587911239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765329d7ef40a57%3A0x3d32ea305b85b083!2sParkiri%C5%A1%C4%8De+Sanatorij+Emona!5e0!3m2!1ssl!2ssi!4v1538313043774" width="100%" height="450"></iframe>,
+"Petkovskovo  II": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.9638510115233!2d14.511716215577213!3d46.051819279112195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d62b471d8f5%3A0x7ddd1e99abf8c945!2zUGFya2lyacWhxI1lIFBldGtvdsWha292byBuYWJyZcW-amUgSUk!5e0!3m2!1ssl!2ssi!4v1538313072796" width="100%" height="450"></iframe>,
+"P+R Dolgi most": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.727639459155!2d14.461100115576697!3d46.03658277911188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d34d14a24d1%3A0x271240eee0da2569!2sP%2BR+Dolgi+most!5e0!3m2!1ssl!2ssi!4v1538313106606" width="100%" height="450"></iframe>,
+"Tivoli II": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11074.788152223806!2d14.4866679!3d46.0571409!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532a3dc48bb79%3A0x4b49b7a7fe1d1db8!2sParkiri%C5%A1%C4%8De+Tivoli+II!5e0!3m2!1ssl!2ssi!4v1538313142511" width="100%" height="450"></iframe>,
+"Žale II": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.1966522528974!2d14.52654781557776!3d46.06711987911267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765328a4da39f8b%3A0xeb8fb5084402b725!2zUGFya2lyacWhxI1lIMW9YWxlIElJ!5e0!3m2!1ssl!2ssi!4v1538313196685" width="100%" height="450"></iframe>,
+"Žale I": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.105586755298!2d14.526733415577773!3d46.06893577911271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765328a4ceee5e1%3A0x1120ffbe69e8c12e!2zUGFya2lyacWhxI1lIMW9YWxlIEk!5e0!3m2!1ssl!2ssi!4v1538313226089" width="100%" height="450"></iframe>,
+"NUK": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2769.2288282634327!2d14.5002478!3d46.0465338!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d65d2f2bb85%3A0xca6da0f296e3026e!2zUGFya2lyacWhxI1lIE5VSyBJSQ!5e0!3m2!1ssl!2ssi!4v1538313279111" width="100%" height="450"></iframe>,
+"Žale III": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.6769755679557!2d14.523639217708814!3d46.06817888120477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765328c7ff8d589%3A0xaa261cb1679ce452!2sUnnamed+Road%2C+1000+Ljubljana!5e0!3m2!1ssl!2ssi!4v1538313393270" width="100%" height="450"></iframe>,
+"Center Stožice": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2767.521760695247!2d14.5215405!3d46.0805763!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532ef9030b833%3A0x86c01f5024cb9c4c!2zUCtSIFN0b8W-aWNl!5e0!3m2!1ssl!2ssi!4v1538313440288" width="100%" height="450"></iframe>,
+"Žale IV": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2768.1559707121833!2d14.526411!3d46.0679311!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc874c06158b15d5!2zUGFya2lyacWhxI1lIMW9YWxlIElW!5e0!3m2!1ssl!2ssi!4v1538313572671" width="100%" height="450"></iframe>,
+"PH Kongresni trg": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.023456263025!2d14.501298015577168!3d46.05063037911224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d6161e80f27%3A0x19dcddb1876a7bb6!2sParkirna+hi%C5%A1a+Kongresni+trg!5e0!3m2!1ssl!2ssi!4v1538313588388" width="100%" height="450"></iframe>,
+"Linhartova": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2768.427454356052!2d14.5070021!3d46.0625173!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47653297582fb62d%3A0xeffa66abe1cd4c1f!2sParkiri%C5%A1%C4%8De+Linhartova!5e0!3m2!1ssl!2ssi!4v1538313613579" width="100%" height="450"></iframe>,
+"Gosarjeva ulica": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5535.657191819386!2d14.5118447!3d46.0744588!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532eb9ca9a99f%3A0xbb52f558305c931a!2sParkirna+hi%C5%A1a+FDV+-+DPL!5e0!3m2!1ssl!2ssi!4v1538313643398" width="100%" height="450"></iframe>,
+"Štembalova": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2767.629813469211!2d14.51376701557817!3d46.07842207911303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532e916db9c25%3A0x7e5a4c6b838f2408!2zUGFya2lyacWhxI1lIMWgdGVtYmFsb3ZhIHVsaWNh!5e0!3m2!1ssl!2ssi!4v1538313686593" width="100%" height="450"></iframe>,
+"PH Kolezija": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11076.048840294963!2d14.4908288!3d46.0508547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d69c099ca21%3A0x2056db87ee418159!2zS29wYWxpxaHEjWUgS29sZXppamE!5e0!3m2!1ssl!2ssi!4v1538313723976" width="100%" height="450"></iframe>,
+"Barje": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2770.20123376402!2d14.497623815576343!3d46.02713327911157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d0fcc8113dd%3A0xf2d62b5f74cadf55!2sP%2BR+Barje!5e0!3m2!1ssl!2ssi!4v1538313765335" width="100%" height="450"></iframe>,
+"Gosarjeva ulica II": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2767.811382875766!2d14.5134293!3d46.074802!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532ec68eaf06b%3A0x3c57e6351e6049ae!2zSnXFvm5vIHBhcmtpcmnFocSNZSBQRUY!5e0!3m2!1ssl!2ssi!4v1538313789354" width="100%" height="450"></iframe>,
+"GR - Abonenti": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1384.208269090404!2d14.509830058196037!3d46.06273499477815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765329a09ecc405%3A0x2bd5ffa68a33942e!2sValjhunova+ulica%2C+1000+Ljubljana!5e0!3m2!1ssl!2ssi!4v1538325308584" width="100%" height="450"></iframe>,
+"Slovenčeva ulica": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2767.077244892045!2d14.505210715578512!3d46.089437679113345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532d908792639%3A0x89d119be5eb40709!2sSloven%C4%8Deva+ulica+153+Parking!5e0!3m2!1ssl!2ssi!4v1538325378406" width="100%" height="450"></iframe>,
+"Povšetova ulica": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.424986264044!2d14.52940836316063!3d46.05171621713804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47653278b836470d%3A0xa45f41a1934127c8!2sPov%C5%A1etova+ulica%2C+1000+Ljubljana!5e0!3m2!1ssl!2ssi!4v1538325832273" width="100%" height="450"></iframe>,
+}
 
 const PRICES = {
 "PH Kozolec" :  {  
@@ -344,7 +375,7 @@ class App extends React.Component {
 //===========================================================================
 
   render() {
- //first page 
+ //first page
     var toggleButtonClass1 = ["station"];
       if(this.state.isActiveList === "active") {
         toggleButtonClass1.push('active');
@@ -360,7 +391,7 @@ class App extends React.Component {
       return(
         <div id="parkirisce">
           {this.state.parking_place}
-          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1xBpXwxQPmg20ERJvzWzU7pkInumwS9ho" width="100%" height="480"></iframe>
+          {MAPS[this.state.parking_place_name]}
         </div>);
     }
     else{ 

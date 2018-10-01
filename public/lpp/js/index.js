@@ -171,8 +171,8 @@ class App extends React.Component {
       await this.setState({directionActive: this.state.direction1});
       await this.setState({isActiveStation1: "active"});
       await this.setState({isActiveStation2: ""});
-      await console.log(this.state.isActiveStation1);
-      await console.log(this.state.isActiveStation2);
+      //await console.log(this.state.isActiveStation1);
+      //await console.log(this.state.isActiveStation2);
       await this.getStations();
 
 //We check if station is already chosen
@@ -181,7 +181,7 @@ class App extends React.Component {
         var setStations = [];
       
         for (var i=0; i<this.state.allStationsData.length; i++){
-          console.log(this.state.allStationsData[i].station);
+          //console.log(this.state.allStationsData[i].station);
 
           if(this.state.station === (this.state.allStationsData[i].station)){
             this.handleClickStation(i);
@@ -199,8 +199,8 @@ class App extends React.Component {
       await this.setState({directionActive: this.state.direction2});
       await this.setState({isActiveStation1: ""});
       await this.setState({isActiveStation2: "active"});
-      await console.log(this.state.isActiveStation1);
-      await console.log(this.state.isActiveStation2);
+      //await console.log(this.state.isActiveStation1);
+      //await console.log(this.state.isActiveStation2);
       await this.getStations();
 
 //We check if station is already chosen
@@ -209,7 +209,7 @@ class App extends React.Component {
         var setStations = [];
       
         for (var i=0; i<this.state.allStationsData.length; i++){
-          console.log(this.state.allStationsData[i].station)
+          //console.log(this.state.allStationsData[i].station)
 
           if(this.state.station === (this.state.allStationsData[i].station)){
             this.handleClickStation(i)
@@ -239,7 +239,7 @@ class App extends React.Component {
 
   async handleClickLine(number){
     
-    console.log("Clicked number " + number);
+    //console.log("Clicked number " + number);
     await this.setState({line: BUSES[number][0]});
     await this.setState({direction1: BUSES[number][1]});
     await this.setState({direction2: BUSES[number][2]});
@@ -271,7 +271,7 @@ class App extends React.Component {
     var setStations = [];
   
     for (var i=0; i<data.length; i++){
-      console.log(data[i].station)
+      //console.log(data[i].station)
       let lastStation = false;
       if(i === (data.length-1)){
         lastStation = true;
@@ -308,13 +308,13 @@ class App extends React.Component {
 
   allArrivalsOnLine(){
     var setArrivals = [];
-  
+    console.log(this.state.allArrivalsData);
     for (var i=0; i<this.state.allArrivalsData.stations[0].buses.length; i++){
 
       if(this.state.line === this.state.allArrivalsData.stations[0].buses[i].number){
-        console.log(this.state.line);
-        console.log(this.state.allArrivalsData.stations[0].buses[i]);
-        console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
+        //console.log(this.state.line);
+        //console.log(this.state.allArrivalsData.stations[0].buses[i]);
+        //console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
         if (this.state.allArrivalsData.stations[0].buses[i].arrivals.length > 0) {
           for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){
             setArrivals.push(
@@ -363,7 +363,7 @@ class App extends React.Component {
       }
     }
     if(setArrivals.length === 0){
-      return this.setState({allArrivalsWithoutChosenLine: "Trenutno ni drugih prihodov"});
+      return this.setState({allArrivalsWithoutChosenLine: null});
     }
     return this.setState({allArrivalsWithoutChosenLine: setArrivals});
   }
@@ -388,6 +388,29 @@ class App extends React.Component {
     await this.allArrivalsOnLine();
     await this.allArrivalsWithoutChosenLine();
     return; 
+  }
+
+//Other buses on station
+
+  otherBuses(){
+    if(this.state.allArrivalsWithoutChosenLine){
+      return(
+          <div>  
+            <h2 className="list-title">Ostali avtobusi na postajališču:</h2>
+
+            <ul className="ui-list">
+                {this.state.allArrivalsWithoutChosenLine}
+            </ul>
+          </div>
+      );
+    }
+    else{
+      return(
+          <div>  
+
+          </div>
+          );
+    }
   }
 
 //===========================================================================
@@ -480,11 +503,7 @@ class App extends React.Component {
             <ul className="ui-list">
                 {this.state.allArrivalsOnLine}
             </ul>
-            <h2 className="list-title">Ostali avtobusi na postajališču:</h2>
-
-            <ul className="ui-list">
-                {this.state.allArrivalsWithoutChosenLine}
-            </ul>
+            {this.otherBuses()}
           </div>
 
 
