@@ -321,7 +321,7 @@ class App extends React.Component {
               <div>
                 <li>
                   <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> 
-                  {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} minut 
+                  {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} min 
                   <span className="bus-direction">
                     smer {this.state.allArrivalsData.stations[0].buses[i].direction}
                   </span>
@@ -350,8 +350,8 @@ class App extends React.Component {
             setArrivals.push(
               <div>
                 <li>
-                  <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> 
-                  Linija {this.state.allArrivalsData.stations[0].buses[i].number} - {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} minut
+                   
+                  Linija {this.state.allArrivalsData.stations[0].buses[i].number} <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> {this.state.allArrivalsData.stations[0].buses[i].arrivals[j]} min
                   <span className="bus-direction">
                      smer {this.state.allArrivalsData.stations[0].buses[i].direction}
                   </span>
@@ -411,6 +411,11 @@ class App extends React.Component {
           </div>
           );
     }
+  }
+
+  async refresh(){
+    await this.setState({allArrivalsData : null});
+    await this.getArrivals();
   }
 
 //===========================================================================
@@ -494,6 +499,7 @@ class App extends React.Component {
               <div className="header__image">
                   <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
               </div>
+              <button onClick={() => this.refresh()}>Refresh</button>
           </div>
 
 
