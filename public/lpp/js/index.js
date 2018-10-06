@@ -163,7 +163,7 @@ class App extends React.Component {
 
 //=======================Handle functions=======================================
   async handleChangeActive1(){
-    console.log("Clicked Active Button");
+    //console.log("Clicked Active Button");
 
 //We check if stations is already active or not, and make it active if its not
 
@@ -192,7 +192,7 @@ class App extends React.Component {
   }
 
   async handleChangeActive2(){
-    console.log("Clicked Active Button");
+    //console.log("Clicked Active Button");
 //We check if stations is already active or not, and make it active if its not
 
     if (this.state.isActiveStation2 !== "active"){
@@ -249,8 +249,8 @@ class App extends React.Component {
   }
 
   async handleClickStation(number){
-    console.log("Station number is: " + this.state.allStationsData[number].number);
-    console.log("Station name is: " + this.state.allStationsData[number].station)
+    //console.log("Station number is: " + this.state.allStationsData[number].number);
+    //console.log("Station name is: " + this.state.allStationsData[number].station)
     await this.setState({station: this.state.allStationsData[number].station});
     await this.setState({stationNumber: this.state.allStationsData[number].number});
     await this.getArrivals();
@@ -292,7 +292,7 @@ class App extends React.Component {
 
   async getStations(){
     var data;
-    console.log(this.state.line + this.state.directionActive + '.json');
+    //console.log(this.state.line + this.state.directionActive + '.json');
     await axios.get( PUBLIC_FILES_URL + 'lpp/js/stations/' + this.state.line + this.state.directionActive + '.json')
     .then(function (response) {
       console.log(response.data);
@@ -308,15 +308,20 @@ class App extends React.Component {
 
   allArrivalsOnLine(){
     var setArrivals = [];
-    console.log(this.state.allArrivalsData);
+    var timeOfArrivals = [];
+    //console.log(this.state.allArrivalsData);
     for (var i=0; i<this.state.allArrivalsData.stations[0].buses.length; i++){
-
+    
+    //here we arrange arrivals by ascending time
       if(this.state.line === this.state.allArrivalsData.stations[0].buses[i].number){
-        //console.log(this.state.line);
-        //console.log(this.state.allArrivalsData.stations[0].buses[i]);
-        //console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
+        for(var t=0; t<this.state.allArrivalsData.stations[0].buses[i].arrivals.length; t++){
+          timeOfArrivals.push([this.state.allArrivalsData.stations[0].buses[i].arrivals[t], i]);
+          //console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals[t], i);
+        }
+        /*
+        console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals);
         if (this.state.allArrivalsData.stations[0].buses[i].arrivals.length > 0) {
-          for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){
+          for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){ 
             setArrivals.push(
               <div>
                 <li>
@@ -330,8 +335,29 @@ class App extends React.Component {
             );
           }
         }
+        */
       }
     }
+
+    timeOfArrivals.sort(function(a, b) {
+      return a[0] - b[0];
+    });
+    console.log(timeOfArrivals);
+
+    for(var g=0; g<timeOfArrivals.length; g++){
+      setArrivals.push(
+              <div>
+                <li>
+                  <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> 
+                  {timeOfArrivals[g][0]} min 
+                  <span className="bus-direction">
+                    smer {this.state.allArrivalsData.stations[0].buses[timeOfArrivals[g][1]].direction}
+                  </span>
+                </li>
+              </div>
+      );
+    }
+
     if(setArrivals.length === 0){
       return this.setState({allArrivalsOnLine: "Trenutno ni prihodov"});
     }
@@ -340,11 +366,16 @@ class App extends React.Component {
 
   allArrivalsWithoutChosenLine(){
     var setArrivals = [];
-  
+    var timeOfArrivals = [];
     for (var i=0; i<this.state.allArrivalsData.stations[0].buses.length; i++){
 
       if(this.state.line !== this.state.allArrivalsData.stations[0].buses[i].number){
-        console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals)
+        
+        for(var t=0; t<this.state.allArrivalsData.stations[0].buses[i].arrivals.length; t++){
+          timeOfArrivals.push([this.state.allArrivalsData.stations[0].buses[i].arrivals[t], i]);
+          console.log(this.state.allArrivalsData.stations[0].buses[i].arrivals[t], i);
+        }
+        /*
         if (this.state.allArrivalsData.stations[0].buses[i].arrivals.length > 0) {
           for(var j=0; j < this.state.allArrivalsData.stations[0].buses[i].arrivals.length; j++){
             setArrivals.push(
@@ -360,7 +391,25 @@ class App extends React.Component {
             );
           }
         }
+        */
       }
+    }
+    timeOfArrivals.sort(function(a, b) {
+      return a[0] - b[0];
+    });
+
+    for(var g=0; g<timeOfArrivals.length;g++){
+
+      setArrivals.push(
+        <div>
+          <li>             
+            Linija {this.state.allArrivalsData.stations[0].buses[timeOfArrivals[g][1]].number} <img src="/public/lpp/images/i_clock.svg" height="20" alt="" className="icon-time"/> {timeOfArrivals[g][0]} min
+            <span className="bus-direction">
+              smer {this.state.allArrivalsData.stations[0].buses[timeOfArrivals[g][1]].direction}
+            </span>
+          </li>
+        </div>
+      );
     }
     if(setArrivals.length === 0){
       return this.setState({allArrivalsWithoutChosenLine: null});
@@ -374,7 +423,7 @@ class App extends React.Component {
     var lineNumber = this.state.line;
     lineNumber = lineNumber.replace(/[^\d]/g, '');
     var lpp_url = 'https://www.trola.si/' + this.state.stationNumber + '/';
-    console.log(lpp_url);
+    //console.log(lpp_url);
     await axios.get( URL + 'lpp/bus-arrivals?url=' + lpp_url)
     .then(function (response) {
       console.log(response.data.stations[0]);
