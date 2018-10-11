@@ -1,7 +1,7 @@
 var loaded = false;
 
-const PUBLIC_FILES_URL = "http://localhost:8000/public/";
-const URL = "http://localhost:8000/";
+const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
+const URL = "https://api.messengerbot.si/";
 
 const BUSES = [
 ["1", "Mestni log", "Vižmarje"],
