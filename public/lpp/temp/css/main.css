@@ -106,9 +106,7 @@ body {
 .ui-back {
     float: right;
     margin-top: 4px;
-    opacity: .7;
-    height: 26px;
-    width: 26px;
+    opacity: .4;
 }
 
 .ui-input {
@@ -166,12 +164,6 @@ body {
     font-size: 16px;
 }
 
-.more-icon {
-    float: right;
-    margin: 0px 0 0 0px;
-    opacity: .2;
-}
-
 
 .bus-num {
     display: inline-block;
@@ -202,8 +194,6 @@ body {
 .station-toggle {
     display: flex;
     width: 100%;
-    align-items: center;
-    justify-content: center;
 }
 .station {
     width: 50%;
@@ -241,14 +231,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e026', end
 .station.selected {
     width: 100%;
     border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.station.selected img {
-    margin-left: 8px;
-}
 
 
 .loading-screen {

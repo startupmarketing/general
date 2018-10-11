@@ -1,7 +1,7 @@
 var loaded = false;
 
-const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
-const URL = "https://api.messengerbot.si/";
+const PUBLIC_FILES_URL = "http://localhost:8000/public/";
+const URL = "http://localhost:8000/";
 
 const BUSES = [
 ["1", "Mestni log", "Vižmarje"],
@@ -470,7 +470,10 @@ class App extends React.Component {
 //===========================================================================
 
   render() {
-
+    var refreshStyle = {
+      "float" : "right",
+      "margin-top" : "2px"
+    };
 //Here we render second page, where client chooses stations and direction========================================
 
     if(this.state.line && !this.state.station){
@@ -542,18 +545,20 @@ class App extends React.Component {
               <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
               
               <div className="station-toggle">
-                  <div className="station selected">{this.state.directionActive}</div>
+                  <div className="station selected" onClick={() => this.refresh()}>{this.state.directionActive}<img src="/public/lpp/images/i_refresh.svg" height="22" width="22" alt="Refresh"/></div>
               </div>
              
               <div className="header__image">
                   <img src="/public/lpp/images/i_bus.svg" height="50" alt=""/>
               </div>
-              <button onClick={() => this.refresh()}>Refresh</button>
           </div>
 
 
           <div className="page__content">
-            <h2 className="list-title">Prihodi za postajališče: {this.state.station}</h2>
+            <h2 className="list-title">
+              <img onClick={() => this.refresh()} src="/public/lpp/images/i_refresh-dark.svg" height="22" width="22" alt="Refresh" style={refreshStyle} />
+              Prihodi za postajališče: {this.state.station}
+            </h2>
         
             <ul className="ui-list">
                 {this.state.allArrivalsOnLine}
