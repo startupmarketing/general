@@ -545,7 +545,7 @@ class App extends React.Component {
               <div className="ui-back"><img src="/public/lpp/images/i_arrow-back.svg" height="24" width="24" alt="" onClick={() => this.handleBack()}/></div>
               
               <div className="station-toggle">
-                  <div className="station selected" onClick={() => this.refresh()}>{this.state.directionActive}<img src="/public/lpp/images/i_refresh.svg" height="22" width="22" alt="Refresh"/></div>
+                  <div className="station selected">{this.state.directionActive}</div>
               </div>
              
               <div className="header__image">
