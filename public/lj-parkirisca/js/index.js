@@ -1,12 +1,6 @@
 const PUBLIC_FILES_URL = "https://api.messengerbot.si/public/";
 const URL = "https://api.messengerbot.si/";
 
-/*
-"Parkomati" : {
-                "Dnevna" : "CONA 1: 0,70 €/uro\r\nObratovalni čas CONA 1: 8.00 do 18.00 ponedeljek - petek, od 8:00 do 13:00 ure sobota\r\nCONA 2: 0,40 €/uro\r\nObratovalni čas CONA 2: od 7:00 do 17:00 ure ponedeljek - petek",
-                "Nocna" : null
-              }
-*/
 const MAPS = {
 "PH Kozolec": <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2768.7146481418145!2d14.502745915468903!3d46.05678967911244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765329ef2f92c19%3A0xe93b35d4c04299b!2sThe+parking+garage+Kozolec!5e0!3m2!1sen!2ssi!4v1538243760617" width="100%" height="450"></iframe>,
 "Tivoli I": <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2768.672023214965!2d14.4968741!3d46.0576398!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476532a1c80cdb63%3A0x1a0ebed091fad545!2zUGFya2lyacWhxI1lIFRpdm9saSBJ!5e0!3m2!1ssl!2ssi!4v1538312674101" width="100%" height="450"></iframe>,
@@ -155,6 +149,10 @@ const PRICES = {
 "Povšetova ulica" : {
   "Dnevna" : "Dnevna (7.00 do 19.00): Za prvi dve uri 0,60 €, vsaka naslednja ura 0,60 €",
   "Nocna" : "Nočna (19.00 do 7.00): 1,80 €/noč"
+},
+"Metelkova" : {
+  "Dnevna" : "Dnevna tarifa (med 07:00 in 19:00):1,20€/uro",
+  "Nocna" : "Nočna tarifa od 19.00 do 07.00 ure; 1,80 €/noč"
 }
 
 };
@@ -199,89 +197,105 @@ class App extends React.Component {
     var temp_array = [];
 
     //var temp_string_search = search.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
+    if(search === ""){
 
-    for (var i=0; i<Object.keys(this.state.allData.Parkirisca).length; i++){
-      
-      var temp_string_data = this.state.allData.Parkirisca[i.toString()].Ime.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
-
-      var temp_string_data_orig = this.state.allData.Parkirisca[i.toString()].Ime.toLowerCase();
-
-      //console.log(temp_string_data_orig + " " + temp_string_data);
-      
-      var words_in_string_orig = temp_string_data_orig.split(" ");
-      var words_in_string = temp_string_data.split(" ");
-
-      var correct_characters_in_words1 = [];
-      for(var a = 0; a < words_in_string_orig.length; a++) {
-        correct_characters_in_words1[a] = 0;
-      }
-
-      var correct_characters_in_words2 = [];
-      for(var b = 0; b < words_in_string.length; b++) {
-        correct_characters_in_words2[b] = 0;
-      }
-
-      var correct_characters1 = 0;
-      var correct_characters2 = 0;
-
-      for(var j=0; j<search.length;j++){
-        //Check with š č ž
-        if(search[j].toLowerCase() === temp_string_data_orig[j]){
-          if(correct_characters1 === j){
-            correct_characters1 += 1;
-          }
-        }
-
-        //Check without č š ž
-        if(search[j].toLowerCase() === temp_string_data[j]){
-          if(correct_characters2 === j){
-            correct_characters2 += 1;
-          }
+      if(this.state.allData.Parkirisca.length > 0){
+        for (var i=0; i<Object.keys(this.state.allData.Parkirisca).length; i++){
+          temp_array.push(i);
         }
       }
-
-      for(var c=0; c<words_in_string.length; c++){
-        for(var d=0; d<search.length; d++){
-          if(search[d].toLowerCase() === words_in_string_orig[c][d]){
-            correct_characters_in_words1[c] += 1;
-          }
-          if(search[d].toLowerCase() === words_in_string[c][d]){
-            correct_characters_in_words2[c] += 1;
-          }
-        }
-      }
-
-      //Check the results of comparison
-
-      for(var e=0; e<correct_characters_in_words1.length; e++){      
-        if(correct_characters_in_words1[e] === search.length){
-          if(!temp_array.includes(i)){
-            temp_array.push(i);
-          }
-        }
-        else if(correct_characters_in_words2[e] === search.length){
-          if(!temp_array.includes(i)){
-            temp_array.push(i);
-          }
-        }
-        else if(correct_characters1 === search.length){
-          if(!temp_array.includes(i)){
-            temp_array.push(i);
-          }
-        }
-        else if(correct_characters2 === search.length){
-          if(!temp_array.includes(i)){
-            temp_array.push(i);
-          }
-        }       
-      }
-
-
     }
+    else{
+      for (var i=0; i<Object.keys(this.state.allData.Parkirisca).length; i++){
+        var temp_string_data = this.state.allData.Parkirisca[i.toString()].Ime.replace(/\š/gi,'s').replace(/\č/gi,'c').replace(/\ž/gi,'z').toLowerCase();
 
-    if(temp_array.length > 0){
+        var temp_string_data_orig = this.state.allData.Parkirisca[i.toString()].Ime.toLowerCase();
+        
+        var words_in_string_orig = temp_string_data_orig.split(" ");
+        var words_in_string = temp_string_data.split(" ");
+
+        var correct_characters_in_words1 = [];
+        for(var a = 0; a < words_in_string_orig.length; a++) {
+          correct_characters_in_words1[a] = 0;
+        }
+
+        var correct_characters_in_words2 = [];
+        for(var b = 0; b < words_in_string.length; b++) {
+          correct_characters_in_words2[b] = 0;
+        }
+
+        var correct_characters1 = 0;
+        var correct_characters2 = 0;
+
+        //LOOP FOR CHECKING SEARCH COMPARISON TO WHOLE ADRESS
+
+        for(var j=0; j<search.length;j++){
+          //Check with š č ž
+          if(search[j].toLowerCase() === temp_string_data_orig[j]){
+            if(correct_characters1 === j){
+              correct_characters1 += 1;
+            }
+          }
+
+          //Check without č š ž
+          if(search[j].toLowerCase() === temp_string_data[j]){
+            if(correct_characters2 === j){
+              correct_characters2 += 1;
+            }
+          }
+        }
+
+        //LOOP FOR COMPARISON SEARCH VALUE TO VARIOUS WORDS IN ADRESS
+
+        for(var c=0; c<words_in_string.length; c++){
+          for(var d=0; d<search.length; d++){
+            if(search[d].toLowerCase() === words_in_string_orig[c][d]){
+              correct_characters_in_words1[c] += 1;
+            }
+            if(search[d].toLowerCase() === words_in_string[c][d]){
+              correct_characters_in_words2[c] += 1;
+            }
+          }
+        }
+
+        //Check the results of comparison
+
+        //FIRST FOR WORDS IN ADRESS
+
+        for(var e=0; e<correct_characters_in_words1.length; e++){      
+          if(correct_characters_in_words1[e] === search.length){
+            if(!temp_array.includes(i)){
+              temp_array.push(i);
+            }
+          }
+          else if(correct_characters_in_words2[e] === search.length){
+            if(!temp_array.includes(i)){
+              temp_array.push(i);
+            }
+          }
+
+        //HERE WE CHECK COMPARISON BETWEEN WHOLE ADRESS AND SEARCH VALUE
+          else if(correct_characters1 === search.length){
+            if(!temp_array.includes(i)){
+              temp_array.push(i);
+            }
+          }
+          else if(correct_characters2 === search.length){
+            if(!temp_array.includes(i)){
+              temp_array.push(i);
+            }
+          }     
+        }
+      }
+    }
+    if(search === "" && this.state.allData.Parkirisca.length > 0){
+      var all_parking_places = [30]
       return this.filterParkingPlaces(temp_array);
-    }else{
+    }
+    else if(temp_array.length > 0){
+      return this.filterParkingPlaces(temp_array);
+    }
+    else{
       return <li>Ne najde parkirišč<br/></li>
     }
   }
@@ -289,7 +303,6 @@ class App extends React.Component {
   filterParkingPlaces(filtered_parking_places){
     var displayFilteredParkingPlaces = [];
     for (var i=0; i<filtered_parking_places.length; i++){
-
       if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost){
         let temp_free;
         if(this.state.allData.Parkirisca[filtered_parking_places[i].toString()].zasedenost.P_kratkotrajniki < 0){
